@@ -6,7 +6,7 @@ The priority devices are the **L9 washing machine**, **L9 Twin Inverter dryer**,
 
 ## Install through HACS
 
-Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.2.0b3` is a read-only telemetry beta. A user confirmed installation and updating values on Core 2026.9.4; supplied diagnostics confirm all three devices are online and MQTT-connected, with 27 washer, 22 dryer and 15 vacuum property coordinates carrying values. See the [diagnostic review](docs/ha-diagnostics-review.md) for the missing dryer coordinate and remaining acceptance checks.
+Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.3.0b1` adds exact L9 setting/action controls and a native L10s Ultra Gen 3 vacuum entity. The earlier telemetry beta has user-confirmed installation and updating values on Core 2026.9.4; supplied diagnostics confirm all three devices are online and MQTT-connected, with 27 washer, 22 dryer and 15 vacuum property coordinates carrying values. **The new controls have not been validated on live hardware.** See the [control guide](docs/appliance-controls.md) and [diagnostic review](docs/ha-diagnostics-review.md) for their separate evidence and remaining checks.
 
 1. Open **HACS > menu > Custom repositories**.
 2. Add `https://github.com/Ampersandman/Dreame-Home`, category **Integration**.
@@ -18,9 +18,9 @@ HACS installs the component and its bundled API. Device IDs are discovered autom
 
 The component stores a refresh token in Home Assistant's configuration entry and supports reauthentication. It does not persist the password or access token. Repository files contain no account credentials, actual device IDs or private captures.
 
-The beta discovers every registered device, exposes successful observed properties with stable coordinates, and retains unknown compound data. Exact L9 definitions give observed fields names and explicit enum labels; raw codes remain available. Initial read plans contain 24 washer and 17 dryer coordinates; MQTT discovers additional fields, which are then polled. The component also exposes cloud-online/MQTT status and the verified vacuum battery reading. Failed or null replies do not create entities. There are no appliance controls in this beta.
+The beta discovers every registered device, exposes successful observed properties with stable coordinates, and retains unknown compound data. Exact L9 definitions give observed fields names and explicit enum labels; raw codes remain available. Initial read plans contain 24 washer, 17 dryer and 20 vacuum candidates; only the earlier 15-property vacuum plan has live acceptance. MQTT discovers additional fields, which are then polled. The component also exposes cloud-online/MQTT status and the verified vacuum battery reading. Failed or null replies do not create state entities.
 
-Controls, writable entities, typed appliance events and vacuum maps remain future work. Observed properties are exposed even when their meaning is unknown, using neutral coordinate labels. This beta does not yet expose every feature implemented by the official app or the upstream vacuum integration.
+The exact L9 models have 16 washer and 12 dryer control descriptors, with source-defined options and program restrictions. Start/resume, pause and stop are explicit buttons; laundry stop powers off. The vacuum offers start, pause, stop, return to base and fan speed. Controls require successful recent state, preserve authorization/child-lock/fault guards and never predict state or replay uncertain commands. Ambiguous settings, typed appliance events and vacuum maps remain future work. Unknown observed fields keep neutral coordinate labels. This beta does not yet expose every feature of the official app or upstream vacuum integration.
 
 ## Extracted artifacts
 
@@ -34,7 +34,8 @@ Controls, writable entities, typed appliance events and vacuum maps remain futur
 | [L9 investigation](docs/l9-investigation.md) | Confirmed identities, exact-model evidence and remaining cycle validation |
 | [HACS implementation handoff](docs/home-assistant-roadmap.md) | Account setup, device discovery, schema-driven entities, events and validation requirements |
 | [Verification](docs/verification.md) | Offline checks and the limits of what has been tested |
-| [Read-only component](custom_components/dreame_home/README.md) | Account setup, observed telemetry, diagnostics and lifecycle |
+| [Home Assistant component](custom_components/dreame_home/README.md) | Account setup, telemetry, named controls, diagnostics and lifecycle |
+| [Appliance controls](docs/appliance-controls.md) | Exact control lists, authorization, freshness, program constraints and hardware-validation limits |
 | [L9 app research](docs/l9-schema-research.md) | Authenticated iOS/Android plugin lookup, safe extraction and source provenance |
 | [MQTT trust investigation](docs/mqtt-trust-research.md) | Vendor CA recovered from a signature-verified official APK and verified broker connections |
 
@@ -92,7 +93,7 @@ Observe the identified washer during ordinary app use:
 .\.venv\Scripts\python.exe -m dreamehome watch --region eu --model dreame.washer.l9nacn --seconds 300 --label idle --output captures\washer-idle.jsonl
 ```
 
-The CLI performs device discovery and read-only capture. Property writes and actions are available explicitly through the Python API for the later integration. Capture never automatically polls the vacuum catalog on a washing machine or dryer.
+The CLI performs device discovery and read-only capture. The Python API provides explicit writes/actions, and the component uses named model-specific encoders for its controls. Capture never automatically polls the vacuum catalog on a washing machine or dryer, and capture/discovery never starts appliances or writes settings.
 
 ## Reproduce and verify
 

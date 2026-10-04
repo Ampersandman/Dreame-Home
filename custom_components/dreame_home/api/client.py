@@ -148,10 +148,10 @@ class DreameHomeClient:
                 return await self._login()
             return self._session
 
-    async def _post(self, path: str, params: dict[str, Any] | None, *, binary: bool = False):
-        return await self._authenticated_request("POST", path, params, binary=binary)
+    async def _post(self, path: str, params: dict[str, Any] | None, *, binary: bool = False, retry_auth: bool = True):
+        return await self._authenticated_request("POST", path, params, binary=binary, retry_auth=retry_auth)
 
-    async def _authenticated_request(self, method: str, path: str, params: dict[str, Any] | None, *, binary: bool = False):
+    async def _authenticated_request(self, method: str, path: str, params: dict[str, Any] | None, *, binary: bool = False, retry_auth: bool = True):
         await self.ensure_session()
         for attempt in range(2):
             old_session = self._session
@@ -162,6 +162,9 @@ class DreameHomeClient:
             if response.status == 429:
                 raise RateLimitError(response.headers.get("retry-after"))
             if response.status == 401:
+                if not retry_auth:
+                    self._session = None
+                    raise AuthenticationError("Dreame rejected the command session; command was not replayed")
                 try:
                     code = self._json(response).get("code")
                 except TransportError:
@@ -194,7 +197,8 @@ class DreameHomeClient:
         """Return the full envelope for an extracted endpoint, no guessed routes."""
         if endpoint not in self._endpoints or endpoint in {"login", "send_command", "device_file"}:
             raise ValueError("Use the dedicated login, RPC or binary-file method")
-        return await self._post(self._endpoints[endpoint], params)
+        return await self._post(self._endpoints[endpoint], params,
+                                retry_auth=endpoint != "set_device_data")
 
     async def list_devices_response(self, *, current: int | None = None, size: int = 100, include_shared: bool = True, language: str = "en") -> dict[str, Any]:
         """Raw envelope. No current reproduces Tasshack's bodyless request.
@@ -292,7 +296,8 @@ class DreameHomeClient:
         request_id = self._request_id
         did = device.did
         payload = {"did": did, "id": request_id, "data": {"did": did, "id": request_id, "method": method, "params": params}}
-        response = await self._post(self._endpoints["send_command"].format(broker_suffix=suffix), payload)
+        response = await self._post(self._endpoints["send_command"].format(broker_suffix=suffix), payload,
+                                    retry_auth=method not in {"set_properties", "action"})
         data = response.get("data")
         if not isinstance(data, dict) or "result" not in data:
             raise TransportError("RPC response has no result; request was not replayed")

@@ -33,6 +33,11 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(len(laundry.laundry_schema("dreame.dryer.l9nacn").properties), 22)
             self.assertEqual(len(laundry.laundry_read_pairs("dreame.washer.l9nacn")), 24)
             self.assertEqual(len(laundry.laundry_read_pairs("dreame.dryer.l9nacn")), 17)
+            controls = importlib.import_module(spec.name + ".laundry_controls")
+            self.assertEqual(len(controls.control_definitions("dreame.washer.l9nacn")), 16)
+            self.assertEqual(len(controls.control_definitions("dreame.dryer.l9nacn")), 12)
+            vacuum = importlib.import_module(spec.name + ".vacuum_controls")
+            self.assertTrue(vacuum.vacuum_control_supported("dreame.vacuum.r5023a"))
         finally:
             for name in list(sys.modules):
                 if name == spec.name or name.startswith(spec.name + "."):

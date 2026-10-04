@@ -135,9 +135,10 @@ class ObservationTests(unittest.TestCase):
         self.assertEqual(result["2.2"]["value"], '{"long_key":1}')
         self.assertNotIn("compound", result["2.3"])
 
-    def test_initial_vacuum_plan_is_15_explicit_pairs(self):
-        self.assertEqual(len(VACUUM_INITIAL_READ_PAIRS), 15)
-        self.assertEqual(len(set(VACUUM_INITIAL_READ_PAIRS)), 15)
+    def test_initial_vacuum_plan_includes_source_control_context(self):
+        self.assertEqual(len(VACUUM_INITIAL_READ_PAIRS), 20)
+        self.assertEqual(len(set(VACUUM_INITIAL_READ_PAIRS)), 20)
+        self.assertTrue({(4, 4), (4, 26), (4, 47), (4, 50), (4, 60)}.issubset(VACUUM_INITIAL_READ_PAIRS))
 
 
 class CompoundTests(unittest.TestCase):

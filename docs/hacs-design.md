@@ -1,6 +1,6 @@
 # Dreame Home HACS component design
 
-Design date: 2026-10-04. A read-only component now implements the account, observation and exact L9 schema foundation described here. The user reports successfully installing it through HACS on Home Assistant OS 18.3 / Core 2026.9.4, authenticating, discovering all three appliances, and seeing values update for each. Supplied HA diagnostics confirm complete discovery, usable property observations and connected MQTT clients for all three devices on Python 3.14.6; see the [HA diagnostics review](ha-diagnostics-review.md). Genuine GitHub HACS, hassfest and Python 3.12/3.14 offline CI checks passed. This design also covers remaining lifecycle checks, detailed telemetry acceptance, later controls and maps.
+Design date: 2026-10-04. Version `0.3.0b1` implements the account/telemetry foundation, named L9 controls and a native vacuum entity. The earlier telemetry revision has user-confirmed HACS installation, authentication, discovery and updating values on HA OS 18.3 / Core 2026.9.4. Supplied diagnostics prove complete discovery, valued properties and all three MQTT connections; see the [HA diagnostics review](ha-diagnostics-review.md). Genuine HACS, hassfest and Python 3.12/3.14 offline CI passed for that earlier revision. New controls have no hardware execution evidence. See [appliance controls](appliance-controls.md) and [verification](verification.md) for current implementation and checks; lifecycle acceptance, richer commands and maps remain pending.
 
 The confirmed cloud models are `dreame.washer.l9nacn`, `dreame.dryer.l9nacn` and `dreame.vacuum.r5023a`. Their exact device IDs remain in the ignored local identification report. Treat device IDs as strings, including the negative washer and dryer IDs. No device IDs should be compiled into an integration or public fixture.
 
@@ -27,6 +27,12 @@ custom_components/dreame_home/
   entity.py
   sensor.py
   binary_sensor.py
+  control.py
+  switch.py
+  select.py
+  number.py
+  button.py
+  vacuum.py
   diagnostics.py
   strings.json
   translations/en.json
@@ -39,7 +45,7 @@ tests/test_laundry_adapter.py
 tests/test_entity_lifecycle.py
 ```
 
-Add `switch`, `select`, `number`, `text`, `button`, `event`, `vacuum` and map/image platforms only as their matching definitions and behaviors are implemented. An empty platform file does not establish appliance support.
+Switch/select/button controls and the exact-model native vacuum entity are implemented. The number platform exposes no definitions without proven bounds. Text, typed events and map/image platforms remain future work; an empty platform file does not establish support. Named controls require successful recognized context no older than 180 seconds, exact program constraints and model-specific prerequisites; uncertain failures are never replayed.
 
 ## Config entry and authentication
 
@@ -77,9 +83,9 @@ Definition evidence has separate levels:
 | Exact model schema, unobserved property | Retain definition; do not claim current device support |
 | Unfamiliar address with successful observation | Neutral read-only entity or structured diagnostic value |
 | Related model or debug candidate only | Research evidence; no automatic property queries or controls |
-| Explicitly reviewed model command encoder | Validated control after prerequisites and live behavior checks |
+| Explicitly reviewed model command encoder | Named control with enforced prerequisites; report live execution acceptance separately |
 
-The L9 washer and dryer have no exact matching public MIoT schema in the saved index. `dreame.washer.r1111` and `r1112` remain research candidates and must not populate `.l9nacn` automatically. `laundry_l9.py` should therefore initially use the observed adapter and exact product/extension metadata; readable telemetry can be exposed before its friendly names and units are verified. A value observed on the washer must not be carried over to the dryer merely because both products are called L9.
+The L9 washer and dryer have no exact public MIoT schema in the saved index. `dreame.washer.r1111` and `r1112` remain unrelated research candidates. `laundry.py` supplies exact plugin state definitions and `laundry_controls.py` supplies bounded encoders with program restrictions. A value or control on the washer must not be copied to the dryer merely because both products are called L9.
 
 The vacuum adapter may draw on the pinned `r5023a` capability row and protocol/property catalogs. It must port model-specific remapping, packed-state parsing and command encoders explicitly; generated upstream source expressions are documentation, not executable runtime configuration. A naive loop over 370 global vacuum properties will query capabilities that the vacuum may not support and does not recreate the 245 upstream entity definitions. Generic observed telemetry is useful while the complete vacuum adapter is developed, but it is not a substitute for the upstream map decoder and behaviors.
 

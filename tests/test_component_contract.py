@@ -80,14 +80,21 @@ class DistributionBoundaryTests(unittest.TestCase):
         self.assertNotIn(secret, json.dumps(value))
         self.assertEqual(value["value"][1]["count"], 3)
 
-    def test_packaging_has_matching_translations_and_only_readonly_platforms(self):
+    def test_packaging_has_matching_translations_and_all_registered_platforms(self):
         strings = json.loads((COMPONENT / "strings.json").read_text(encoding="utf-8"))
         translated = json.loads((COMPONENT / "translations" / "en.json").read_text(encoding="utf-8"))
         self.assertEqual(strings, translated)
         manifest = json.loads((COMPONENT / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["domain"], "dreame_home")
-        for control in ("switch", "select", "number", "button", "services"):
-            self.assertFalse((COMPONENT / f"{control}.py").exists())
+        source = ast.parse((COMPONENT / "const.py").read_text(encoding="utf-8"))
+        assignment = next(node for node in source.body if isinstance(node, ast.Assign)
+                          and any(isinstance(target, ast.Name) and target.id == "PLATFORMS"
+                                  for target in node.targets))
+        platforms = {item.attr.lower() for item in assignment.value.elts}
+        self.assertEqual(platforms, {"sensor", "binary_sensor", "switch", "select", "number", "button", "vacuum"})
+        for platform in platforms:
+            self.assertTrue((COMPONENT / f"{platform}.py").is_file())
+        self.assertFalse((COMPONENT / "services.yaml").exists())
 
 
 if __name__ == "__main__":

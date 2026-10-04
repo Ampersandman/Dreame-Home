@@ -41,6 +41,8 @@ async def async_get_config_entry_diagnostics(hass, entry):
             "cloud_data_error": state.cloud_data_error,
             "cloud_data_keys": sorted(state.cloud_data_keys),
             "mqtt_connected": bool(state.subscription and state.subscription.connected),
+            "command_busy": state.command_busy,
+            "last_command_status": state.last_command_status,
             "properties": properties, "event_count": len(state.store.events),
             "cached_key_count": len(state.store.cached),
             "dropped_properties": state.store.dropped_properties,

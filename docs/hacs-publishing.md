@@ -25,7 +25,7 @@ Actions are pinned to verified source commits. The official HACS and hassfest ac
 
 1. Update `custom_components/dreame_home/manifest.json` to the intended version and commit the change. Regenerate the vendored backend when its source changes with `python tools/build_component.py`; commit the resulting `api/` files too.
 2. Wait for validation to pass on the commit being released.
-3. Publish a GitHub release targeting that commit, with a tag exactly equal to the manifest version or with one leading `v`, for example `v0.2.0b3`. Mark beta versions as prereleases.
+3. Publish a GitHub release targeting that commit, with a tag exactly equal to the manifest version or with one leading `v`, for example `v0.3.0b1`. Mark beta versions as prereleases.
 4. [release.yml](../.github/workflows/release.yml) checks out that tag, rejects a version mismatch, verifies the vendored backend, builds `dist/dreame_home.zip`, and runs offline tests before uploading the asset to the existing release.
 
 The ZIP contains integration files directly at its root (`manifest.json`, `__init__.py`, `api/`, and so on). It excludes local credentials and research assets. The workflow is triggered only when a release is published; it does not create releases or publish anything during pull request validation. Only its release job has repository write permission, and the upload step receives the GitHub token. A rerun uses [`gh release upload --clobber`](https://cli.github.com/manual/gh_release_upload) to replace an asset with the same name; it rebuilds from the same release tag.

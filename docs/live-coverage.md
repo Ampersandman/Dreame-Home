@@ -18,7 +18,7 @@ Subsequent Home Assistant diagnostics confirm all three appliances online and MQ
 
 `GET /dreame-product/upgrades/appplugin` with the actual account DID/model and `appVer=102060603` returned the exact model plugins: washer version `83`, dryer version `130`, vacuum version `31`. Their `project.json` and bundle names establish `os=0` as iOS and `os=1` as Android. The initial `os=2` request returned a vacuum HarmonyOS bundle and no laundry bundle; treating it as Android caused the first lookup failure. The tested H5 lookup returned empty data for these devices; the RN route supplied the definitions.
 
-The factual catalogues contain 27 washer property definitions, 22 washer programs and 4 washer actions; the dryer catalogue contains 22 property definitions, 31 programs and 4 actions. Actions and writes are documented separately and remain disabled in the telemetry beta. Signed APKs and downloaded vendor plugins are retained as private/local research material and are not redistributed. See [exact L9 schema research](l9-schema-research.md) and [the dryer catalogue](../src/dreamehome/data/l9_dryer.json) for source hashes and semantic limits.
+The factual catalogues contain 27 washer property definitions, 22 washer programs and 4 washer actions; the dryer catalogue contains 22 property definitions, 31 programs and 4 actions. Actions/writes were disabled in the validated telemetry revision. Version `0.3.0b1` adds named controls without changing this capture's evidence; none has hardware write acceptance. Signed APKs and vendor plugins remain excluded research material. See [appliance controls](appliance-controls.md), [exact L9 schema research](l9-schema-research.md) and [the dryer catalogue](../src/dreamehome/data/l9_dryer.json).
 
 The EU MQTT trust path now uses a vendor CA recovered from an APK whose cryptographic signature matches Dreame's official HTTPS app-association declaration. Credential-bearing connections succeeded for all three devices with `CERT_REQUIRED` and hostname verification enabled. A narrowly scoped compatibility adjustment clears only strict X.509 extension conformance for the known EU endpoint; certificate-chain, signature, validity and hostname checks remain enabled. There is no network-derived trust enrollment or unverified-certificate fallback. See [MQTT trust research](mqtt-trust-research.md).
 
@@ -36,7 +36,7 @@ Each of these vacuum addresses returned code 0 and a value:
 15.3  15.5
 ```
 
-This verifies those vacuum reads on `4.3.9_1304`; it does not validate every upstream property, controls, writes or maps. Battery `3.1` returned 100. Zero MQTT messages during the idle capture does not imply MQTT failure: the vacuum's subscription connected successfully.
+This verifies those vacuum reads on `4.3.9_1304`; it does not validate every upstream property, controls, writes or maps. Battery `3.1` supplied a numeric value. Zero MQTT messages during the idle capture does not imply MQTT failure: the vacuum's subscription connected successfully. The current20-candidate vacuum plan adds five control-context reads whose acceptance is not established by this15-coordinate evidence.
 
 Laundry enum labels are applied only when an exact source mapping exists. Integer flags retain their wire values unless their Boolean meaning is independently established; unknown codes remain visible. Units are attached only to proven numeric quantities, not to setting codes such as temperature or spin-speed indices. The dryer reported an extra `4.7` coordinate over MQTT whose meaning is unresolved; it receives a neutral property name. Its night-mode UI references `3.13`, while the subscription table uses `3.11`; this contradiction is preserved rather than silently resolved. A null `3.11` value cannot establish its meaning.
 
@@ -48,6 +48,6 @@ The unrelated public debug candidates `dreame.washer.r1111` and `dreame.washer.r
 - The repository is published with actual metadata, and official HACS/hassfest validation plus Python 3.12/3.14 offline checks passed. A tagged release is optional for custom-repository installation.
 - Capture ordinary wash/dry cycles, door changes and completion to verify optional properties, phase-dependent values, stale behavior and unknown enums.
 - Resolve dryer `4.7` and the night-mode coordinate contradiction from additional exact-model evidence.
-- Add controls, vacuum maps, history and packed-setting decoders only after their contracts and capabilities are verified.
+- Validate the new named controls against actual acknowledgements and subsequent state. Vacuum maps, history, richer commands and further packed-setting decoders remain future work.
 
-The extraction and live telemetry results now cover the confirmed devices. The local integration remains a read-only telemetry beta; the broader goal of exposing everything supported by the cloud continues beyond these verified fields.
+The extraction and live telemetry results cover the confirmed devices in the captured state. Version `0.3.0b1` extends that telemetry foundation with named controls, whose hardware execution remains untested. The broader goal of exposing everything supported by the cloud continues beyond these verified fields.

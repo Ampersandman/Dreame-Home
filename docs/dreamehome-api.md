@@ -2,6 +2,8 @@
 
 Evidence date: **2026-10-04**. Main source: [Tasshack/dreame-vacuum, revision `9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb`](https://github.com/Tasshack/dreame-vacuum/tree/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb), released as v2.0.1. This is an unofficial protocol reference supplemented by exact L9 app-plugin extraction. Verified login, complete account discovery and metadata reads succeeded on the user's EU account. Combined property reads and MQTT supplied values for 27 washer coordinates, 22 dryer coordinates and 15 vacuum coordinates; all three MQTT sessions authenticated with verified TLS. See [live coverage](live-coverage.md) for model/firmware limits and null RPC replies. No setting writes or appliance actions were executed during validation.
 
+Version `0.3.0b1` uses this transport through exact named L9/vacuum encoders. The new controls and five additional vacuum read candidates have no hardware acceptance yet; see [appliance controls](appliance-controls.md). CLI capture and discovery remain read-only.
+
 ## Where the API lives
 
 - [`dreame/protocol.py`](https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/protocol.py): the `DreameVacuumDreameHomeCloudProtocol` class contains the DreameHome transport, authentication, signing and MQTT client. The separate MiHome class uses a different Xiaomi API.

@@ -282,6 +282,7 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
                         if isinstance(node, ast.AsyncFunctionDef) and node.name == "async_setup_entry")
         namespace = {
             "load_catalog": lambda name: None,
+            "control_definitions": lambda model: [],
             "DreameHomeClient": lambda *args, **kwargs: api,
             "DreameCoordinator": lambda *args: coordinator,
             "async_get_clientsession": lambda hass: object(), "AiohttpTransport": lambda session: session,

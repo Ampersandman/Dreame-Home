@@ -230,6 +230,22 @@ class ClientContractTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(fake.calls[-1]["headers"]["dreame-auth"], "new-access")
         self.assertIn(b"grant_type=refresh_token", fake.calls[2]["body"])
 
+    async def test_unauthorized_mutations_are_never_replayed_after_refresh(self):
+        device = Device.from_record(device_record())
+        for operation in ("action", "properties", "userdata"):
+            with self.subTest(operation=operation):
+                fake = FakeTransport(login_response(), response({"code": 401}, 401))
+                client = api(fake)
+                with self.assertRaises(AuthenticationError):
+                    if operation == "action":
+                        await client.action(device, 2, 1)
+                    elif operation == "properties":
+                        await client.write_properties(device, [(3, 1, 1)])
+                    else:
+                        await client.set_device_data(device.did, {"prop.s_auto_upgrade": "1"})
+                self.assertEqual(len(fake.calls), 2)
+                self.assertIsNone(client.session)
+
     async def test_session_invalidation_code_is_not_password_retry(self):
         fake = FakeTransport(login_response(), response({"code": 100100}, 401))
         client = api(fake)

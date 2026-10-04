@@ -1,4 +1,4 @@
-"""Read-only Dreame Home account integration."""
+"""Dreame Home telemetry and explicit appliance controls."""
 
 from homeassistant.const import CONF_USERNAME, EVENT_HOMEASSISTANT_STOP
 from homeassistant.exceptions import ConfigEntryAuthFailed
@@ -6,6 +6,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api.catalog import load_catalog
 from .api.client import DreameHomeClient
+from .api.laundry_controls import control_definitions
 from .const import CONF_ACCOUNT_UID, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, PLATFORMS
 from .coordinator import DreameCoordinator
 from .transport import AiohttpTransport
@@ -15,6 +16,8 @@ async def async_setup_entry(hass, entry):
     # Catalog reads happen in an executor before synchronous constructors use them.
     for catalog in ("api", "models", "properties", "l9_washer", "l9_dryer"):
         await hass.async_add_executor_job(load_catalog, catalog)
+    for model in ("dreame.washer.l9nacn", "dreame.dryer.l9nacn"):
+        await hass.async_add_executor_job(control_definitions, model)
 
     def persist_session(session):
         if str(session.uid) != entry.data[CONF_ACCOUNT_UID]:
