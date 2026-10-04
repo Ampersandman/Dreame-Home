@@ -1,6 +1,6 @@
 # L9 washing machine and Twin/Dual Inverter L9 investigation
 
-The exact L9 washer and Twin Inverter L9 dryer are now identified, their official model plugins extracted, and their telemetry validated against the user's EU account. The read-only telemetry beta is published through [Ampersandman/Dreame-Home](https://github.com/Ampersandman/Dreame-Home). Genuine GitHub HACS, hassfest and Python 3.12/3.14 offline CI checks passed. The user reports installing it through HACS on HA OS 18.3 / Core 2026.9.4, authenticating, discovering all three appliances and seeing their values update. Dreame's matching product page names the dryer [AI Dual Inverter Dryer L9](https://global.dreametech.com/products/l9-drayer); the cloud model, not the retail name, determines its schema.
+The exact L9 washer and Twin Inverter L9 dryer are now identified, their official model plugins extracted, and their telemetry validated against the user's EU account and real Home Assistant installation. The read-only telemetry beta is published through [Ampersandman/Dreame-Home](https://github.com/Ampersandman/Dreame-Home). Genuine GitHub HACS, hassfest and Python 3.12/3.14 offline CI checks passed. After the user installed through HACS on HA OS 18.3 / Core 2026.9.4, the supplied diagnostics confirmed complete discovery, successful API updates and MQTT connectivity for all three appliances. Dreame's matching product page names the dryer [AI Dual Inverter Dryer L9](https://global.dreametech.com/products/l9-drayer); the cloud model, not the retail name, determines its schema.
 
 The [official L9 washer page](https://global.dreametech.com/products/l9-washer) describes app control, parameter adjustment, cloud programs, OTA and notifications. It also describes detergent/softener alerts in the app. That establishes useful investigation targets; it does not publish their API coordinates, ranges or access rights.
 
@@ -46,6 +46,22 @@ The dryer reported `4.7` in addition to its 22 source-defined coordinates. Its m
 
 The collector did not send the app's initial status-report action. Viewing status in the official app supplied updates during the read-only observation. Favorites, program memory, usage records and several reminder settings are held in the app's local storage; this is not proof of corresponding cloud history APIs. Product pages' physical temperature/humidity sensors likewise do not prove raw cloud telemetry exposure.
 
+## Verified Home Assistant telemetry snapshot
+
+The subsequently supplied Home Assistant diagnostic confirms complete account discovery and a successful last API update. All three appliances are present, cloud-online and connected to MQTT. No metadata, property-read or cloud-userdata errors are reported. The [Home Assistant diagnostic review](ha-diagnostics-review.md) records the sanitized findings and their limits.
+
+| Exact model | Tracked property coordinates | Coordinates with a usable value | Last usable value source |
+| --- | --- | --- | --- |
+| `dreame.washer.l9nacn` | 27 | 27 | MQTT for all 27 |
+| `dreame.dryer.l9nacn` | 23 | 22 | MQTT for all 22 |
+| `dreame.vacuum.r5023a` | 15 | 15 | RPC for all 15 |
+
+These are property-coordinate counts, not Home Assistant entity totals. Every usable property root in this snapshot is an integer; no compound property values or expanded compound fields were present. All recorded last result codes are zero, and no observations were dropped or reported as truncated. A connected vacuum MQTT client does not establish vacuum pushes when the retained values came from RPC.
+
+The washer covers all 27 source-defined coordinates. The dryer covers 21 of its 22 source-defined coordinates plus source-unknown `4.7`. Its code-zero `3.11` row still has no usable value, so its initial read result correctly remains partial at 16 of 17 candidates. Runtime labels match the exact source definitions; the `3.11` subscription versus `3.13` night-mode UI conflict remains unresolved. Nothing in this snapshot requires changing the property mappings or manufacturing a state for the missing value.
+
+Cloud-userdata key lists and cache counts do not establish which requested settings were accepted or their returned values. The automatic firmware-update setting is therefore not verified by this diagnostic. No appliance cycles, actions or writes were issued during the extraction and read-only validation.
+
 ## Public schema candidates found
 
 Additional evidence came from [TA2k/ioBroker.dreame's public MIoT schema lookup](https://github.com/TA2k/ioBroker.dreame/blob/cdfe78ce448d14a5181cfff4c962160fd4d92075/main.js#L1173). The public [MIoT instance index](https://miot-spec.org/miot-spec-v2/instances?status=all), downloaded on 2026-10-04, listed:
@@ -88,6 +104,6 @@ Device discovery can be repeated with hidden local credential entry through `too
 
 Further passive observation during ordinary washer/dryer use can establish phase-dependent settings, optional values, door changes, completion events, stale behavior and additional enum states. It must retain complete compound/event payloads and unknown coordinates without guessing property ranges, units or meanings. A null or failed property response must not become a manufactured sensor value. Shared-device behavior is untested because this account's devices are owned.
 
-Initial HACS installation, authentication, discovery and updating values for all three appliances have user-reported confirmation on HA OS 18.3 / Core 2026.9.4. This feedback does not establish per-property coverage, MQTT connectivity inside HA, cycle behavior or lifecycle fault handling. Reauthentication, token rotation, reload/unload, stale/offline availability and detailed app-to-entity comparisons remain pending. Controls, vacuum maps/history and more packed-setting decoding belong to later verified extensions; no appliance control is enabled in the telemetry beta. A GitHub release remains optional for HACS source installation.
+Initial HACS installation, authentication, discovery and updating values for all three appliances have user-reported confirmation on HA OS 18.3 / Core 2026.9.4. The supplied diagnostic additionally establishes the per-coordinate coverage and real HA MQTT connectivity described above. It does not establish ordinary-cycle behavior, compound-value expansion or lifecycle fault handling. Reauthentication, token rotation, stored-token restart, reload/unload, stale/offline availability and detailed app-to-entity comparisons remain pending. Controls, vacuum maps/history and more packed-setting decoding belong to later verified extensions; no appliance control is enabled in the telemetry beta. A GitHub release remains optional for HACS source installation.
 
 Passwords and tokens remain in local prompts/session handling, not shared captures or documentation. Local captures may contain stable device identifiers and stay private. The source catalogues and verified live results establish substantial L9 telemetry support while preserving the remaining limits of the broader goal to expose everything the cloud supports.

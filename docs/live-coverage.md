@@ -14,6 +14,8 @@ The 24/17 laundry initial plans came from each exact model's official plugin. Su
 
 ## Plugin and TLS blockers resolved
 
+Subsequent Home Assistant diagnostics confirm all three appliances online and MQTT-connected, with the same 27/22/15 usable coordinate totals. Washer and dryer values originated from MQTT; vacuum values originated from RPC. No metadata/property-read/cloud-data errors, dropped observations or truncation are reported in that snapshot. See the [HA diagnostic review](ha-diagnostics-review.md) for the dryer null coordinate and coverage limits. These runtime findings are separate from the capture above.
+
 `GET /dreame-product/upgrades/appplugin` with the actual account DID/model and `appVer=102060603` returned the exact model plugins: washer version `83`, dryer version `130`, vacuum version `31`. Their `project.json` and bundle names establish `os=0` as iOS and `os=1` as Android. The initial `os=2` request returned a vacuum HarmonyOS bundle and no laundry bundle; treating it as Android caused the first lookup failure. The tested H5 lookup returned empty data for these devices; the RN route supplied the definitions.
 
 The factual catalogues contain 27 washer property definitions, 22 washer programs and 4 washer actions; the dryer catalogue contains 22 property definitions, 31 programs and 4 actions. Actions and writes are documented separately and remain disabled in the telemetry beta. Signed APKs and downloaded vendor plugins are retained as private/local research material and are not redistributed. See [exact L9 schema research](l9-schema-research.md) and [the dryer catalogue](../src/dreamehome/data/l9_dryer.json) for source hashes and semantic limits.
@@ -42,7 +44,7 @@ The unrelated public debug candidates `dreame.washer.r1111` and `dreame.washer.r
 
 ## Remaining validation and functionality
 
-- The user confirmed HACS installation, account setup, discovery of all three devices and values updating on Home Assistant Core 2026.9.4. Exact entity coverage, MQTT transport status, reauthentication, reload/unload and stale behavior still need detailed runtime checks.
+- The user confirmed installation and updating values; supplied HA diagnostics establish 27/22/15 valued property coordinates and MQTT connections for all three devices on Core 2026.9.4. Exact entity totals, additional operating states, reauthentication, reload/unload and stale behavior still need runtime checks.
 - The repository is published with actual metadata, and official HACS/hassfest validation plus Python 3.12/3.14 offline checks passed. A tagged release is optional for custom-repository installation.
 - Capture ordinary wash/dry cycles, door changes and completion to verify optional properties, phase-dependent values, stale behavior and unknown enums.
 - Resolve dryer `4.7` and the night-mode coordinate contradiction from additional exact-model evidence.

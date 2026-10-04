@@ -9,6 +9,7 @@ dist/
 !.env.example
 captures/
 private/
+ha-diag/
 *.session.json
 references/l9-public/
 references/hermes-dec/

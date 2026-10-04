@@ -54,10 +54,11 @@ class RepositoryExportTests(unittest.TestCase):
             root = Path(directory)
             workspace(root)
             excluded = [
-                "private/account.json", "captures/live.json", "references/public.apk",
+                "private/account.json", "captures/live.json", "ha-diag/diagnostic.json", "references/public.apk",
                 "references/miot/provenance.json", "upstream/protocol.py", ".venv/secret.py",
                 "dist/old.zip", "custom_components/dreame_home/__pycache__/client.pyc",
                 "custom_components/dreame_home/private/account.json",
+                "custom_components/dreame_home/ha-diag/diagnostic.json",
                 "custom_components/dreame_home/vendor.js",
                 "custom_components/dreame_home/brand/vendor.js",
                 "custom_components/dreame_home/raw.pem", "src/dreamehome/plugin.hbc",

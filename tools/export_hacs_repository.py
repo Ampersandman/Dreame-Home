@@ -32,13 +32,13 @@ TOOLS = (
 )
 RESERVED_OUTPUT_ROOTS = {
     "custom_components", "src", "tools", "tests", "docs", "licenses", ".github",
-    ".git", ".venv", "private", "captures", "references", "upstream", "build", "dist",
+    ".git", ".venv", "private", "captures", "ha-diag", "references", "upstream", "build", "dist",
 }
 IGNORED_DESTINATION_DIRS = {
     ".git", ".venv", "build", "dist", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache",
 }
 SOURCE_EXCLUDED_DIRS = {
-    ".git", ".venv", "private", "captures", "references", "upstream", "build", "dist",
+    ".git", ".venv", "private", "captures", "ha-diag", "references", "upstream", "build", "dist",
     "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "hacs-repository",
     ".aws", ".codex", ".agents",
 }

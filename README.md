@@ -6,7 +6,7 @@ The priority devices are the **L9 washing machine**, **L9 Twin Inverter dryer**,
 
 ## Install through HACS
 
-Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.2.0b3` is a read-only telemetry beta. A user confirmed HACS installation, account setup, discovery of all three target devices, and values updating on their Home Assistant Core 2026.9.4 installation. Detailed property coverage and further lifecycle checks remain to be verified.
+Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.2.0b3` is a read-only telemetry beta. A user confirmed installation and updating values on Core 2026.9.4; supplied diagnostics confirm all three devices are online and MQTT-connected, with 27 washer, 22 dryer and 15 vacuum property coordinates carrying values. See the [diagnostic review](docs/ha-diagnostics-review.md) for the missing dryer coordinate and remaining acceptance checks.
 
 1. Open **HACS > menu > Custom repositories**.
 2. Add `https://github.com/Ampersandman/Dreame-Home`, category **Integration**.
