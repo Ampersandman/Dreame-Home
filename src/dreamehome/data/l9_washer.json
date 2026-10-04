@@ -1,0 +1,2091 @@
+{
+  "model": "dreame.washer.l9nacn",
+  "marketing_name": "L9 Washer",
+  "product_id": "11528",
+  "extension_id": "2175",
+  "status": "official-model-plugin",
+  "live_verified": false,
+  "source": {
+    "zip_sha256": "33ea438c47b2c33572b08017c88fb7450bcd8157ba752673fac9f2ebae6fc9f8",
+    "bundle": "dreame.washer.l9nacn/index.ios.bundle",
+    "bundle_sha256": "8f235e237807137ffdb0674d61d622b0d8d7db6650328e473839d079d876ed90",
+    "source_url": "https://oss.iot.dreame.tech/pd/pg/extensions/2175/ali_dreame/ios/9d22fee332abcb1d0ae80463c1c799b7dreame.washer.l9nacn_83.zip",
+    "plugin_version": 83,
+    "os_code": 0,
+    "platform": "ios",
+    "lookup_route": "GET /dreame-product/upgrades/appplugin",
+    "app_version": 102060603,
+    "project_model": "dreame.washer.l9nacn"
+  },
+  "properties": [
+    {
+      "key": "run_status",
+      "name": "Run status",
+      "siid": 2,
+      "piid": 1,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Power off"
+        },
+        {
+          "value": 1,
+          "label": "Standby"
+        },
+        {
+          "value": 2,
+          "label": "Pause"
+        },
+        {
+          "value": 3,
+          "label": "Running"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_SubscribePage_index",
+        "line": 460
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_dictionary_index",
+        "line": 1000
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "fault_code",
+      "name": "Fault code",
+      "siid": 2,
+      "piid": 2,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "No fault"
+        },
+        {
+          "value": 1,
+          "label": "Variant Error",
+          "fault_code": "E0"
+        },
+        {
+          "value": 2,
+          "label": "Water Inlet Error",
+          "fault_code": "E1"
+        },
+        {
+          "value": 3,
+          "label": "Water Outlet Error",
+          "fault_code": "E2"
+        },
+        {
+          "value": 4,
+          "label": "Lock Error",
+          "fault_code": "E3"
+        },
+        {
+          "value": 5,
+          "label": "Water Level Error",
+          "fault_code": "E4"
+        },
+        {
+          "value": 6,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 7,
+          "label": "Heater Tube Error",
+          "fault_code": "E6"
+        },
+        {
+          "value": 8,
+          "label": "Water Temp NTC error",
+          "fault_code": "E7"
+        },
+        {
+          "value": 9,
+          "label": "Hardware‑Software Incompatibility",
+          "fault_code": "E8"
+        },
+        {
+          "value": 10,
+          "label": "Comm. Error",
+          "fault_code": "E9"
+        },
+        {
+          "value": 11,
+          "label": "Inverter Fault",
+          "fault_code": "E10"
+        },
+        {
+          "value": 12,
+          "label": "",
+          "fault_code": "E11"
+        },
+        {
+          "value": 13,
+          "label": "",
+          "fault_code": "E12"
+        },
+        {
+          "value": 14,
+          "label": "Dryer Fan Fault",
+          "fault_code": "E13"
+        },
+        {
+          "value": 15,
+          "label": "Dryer Heater Fault",
+          "fault_code": "E14"
+        },
+        {
+          "value": 16,
+          "label": "Dryer Outlet NTC Fault",
+          "fault_code": "E15"
+        },
+        {
+          "value": 17,
+          "label": "Dryer Inlet NTC Fault",
+          "fault_code": "E16"
+        },
+        {
+          "value": 18,
+          "label": "NSP Spin Failure",
+          "fault_code": "nsp"
+        },
+        {
+          "value": 19,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 20,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 21,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 22,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 23,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 24,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 25,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 26,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        },
+        {
+          "value": 27,
+          "label": "Motor Error",
+          "fault_code": "E5"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_SubscribePage_index",
+        "line": 478
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_dictionary_index",
+        "line": 1013
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "program",
+      "name": "Program",
+      "siid": 2,
+      "piid": 3,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "AI Wash"
+        },
+        {
+          "value": 22,
+          "label": "ECO 40-60"
+        },
+        {
+          "value": 1,
+          "label": "Quick Wash"
+        },
+        {
+          "value": 2,
+          "label": "Mixed"
+        },
+        {
+          "value": 3,
+          "label": "Large Items"
+        },
+        {
+          "value": 4,
+          "label": "Cotton"
+        },
+        {
+          "value": 5,
+          "label": "Down"
+        },
+        {
+          "value": 6,
+          "label": "Wool"
+        },
+        {
+          "value": 21,
+          "label": "Towels"
+        },
+        {
+          "value": 8,
+          "label": "Delicates"
+        },
+        {
+          "value": 9,
+          "label": "Baby Care"
+        },
+        {
+          "value": 11,
+          "label": "Allergy Care"
+        },
+        {
+          "value": 12,
+          "label": "Spin Only"
+        },
+        {
+          "value": 13,
+          "label": "Rinse & Spin"
+        },
+        {
+          "value": 14,
+          "label": "Drum Clean"
+        },
+        {
+          "value": 15,
+          "label": "Color Care"
+        },
+        {
+          "value": 16,
+          "label": "Shirt"
+        },
+        {
+          "value": 17,
+          "label": "Deep Clean"
+        },
+        {
+          "value": 18,
+          "label": "Sportswear"
+        },
+        {
+          "value": 19,
+          "label": "School Uniform"
+        },
+        {
+          "value": 7,
+          "label": "Silk"
+        },
+        {
+          "value": 10,
+          "label": "Outdoor"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 18877
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_dictionary_index",
+        "line": 1122
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "wash_phase",
+      "name": "Wash phase",
+      "siid": 2,
+      "piid": 4,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Scheduled"
+        },
+        {
+          "value": 1,
+          "label": "Washing"
+        },
+        {
+          "value": 2,
+          "label": "Rinse"
+        },
+        {
+          "value": 3,
+          "label": "Spinning"
+        },
+        {
+          "value": 4,
+          "label": "Dry"
+        },
+        {
+          "value": 5,
+          "label": "Air Refresh Cruise"
+        },
+        {
+          "value": 6,
+          "label": "Completed"
+        },
+        {
+          "value": 7,
+          "label": "Add Clothes Mid-Cycle"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Home_components_deviceAndTips",
+        "line": 12557
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_dictionary_index",
+        "line": 1255
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "stain_type",
+      "name": "Stain type",
+      "siid": 2,
+      "piid": 5,
+      "access": [
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Normal"
+        },
+        {
+          "value": 1,
+          "label": "Grease"
+        },
+        {
+          "value": 2,
+          "label": "Wine Stain"
+        },
+        {
+          "value": 3,
+          "label": "Fruit Stain"
+        },
+        {
+          "value": 4,
+          "label": "Mixed Stains"
+        },
+        {
+          "value": 5,
+          "label": "Milk Stain"
+        },
+        {
+          "value": 6,
+          "label": "Blood Stain"
+        },
+        {
+          "value": 7,
+          "label": "Makeup Stain"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_utils_index",
+        "line": 848
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_dictionary_index",
+        "line": 1280
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "temperature",
+      "name": "Temperature",
+      "siid": 2,
+      "piid": 8,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Room Temp"
+        },
+        {
+          "value": 1,
+          "label": "30℃"
+        },
+        {
+          "value": 2,
+          "label": "40℃"
+        },
+        {
+          "value": 3,
+          "label": "60℃"
+        },
+        {
+          "value": 4,
+          "label": "90℃"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18442
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18178
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "delay_remaining_time",
+      "name": "Delay remaining time",
+      "siid": 2,
+      "piid": 11,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "integer",
+      "unit": "min",
+      "value_list": null,
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 18900
+      },
+      "enum_provenance": null,
+      "unit_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 19234
+      }
+    },
+    {
+      "key": "program_time",
+      "name": "Program duration",
+      "siid": 2,
+      "piid": 12,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "integer",
+      "unit": "min",
+      "value_list": null,
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 18904
+      },
+      "enum_provenance": null,
+      "unit_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Timeline_index",
+        "line": 20065
+      }
+    },
+    {
+      "key": "remaining_time",
+      "name": "Remaining time",
+      "siid": 2,
+      "piid": 13,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "integer",
+      "unit": "min",
+      "value_list": null,
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 18908
+      },
+      "enum_provenance": null,
+      "unit_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Timeline_index",
+        "line": 20077
+      }
+    },
+    {
+      "key": "extra_time",
+      "name": "Extra time",
+      "siid": 2,
+      "piid": 14,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Default"
+        },
+        {
+          "value": 1,
+          "label": "+5"
+        },
+        {
+          "value": 2,
+          "label": "+10"
+        },
+        {
+          "value": 3,
+          "label": "+20"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18443
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18194
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "water_level",
+      "name": "Water level",
+      "siid": 2,
+      "piid": 15,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Smart"
+        },
+        {
+          "value": 1,
+          "label": "L1"
+        },
+        {
+          "value": 2,
+          "label": "L2"
+        },
+        {
+          "value": 3,
+          "label": "L3"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18445
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18226
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "rinse_cycles",
+      "name": "Rinse cycles",
+      "siid": 2,
+      "piid": 16,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "0Times"
+        },
+        {
+          "value": 1,
+          "label": "1Times"
+        },
+        {
+          "value": 2,
+          "label": "2Times"
+        },
+        {
+          "value": 3,
+          "label": "3Times"
+        },
+        {
+          "value": 4,
+          "label": "4Times"
+        },
+        {
+          "value": 5,
+          "label": "5Times"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18444
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18207
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "spin_speed",
+      "name": "Spin speed",
+      "siid": 2,
+      "piid": 18,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "0"
+        },
+        {
+          "value": 1,
+          "label": "400"
+        },
+        {
+          "value": 2,
+          "label": "800"
+        },
+        {
+          "value": 3,
+          "label": "1000"
+        },
+        {
+          "value": 4,
+          "label": "1400"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18446
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Parameters_index",
+        "line": 18239
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "delay_time",
+      "name": "Delay time",
+      "siid": 2,
+      "piid": 19,
+      "access": [
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "integer",
+      "unit": "min",
+      "value_list": null,
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Details_index",
+        "line": 15058
+      },
+      "enum_provenance": null,
+      "unit_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 19234
+      }
+    },
+    {
+      "key": "detergent_dosing",
+      "name": "Detergent dosing",
+      "siid": 2,
+      "piid": 24,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 2,
+          "label": "Small"
+        },
+        {
+          "value": 3,
+          "label": "Medium"
+        },
+        {
+          "value": 4,
+          "label": "High"
+        },
+        {
+          "value": 1,
+          "label": "Smart"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Intelligence_index",
+        "line": 17704
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Intelligence_index",
+        "line": 17794
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "softener_dosing",
+      "name": "Softener dosing",
+      "siid": 2,
+      "piid": 25,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "enum",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 2,
+          "label": "Small"
+        },
+        {
+          "value": 3,
+          "label": "Medium"
+        },
+        {
+          "value": 4,
+          "label": "High"
+        },
+        {
+          "value": 1,
+          "label": "Smart"
+        }
+      ],
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Intelligence_index",
+        "line": 17709
+      },
+      "enum_provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_Intelligence_index",
+        "line": 17794
+      },
+      "unit_provenance": null
+    },
+    {
+      "key": "child_lock",
+      "name": "Child lock",
+      "siid": 3,
+      "piid": 4,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_index",
+        "line": 18913
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "delay_enabled",
+      "name": "Delay enabled",
+      "siid": 3,
+      "piid": 5,
+      "access": [
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Details_index",
+        "line": 15061
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "fresh_air_circulation",
+      "name": "Fresh air circulation",
+      "siid": 3,
+      "piid": 6,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_components_ModeSwitch",
+        "line": 20420
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "dynamic_rinse",
+      "name": "Dynamic rinse",
+      "siid": 3,
+      "piid": 7,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_ModeCard_mode_card_1",
+        "line": 17068
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "speed_mode",
+      "name": "Speed mode",
+      "siid": 3,
+      "piid": 8,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_components_ModeCard_mode_card_1",
+        "line": 17069
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "night_mode",
+      "name": "Night mode",
+      "siid": 3,
+      "piid": 9,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Run_components_ModeSwitch",
+        "line": 20418
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "drum_clean_recommended",
+      "name": "Drum clean recommended",
+      "siid": 3,
+      "piid": 13,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Home_components_deviceAndTips",
+        "line": 12561
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "network_authorized",
+      "name": "Network authorized",
+      "siid": 3,
+      "piid": 14,
+      "access": [
+        "read",
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_SubscribePage_index",
+        "line": 469
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "low_detergent",
+      "name": "Low detergent",
+      "siid": 4,
+      "piid": 6,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Home_components_deviceAndTips",
+        "line": 12559
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "low_softener",
+      "name": "Low softener",
+      "siid": 4,
+      "piid": 7,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "boolean",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "value_list_inferred": true,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Home_components_deviceAndTips",
+        "line": 12560
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    },
+    {
+      "key": "ota_status",
+      "name": "Firmware update status",
+      "siid": 5,
+      "piid": 1,
+      "access": [
+        "notify"
+      ],
+      "wire_format": "integer",
+      "wire_format_inferred": true,
+      "semantic_type": "integer",
+      "unit": null,
+      "value_list": null,
+      "value_list_inferred": false,
+      "value_range": null,
+      "live_verified": false,
+      "provenance": {
+        "module": "projects_dreame.washer.l9nacn_views_Setting_page_OTA_index",
+        "line": 24795
+      },
+      "enum_provenance": null,
+      "unit_provenance": null
+    }
+  ],
+  "actions": [
+    {
+      "siid": 2,
+      "aiid": 1,
+      "name": "Power",
+      "input_piid": 1,
+      "observed_input_values": [
+        0,
+        1
+      ],
+      "changes_device_state": true,
+      "live_executed": false,
+      "provenance": [
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Home_components_programItem",
+          "line": 12029
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Details_index",
+          "line": 14318
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Details_index",
+          "line": 15025
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19632
+        }
+      ]
+    },
+    {
+      "siid": 2,
+      "aiid": 2,
+      "name": "Start/pause",
+      "input_piid": 2,
+      "observed_input_values": [
+        0,
+        1
+      ],
+      "changes_device_state": true,
+      "live_executed": false,
+      "provenance": [
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Home_components_programItem",
+          "line": 12089
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Details_index",
+          "line": 14362
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19065
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19086
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19092
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19179
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19186
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19590
+        },
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19600
+        }
+      ]
+    },
+    {
+      "siid": 2,
+      "aiid": 3,
+      "name": "Add clothes",
+      "input_piid": 3,
+      "observed_input_values": [
+        0
+      ],
+      "changes_device_state": true,
+      "live_executed": false,
+      "provenance": [
+        {
+          "module": "projects_dreame.washer.l9nacn_views_Run_index",
+          "line": 19667
+        }
+      ]
+    },
+    {
+      "siid": 2,
+      "aiid": 4,
+      "name": "Request current status report",
+      "input_piid": 4,
+      "observed_input_values": [
+        1
+      ],
+      "changes_device_state": false,
+      "live_executed": false,
+      "provenance": [
+        {
+          "module": "projects_dreame.washer.l9nacn_views_SubscribePage_index",
+          "line": 521
+        }
+      ]
+    }
+  ],
+  "programs": [
+    {
+      "value": 0,
+      "label": "AI Wash",
+      "default_duration_minutes": 0,
+      "default_configuration": {
+        "temperature": 1,
+        "rotateSpeed": 2,
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 22,
+      "label": "ECO 40-60",
+      "default_duration_minutes": 234,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            0,
+            1,
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 4,
+          "filter": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "addTime": null,
+        "numberOfRinses": null,
+        "waterLevel": null,
+        "accelerate": null,
+        "runningWaterMode": null,
+        "intelligent": null,
+        "compliant": null,
+        "stains": null,
+        "night": null,
+        "newWind": null
+      }
+    },
+    {
+      "value": 1,
+      "label": "Quick Wash",
+      "default_duration_minutes": 15,
+      "default_configuration": {
+        "temperature": {
+          "value": 0,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": null,
+        "numberOfRinses": 2,
+        "waterLevel": {
+          "value": 1,
+          "filter": [
+            0
+          ]
+        },
+        "accelerate": 1,
+        "runningWaterMode": null,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 2,
+      "label": "Mixed",
+      "default_duration_minutes": 57,
+      "default_configuration": {
+        "temperature": 1,
+        "rotateSpeed": 2,
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 3,
+      "label": "Large Items",
+      "default_duration_minutes": 84,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "rotateSpeed": 3,
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 4,
+      "label": "Cotton",
+      "default_duration_minutes": 60,
+      "default_configuration": {
+        "temperature": 1,
+        "rotateSpeed": 3,
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 5,
+      "label": "Down",
+      "default_duration_minutes": 82,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 3,
+        "waterLevel": 3,
+        "accelerate": 0,
+        "runningWaterMode": null,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 6,
+      "label": "Wool",
+      "default_duration_minutes": 43,
+      "default_configuration": {
+        "temperature": {
+          "value": 1,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "addTime": {
+          "value": 0,
+          "filter": [
+            3
+          ]
+        },
+        "numberOfRinses": 2,
+        "waterLevel": 3,
+        "accelerate": null,
+        "runningWaterMode": null,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": null,
+        "night": null,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 21,
+      "label": "Towels",
+      "default_duration_minutes": 50,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "rotateSpeed": 3,
+        "addTime": 0,
+        "numberOfRinses": {
+          "value": 2,
+          "filter": [
+            0
+          ]
+        },
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 8,
+      "label": "Delicates",
+      "default_duration_minutes": 75,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 3,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 9,
+      "label": "Baby Care",
+      "default_duration_minutes": 98,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 3,
+          "filter": [
+            1
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 3,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 11,
+      "label": "Allergy Care",
+      "default_duration_minutes": 131,
+      "default_configuration": {
+        "temperature": {
+          "value": 3,
+          "filter": [
+            0,
+            1,
+            2
+          ]
+        },
+        "rotateSpeed": {
+          "value": 3,
+          "filter": [
+            1
+          ]
+        },
+        "addTime": null,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": null,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 12,
+      "label": "Spin Only",
+      "default_duration_minutes": 11,
+      "default_configuration": {
+        "temperature": null,
+        "rotateSpeed": 3,
+        "addTime": null,
+        "numberOfRinses": {
+          "value": 0,
+          "filter": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "waterLevel": null,
+        "accelerate": null,
+        "runningWaterMode": null,
+        "intelligent": null,
+        "compliant": null,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 13,
+      "label": "Rinse & Spin",
+      "default_duration_minutes": 20,
+      "default_configuration": {
+        "temperature": null,
+        "rotateSpeed": 2,
+        "addTime": null,
+        "numberOfRinses": {
+          "value": 1,
+          "filter": [
+            5
+          ]
+        },
+        "waterLevel": {
+          "value": 2,
+          "filter": [
+            0
+          ]
+        },
+        "accelerate": null,
+        "runningWaterMode": 1,
+        "intelligent": null,
+        "compliant": 1,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 14,
+      "label": "Drum Clean",
+      "default_duration_minutes": 106,
+      "default_configuration": {
+        "temperature": {
+          "value": 4,
+          "filter": [
+            0,
+            1,
+            2
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            0,
+            1,
+            3,
+            4
+          ]
+        },
+        "addTime": null,
+        "numberOfRinses": {
+          "value": 1,
+          "filter": [
+            0,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "waterLevel": {
+          "value": 1,
+          "filter": [
+            0
+          ]
+        },
+        "accelerate": null,
+        "runningWaterMode": null,
+        "intelligent": null,
+        "compliant": null,
+        "stains": null,
+        "night": 0,
+        "newWind": null
+      }
+    },
+    {
+      "value": 15,
+      "label": "Color Care",
+      "default_duration_minutes": 65,
+      "default_configuration": {
+        "temperature": {
+          "value": 0,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 3,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": null,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 16,
+      "label": "Shirt",
+      "default_duration_minutes": 54,
+      "default_configuration": {
+        "temperature": {
+          "value": 1,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 17,
+      "label": "Deep Clean",
+      "default_duration_minutes": 122,
+      "default_configuration": {
+        "temperature": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "rotateSpeed": 2,
+        "addTime": 0,
+        "numberOfRinses": 3,
+        "waterLevel": 0,
+        "accelerate": null,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": null,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 18,
+      "label": "Sportswear",
+      "default_duration_minutes": 43,
+      "default_configuration": {
+        "temperature": {
+          "value": 1,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": null,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 19,
+      "label": "School Uniform",
+      "default_duration_minutes": 53,
+      "default_configuration": {
+        "temperature": {
+          "value": 1,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": 0,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": null,
+        "stains": 0,
+        "night": 0,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 7,
+      "label": "Silk",
+      "default_duration_minutes": 41,
+      "default_configuration": {
+        "temperature": {
+          "value": 0,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 1,
+        "accelerate": null,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": 1,
+        "stains": null,
+        "night": null,
+        "newWind": 0
+      }
+    },
+    {
+      "value": 10,
+      "label": "Outdoor",
+      "default_duration_minutes": 58,
+      "default_configuration": {
+        "temperature": {
+          "value": 1,
+          "filter": [
+            3,
+            4
+          ]
+        },
+        "rotateSpeed": {
+          "value": 2,
+          "filter": [
+            4
+          ]
+        },
+        "addTime": 0,
+        "numberOfRinses": 2,
+        "waterLevel": 0,
+        "accelerate": null,
+        "runningWaterMode": 1,
+        "intelligent": 1,
+        "compliant": null,
+        "stains": null,
+        "night": 0,
+        "newWind": 0
+      }
+    }
+  ],
+  "program_constants": {
+    "stain_types": [
+      {
+        "key": 0,
+        "value": "Normal"
+      },
+      {
+        "key": 1,
+        "value": "Grease"
+      },
+      {
+        "key": 2,
+        "value": "Wine Stain"
+      },
+      {
+        "key": 3,
+        "value": "Fruit Stain"
+      },
+      {
+        "key": 4,
+        "value": "Mixed Stains"
+      },
+      {
+        "key": 5,
+        "value": "Milk Stain"
+      },
+      {
+        "key": 6,
+        "value": "Blood Stain"
+      },
+      {
+        "key": 7,
+        "value": "Makeup Stain"
+      }
+    ],
+    "default_configuration_provenance": {
+      "module": "projects_dreame.washer.l9nacn_dictionary_ProgramDefaultConfig",
+      "line": 1323
+    }
+  },
+  "rpc_contract": {
+    "property_did": "actual device ID",
+    "read_method": "get_properties",
+    "write_method": "set_properties",
+    "action_method": "action",
+    "action_input_form": [
+      {
+        "piid": "aiid",
+        "value": "input value"
+      }
+    ]
+  },
+  "cloud_property_keys": [
+    {
+      "key": "prop.s_auto_upgrade",
+      "name": "Automatic firmware updates",
+      "access": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "local_app_state": [
+    "favorites",
+    "usage history",
+    "program memory",
+    "notification preferences",
+    "filter cleaning reminder"
+  ],
+  "limitations": [
+    "Notify coordinates are not formal MIoT access declarations; only 3.14 has a direct app get_properties call.",
+    "Wire integer type is inferred from the app's comparisons, numeric enums and Number conversions.",
+    "Program options and allowed values depend on the selected program and running phase.",
+    "2.8 value 999 appears in app stain-removal UI state; its device meaning is unresolved.",
+    "Action 2.4 is used by the app to request status; no actions were executed during extraction.",
+    "5.1 OTA states 1 through 4 mean update in progress; individual state labels are unresolved."
+  ]
+}

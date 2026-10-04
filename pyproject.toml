@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dreamehome-api-extracted"
+version = "0.1.0"
+description = "Source-derived DreameHome cloud API and device discovery tools"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = ["pycryptodome>=3.20,<4"]
+
+[project.optional-dependencies]
+mqtt = ["paho-mqtt>=2.1,<3"]
+
+[project.scripts]
+dreamehome = "dreamehome.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+dreamehome = ["data/*.json", "py.typed"]

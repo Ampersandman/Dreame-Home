@@ -1,0 +1,682 @@
+[
+  {
+    "name": "START",
+    "enum_id": 1,
+    "mapping": {
+      "siid": 2,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1962,
+      "end_line": 1962,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1962"
+    }
+  },
+  {
+    "name": "PAUSE",
+    "enum_id": 2,
+    "mapping": {
+      "siid": 2,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1963,
+      "end_line": 1963,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1963"
+    }
+  },
+  {
+    "name": "CHARGE",
+    "enum_id": 3,
+    "mapping": {
+      "siid": 3,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1964,
+      "end_line": 1964,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1964"
+    }
+  },
+  {
+    "name": "START_CUSTOM",
+    "enum_id": 4,
+    "mapping": {
+      "siid": 4,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1965,
+      "end_line": 1965,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1965"
+    }
+  },
+  {
+    "name": "STOP",
+    "enum_id": 5,
+    "mapping": {
+      "siid": 4,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1966,
+      "end_line": 1966,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1966"
+    }
+  },
+  {
+    "name": "CLEAR_WARNING",
+    "enum_id": 6,
+    "mapping": {
+      "siid": 4,
+      "aiid": 3
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1967,
+      "end_line": 1967,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1967"
+    }
+  },
+  {
+    "name": "START_WASHING",
+    "enum_id": 7,
+    "mapping": {
+      "siid": 4,
+      "aiid": 4
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1968,
+      "end_line": 1968,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1968"
+    }
+  },
+  {
+    "name": "GET_PHOTO_INFO",
+    "enum_id": 8,
+    "mapping": {
+      "siid": 4,
+      "aiid": 6
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1969,
+      "end_line": 1969,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1969"
+    }
+  },
+  {
+    "name": "SHORTCUTS",
+    "enum_id": 9,
+    "mapping": {
+      "siid": 4,
+      "aiid": 8
+    },
+    "poll_groups": [
+      "READ_WRITE_PROPERTIES",
+      "DISCARDED_PROPERTIES"
+    ],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1970,
+      "end_line": 1970,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1970"
+    }
+  },
+  {
+    "name": "DELETE_DND_TASK",
+    "enum_id": 10,
+    "mapping": {
+      "siid": 5,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1971,
+      "end_line": 1971,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1971"
+    }
+  },
+  {
+    "name": "REQUEST_MAP",
+    "enum_id": 11,
+    "mapping": {
+      "siid": 6,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1972,
+      "end_line": 1972,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1972"
+    }
+  },
+  {
+    "name": "UPDATE_MAP_DATA",
+    "enum_id": 12,
+    "mapping": {
+      "siid": 6,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1973,
+      "end_line": 1973,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1973"
+    }
+  },
+  {
+    "name": "BACKUP_MAP",
+    "enum_id": 13,
+    "mapping": {
+      "siid": 6,
+      "aiid": 3
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1974,
+      "end_line": 1974,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1974"
+    }
+  },
+  {
+    "name": "WIFI_MAP",
+    "enum_id": 14,
+    "mapping": {
+      "siid": 6,
+      "aiid": 4
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1975,
+      "end_line": 1975,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1975"
+    }
+  },
+  {
+    "name": "LOCATE",
+    "enum_id": 15,
+    "mapping": {
+      "siid": 7,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1976,
+      "end_line": 1976,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1976"
+    }
+  },
+  {
+    "name": "PLAY_SOUND",
+    "enum_id": 16,
+    "mapping": {
+      "siid": 7,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1977,
+      "end_line": 1977,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1977"
+    }
+  },
+  {
+    "name": "DELETE_SCHEDULED_TASK",
+    "enum_id": 17,
+    "mapping": {
+      "siid": 8,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1978,
+      "end_line": 1978,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1978"
+    }
+  },
+  {
+    "name": "DELETE_CRUISE_SCHEDULE",
+    "enum_id": 18,
+    "mapping": {
+      "siid": 8,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1979,
+      "end_line": 1979,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1979"
+    }
+  },
+  {
+    "name": "DELETE_PET_CRUISE_SCHEDULE",
+    "enum_id": 19,
+    "mapping": {
+      "siid": 8,
+      "aiid": 3
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1980,
+      "end_line": 1980,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1980"
+    }
+  },
+  {
+    "name": "RESET_MAIN_BRUSH",
+    "enum_id": 20,
+    "mapping": {
+      "siid": 9,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1981,
+      "end_line": 1981,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1981"
+    }
+  },
+  {
+    "name": "RESET_SIDE_BRUSH",
+    "enum_id": 21,
+    "mapping": {
+      "siid": 10,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1982,
+      "end_line": 1982,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1982"
+    }
+  },
+  {
+    "name": "RESET_FILTER",
+    "enum_id": 22,
+    "mapping": {
+      "siid": 11,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1983,
+      "end_line": 1983,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1983"
+    }
+  },
+  {
+    "name": "RESET_SENSOR",
+    "enum_id": 23,
+    "mapping": {
+      "siid": 16,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1984,
+      "end_line": 1984,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1984"
+    }
+  },
+  {
+    "name": "START_AUTO_EMPTY",
+    "enum_id": 24,
+    "mapping": {
+      "siid": 15,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1985,
+      "end_line": 1985,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1985"
+    }
+  },
+  {
+    "name": "RESET_TANK_FILTER",
+    "enum_id": 25,
+    "mapping": {
+      "siid": 17,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1986,
+      "end_line": 1986,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1986"
+    }
+  },
+  {
+    "name": "RESET_MOP_PAD",
+    "enum_id": 26,
+    "mapping": {
+      "siid": 18,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1987,
+      "end_line": 1987,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1987"
+    }
+  },
+  {
+    "name": "RESET_SILVER_ION",
+    "enum_id": 27,
+    "mapping": {
+      "siid": 19,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1988,
+      "end_line": 1988,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1988"
+    }
+  },
+  {
+    "name": "RESET_DETERGENT",
+    "enum_id": 28,
+    "mapping": {
+      "siid": 20,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1989,
+      "end_line": 1989,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1989"
+    }
+  },
+  {
+    "name": "RESET_SQUEEGEE",
+    "enum_id": 29,
+    "mapping": {
+      "siid": 24,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1990,
+      "end_line": 1990,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1990"
+    }
+  },
+  {
+    "name": "RESET_DIRTY_WATER_CHANNEL",
+    "enum_id": 30,
+    "mapping": {
+      "siid": 25,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1991,
+      "end_line": 1991,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1991"
+    }
+  },
+  {
+    "name": "RESET_ONBOARD_DIRTY_WATER_TANK",
+    "enum_id": 31,
+    "mapping": {
+      "siid": 26,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1992,
+      "end_line": 1992,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1992"
+    }
+  },
+  {
+    "name": "RESET_DEODORIZER",
+    "enum_id": 32,
+    "mapping": {
+      "siid": 29,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1993,
+      "end_line": 1993,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1993"
+    }
+  },
+  {
+    "name": "RESET_WHEEL",
+    "enum_id": 33,
+    "mapping": {
+      "siid": 30,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1994,
+      "end_line": 1994,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1994"
+    }
+  },
+  {
+    "name": "RESET_SCALE_INHIBITOR",
+    "enum_id": 34,
+    "mapping": {
+      "siid": 31,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1995,
+      "end_line": 1995,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1995"
+    }
+  },
+  {
+    "name": "RESET_FLUFFING_ROLLER",
+    "enum_id": 35,
+    "mapping": {
+      "siid": 32,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1996,
+      "end_line": 1996,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1996"
+    }
+  },
+  {
+    "name": "RESET_ROLLER_MOP_FILTER",
+    "enum_id": 36,
+    "mapping": {
+      "siid": 33,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1997,
+      "end_line": 1997,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1997"
+    }
+  },
+  {
+    "name": "RESET_WATER_OUTLET_FILTER",
+    "enum_id": 37,
+    "mapping": {
+      "siid": 35,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1998,
+      "end_line": 1998,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1998"
+    }
+  },
+  {
+    "name": "RESET_TRACK_CLEANING",
+    "enum_id": 38,
+    "mapping": {
+      "siid": 36,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 1999,
+      "end_line": 1999,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1999"
+    }
+  },
+  {
+    "name": "RESET_WASHBOARD_CLEANING",
+    "enum_id": 39,
+    "mapping": {
+      "siid": 37,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2000,
+      "end_line": 2000,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2000"
+    }
+  },
+  {
+    "name": "RESET_FILTER_CLEANING",
+    "enum_id": 40,
+    "mapping": {
+      "siid": 38,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2001,
+      "end_line": 2001,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2001"
+    }
+  },
+  {
+    "name": "STREAM_VIDEO",
+    "enum_id": 41,
+    "mapping": {
+      "siid": 10001,
+      "aiid": 1
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2002,
+      "end_line": 2002,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2002"
+    }
+  },
+  {
+    "name": "STREAM_AUDIO",
+    "enum_id": 42,
+    "mapping": {
+      "siid": 10001,
+      "aiid": 2
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2003,
+      "end_line": 2003,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2003"
+    }
+  },
+  {
+    "name": "STREAM_PROPERTY",
+    "enum_id": 43,
+    "mapping": {
+      "siid": 10001,
+      "aiid": 3
+    },
+    "poll_groups": [
+      "READ_WRITE_PROPERTIES"
+    ],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2004,
+      "end_line": 2004,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2004"
+    }
+  },
+  {
+    "name": "STREAM_CODE",
+    "enum_id": 44,
+    "mapping": {
+      "siid": 10001,
+      "aiid": 4
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2005,
+      "end_line": 2005,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2005"
+    }
+  },
+  {
+    "name": "VIDEO_VENDOR",
+    "enum_id": 45,
+    "mapping": {
+      "siid": 10001,
+      "aiid": 7
+    },
+    "poll_groups": [],
+    "source": {
+      "file": "custom_components/dreame_vacuum/dreame/types.py",
+      "line": 2006,
+      "end_line": 2006,
+      "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2006"
+    }
+  }
+]

@@ -1,0 +1,56 @@
+name: Release component asset
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Verify and upload the published release asset
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.14"
+      - name: Require release tag to match the integration version
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          # BEGIN RELEASE VERSION GUARD
+          def verify_release_version(version, tag):
+              if not isinstance(version, str) or not version or version != version.strip():
+                  raise SystemExit("The integration manifest has an invalid version")
+              if tag not in (version, "v" + version):
+                  raise SystemExit("Release tag must equal the manifest version, optionally prefixed with v")
+
+          manifest = json.loads(Path("custom_components/dreame_home/manifest.json").read_text(encoding="utf-8"))
+          verify_release_version(manifest.get("version"), os.environ["RELEASE_TAG"])
+          # END RELEASE VERSION GUARD
+          PY
+      - name: Install test dependencies
+        run: python -m pip install -e ".[mqtt]"
+      - name: Check installed dependencies
+        run: python -m pip check
+      - name: Verify committed backend and build the component
+        run: python tools/build_component.py --check --archive
+      - name: Run offline tests before uploading
+        run: python -m unittest discover -s tests -v
+      - name: Upload the flat component ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "$RELEASE_TAG" dist/dreame_home.zip --clobber

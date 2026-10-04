@@ -1,0 +1,4596 @@
+[
+  {
+    "model": "dreame.washer.r1111",
+    "status": "debug",
+    "marketing_name": null,
+    "live_verified": false,
+    "source_url": "https://miot-spec.org/miot-spec-v2/instance?type=urn%3Amiot-spec-v2%3Adevice%3Awasher%3A0000A01F%3Adreame-r1111%3A1",
+    "source_sha256": "7bae293aea78debfb715d9c4341f4f9ee8fd0b4311c26ea48ffecd21f6025da6",
+    "schema_type": "urn:miot-spec-v2:device:washer:0000A01F:dreame-r1111:1",
+    "description": "Washer",
+    "properties": [
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1111:1",
+        "piid": 1,
+        "name": "Device Manufacturer",
+        "type": "urn:miot-spec-v2:property:manufacturer:00000001:dreame-r1111:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1111:1",
+        "piid": 2,
+        "name": "Device Model",
+        "type": "urn:miot-spec-v2:property:model:00000002:dreame-r1111:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1111:1",
+        "piid": 3,
+        "name": "Device ID",
+        "type": "urn:miot-spec-v2:property:serial-number:00000003:dreame-r1111:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1111:1",
+        "piid": 4,
+        "name": "Current Firmware Version",
+        "type": "urn:miot-spec-v2:property:firmware-revision:00000005:dreame-r1111:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1111:1",
+        "piid": 5,
+        "name": "Serial Number",
+        "type": "urn:miot-spec-v2:property:serial-no:000000FF:dreame-r1111:1",
+        "format": "string",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 1,
+        "name": "Left Time",
+        "type": "urn:miot-spec-v2:property:left-time:0000003C:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          1440,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 2,
+        "name": "Target Temperature",
+        "type": "urn:miot-spec-v2:property:target-temperature:00000021:dreame-r1111:1",
+        "format": "float",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          16,
+          32,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 3,
+        "name": "Temperature",
+        "type": "urn:miot-spec-v2:property:temperature:00000020:dreame-r1111:1",
+        "format": "float",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          -30,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 4,
+        "name": "Target Water Level",
+        "type": "urn:miot-spec-v2:property:target-water-level:00000069:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Level1"
+          },
+          {
+            "value": 2,
+            "description": "Level2"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 5,
+        "name": "Dryer",
+        "type": "urn:miot-spec-v2:property:dryer:00000027:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 6,
+        "name": "Drying Level",
+        "type": "urn:miot-spec-v2:property:drying-level:0000003B:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Level1"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 7,
+        "name": "Drying Time",
+        "type": "urn:miot-spec-v2:property:drying-time:0000006A:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          30
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 8,
+        "name": "Door State",
+        "type": "urn:miot-spec-v2:property:door-state:0000006B:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Open"
+          },
+          {
+            "value": 2,
+            "description": "Closed"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 9,
+        "name": "Soak Time",
+        "type": "urn:miot-spec-v2:property:soak-time:0000006C:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 10,
+        "name": "Wash Time",
+        "type": "urn:miot-spec-v2:property:wash-time:0000006D:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 11,
+        "name": "Rinsh Time",
+        "type": "urn:miot-spec-v2:property:rinsh-time:0000006E:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 12,
+        "name": "Rinsh Times",
+        "type": "urn:miot-spec-v2:property:rinsh-times:0000006F:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          3,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 13,
+        "name": "Spin Time",
+        "type": "urn:miot-spec-v2:property:spin-time:00000070:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 14,
+        "name": "Spin Speed",
+        "type": "urn:miot-spec-v2:property:spin-speed:00000071:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          200,
+          1400,
+          100
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 15,
+        "name": "Water Consumption",
+        "type": "urn:miot-spec-v2:property:water-consumption:000000C1:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          255,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 16,
+        "name": "Power Consumption",
+        "type": "urn:miot-spec-v2:property:power-consumption:0000002F:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 17,
+        "name": "Switch Status",
+        "type": "urn:miot-spec-v2:property:on:00000006:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 18,
+        "name": "Mode",
+        "type": "urn:miot-spec-v2:property:mode:00000008:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 19,
+        "name": "Sleep Mode",
+        "type": "urn:miot-spec-v2:property:sleep-mode:00000028:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 20,
+        "name": "Run Status",
+        "type": "urn:miot-spec-v2:property:run-status:0000014C:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Idle"
+          },
+          {
+            "value": 2,
+            "description": "Delay"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 21,
+        "name": "UV",
+        "type": "urn:miot-spec-v2:property:uv:00000029:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 22,
+        "name": "Pre Wash",
+        "type": "urn:miot-spec-v2:property:pre-wash:00000154:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 23,
+        "name": "Has Washed Times",
+        "type": "urn:miot-spec-v2:property:has-washed-times:00000155:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 24,
+        "name": "Status",
+        "type": "urn:miot-spec-v2:property:status:00000007:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Idle"
+          },
+          {
+            "value": 2,
+            "description": "Busy"
+          },
+          {
+            "value": 3,
+            "description": "Delay"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 25,
+        "name": "Level Adjustment Number",
+        "type": "urn:miot-spec-v2:property:level-adjustment-number:0000016A:dreame-r1111:1",
+        "format": "int8",
+        "access": [],
+        "unit": null,
+        "value_range": [
+          -128,
+          127,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": null,
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 26,
+        "name": "Device Fault",
+        "type": "urn:miot-spec-v2:property:fault:00000009:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "No Faults"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 27,
+        "name": "Reservation Wash Status",
+        "type": "urn:miot-spec-v2:property:reservation-wash-status:0000016D:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "None"
+          },
+          {
+            "value": 2,
+            "description": "Start Wash"
+          },
+          {
+            "value": 3,
+            "description": "Finish Wash"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 28,
+        "name": "Reservation Left Time",
+        "type": "urn:miot-spec-v2:property:reservation-left-time:0000016E:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify",
+          "write"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          2880,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 29,
+        "name": "Steam Sterilization",
+        "type": "urn:miot-spec-v2:property:steam-sterilization:000001A2:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 30,
+        "name": "Stains Type",
+        "type": "urn:miot-spec-v2:property:stains-type:000001CE:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "None"
+          },
+          {
+            "value": 1,
+            "description": "Baby Food"
+          },
+          {
+            "value": 2,
+            "description": "Soil Stains"
+          },
+          {
+            "value": 3,
+            "description": "Chocolate Stains"
+          },
+          {
+            "value": 4,
+            "description": "Sweat Stains"
+          },
+          {
+            "value": 5,
+            "description": "Oil Stains"
+          },
+          {
+            "value": 6,
+            "description": "Egg Stains"
+          },
+          {
+            "value": 7,
+            "description": "Fruit Stains"
+          },
+          {
+            "value": 8,
+            "description": "Grass Stains"
+          },
+          {
+            "value": 9,
+            "description": "Milk Stains"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 31,
+        "name": "Run Status List",
+        "type": "urn:miot-spec-v2:property:run-status-list:000001D6:dreame-r1111:1",
+        "format": "uint32",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65536,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 32,
+        "name": "Auto Shake Disperse",
+        "type": "urn:miot-spec-v2:property:auto-shake-disperse:000001DC:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 33,
+        "name": "Soft Wash",
+        "type": "urn:miot-spec-v2:property:soft-wash:000001DD:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 34,
+        "name": "Dirty Level",
+        "type": "urn:miot-spec-v2:property:dirty-level:00000216:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Dirty"
+          },
+          {
+            "value": 1,
+            "description": "Dirty"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 35,
+        "name": "Curstate Washing",
+        "type": "urn:miot-spec-v2:property:curstate-washing:00000217:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Washing"
+          },
+          {
+            "value": 1,
+            "description": "First Entering Water"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 36,
+        "name": "Curstate Rinsh",
+        "type": "urn:miot-spec-v2:property:curstate-rinsh:00000218:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Rinshing"
+          },
+          {
+            "value": 1,
+            "description": "Entering Water"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 37,
+        "name": "Curstate Dry",
+        "type": "urn:miot-spec-v2:property:curstate-dry:00000219:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Drying"
+          },
+          {
+            "value": 1,
+            "description": "Weighing"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 38,
+        "name": "Curstate Left Time",
+        "type": "urn:miot-spec-v2:property:curstate-left-time:0000021A:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          1,
+          1440,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 39,
+        "name": "Cur Drum Temperature",
+        "type": "urn:miot-spec-v2:property:cur-drum-temperature:0000021B:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          0,
+          255,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 40,
+        "name": "Cur Spin Speed",
+        "type": "urn:miot-spec-v2:property:cur-spin-speed:0000021C:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          1600,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 41,
+        "name": "Shake Time",
+        "type": "urn:miot-spec-v2:property:shake-time:00000292:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          240,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 42,
+        "name": "Steam Time",
+        "type": "urn:miot-spec-v2:property:steam-time:000002A2:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          240,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 43,
+        "name": "High Water Switch",
+        "type": "urn:miot-spec-v2:property:high-water-switch:0000030D:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 44,
+        "name": "Self Delivery Auto Turnoff",
+        "type": "urn:miot-spec-v2:property:self-delivery-auto-turnoff:00000319:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 45,
+        "name": "Filter Need Cleaning",
+        "type": "urn:miot-spec-v2:property:filter-need-cleaning:0000032B:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 46,
+        "name": "Child Protected Enabled",
+        "type": "urn:miot-spec-v2:property:child-protected-enabled:00000348:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 47,
+        "name": "Child Protected Status",
+        "type": "urn:miot-spec-v2:property:child-protected-status:00000349:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 48,
+        "name": "Shake Disperse Notify",
+        "type": "urn:miot-spec-v2:property:shake-disperse-notify:0000034A:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 49,
+        "name": "Laundry Beads",
+        "type": "urn:miot-spec-v2:property:laundry-beads:0000038F:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 50,
+        "name": "Ironing",
+        "type": "urn:miot-spec-v2:property:ironing:000003D8:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 51,
+        "name": "One Click Wash",
+        "type": "urn:miot-spec-v2:property:one-click-wash:000003D9:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 52,
+        "name": "Drying Degree",
+        "type": "urn:miot-spec-v2:property:drying-degree:0000026A:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "write",
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Null"
+          },
+          {
+            "value": 1,
+            "description": "Ironing"
+          },
+          {
+            "value": 2,
+            "description": "Wear Immediately"
+          },
+          {
+            "value": 3,
+            "description": "Store"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 53,
+        "name": "Ai Mode",
+        "type": "urn:miot-spec-v2:property:ai-mode:000003FC:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 54,
+        "name": "Has Dried Times",
+        "type": "urn:miot-spec-v2:property:has-dried-times:00000264:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 55,
+        "name": "Blue Oxygen",
+        "type": "urn:miot-spec-v2:property:blue-oxygen:0000046D:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 56,
+        "name": "Quick Wash Level",
+        "type": "urn:miot-spec-v2:property:quick-wash-level:00000476:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Level1"
+          },
+          {
+            "value": 1,
+            "description": "Level2"
+          },
+          {
+            "value": 2,
+            "description": "Level3"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "piid": 57,
+        "name": "Dry Only",
+        "type": "urn:miot-spec-v2:property:dry-only:00000477:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1111:1",
+        "piid": 1,
+        "name": "Physical Control Locked",
+        "type": "urn:miot-spec-v2:property:physical-controls-locked:0000001D:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1111:1",
+        "piid": 2,
+        "name": "Current Physical Control Lock",
+        "type": "urn:miot-spec-v2:property:current-physical-control-lock:00000099:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1111:1",
+        "piid": 3,
+        "name": "Mode",
+        "type": "urn:miot-spec-v2:property:mode:00000008:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 1,
+        "name": "Switch Status",
+        "type": "urn:miot-spec-v2:property:on:00000006:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 2,
+        "name": "Brightness",
+        "type": "urn:miot-spec-v2:property:brightness:0000000D:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          1,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 3,
+        "name": "Display State",
+        "type": "urn:miot-spec-v2:property:display-state:00000131:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 4,
+        "name": "Auto Screen Off",
+        "type": "urn:miot-spec-v2:property:auto-screen-off:0000018C:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 5,
+        "name": "Auto Screen Brightness",
+        "type": "urn:miot-spec-v2:property:auto-screen-brightness:000001CD:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 6,
+        "name": "Auto Screen Off Time",
+        "type": "urn:miot-spec-v2:property:auto-screen-off-time:00000263:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "1 Minute"
+          },
+          {
+            "value": 1,
+            "description": "3 Minutes"
+          },
+          {
+            "value": 2,
+            "description": "5 Minutes"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 7,
+        "name": "Usage Time",
+        "type": "urn:miot-spec-v2:property:usage-time:000002DB:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          999,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "piid": 8,
+        "name": "Screen Sync",
+        "type": "urn:miot-spec-v2:property:screen-sync:0000048E:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1111:1",
+        "piid": 1,
+        "name": "Alarm",
+        "type": "urn:miot-spec-v2:property:alarm:00000012:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1111:1",
+        "piid": 2,
+        "name": "Volume",
+        "type": "urn:miot-spec-v2:property:volume:00000013:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1111:1",
+        "piid": 3,
+        "name": "Auto Alarm Off",
+        "type": "urn:miot-spec-v2:property:auto-alarm-off:0000027E:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 6,
+        "service": "Countdown",
+        "service_type": "urn:miot-spec-v2:service:countdown:0000782D:dreame-r1111:1",
+        "piid": 1,
+        "name": "Countdown Time",
+        "type": "urn:miot-spec-v2:property:countdown-time:00000055:dreame-r1111:1",
+        "format": "uint32",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "hours",
+        "value_range": [
+          0,
+          24,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "piid": 1,
+        "name": "Fabric Softener Left Level",
+        "type": "urn:miot-spec-v2:property:fabric-softener-left-level:00000112:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "piid": 2,
+        "name": "Fabric Softener Self Delivery",
+        "type": "urn:miot-spec-v2:property:fabric-softener-self-delivery:00000111:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          1000,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "piid": 3,
+        "name": "Softener Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:softener-self-delivery-level:00000185:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "piid": 4,
+        "name": "Disinfectant Mode",
+        "type": "urn:miot-spec-v2:property:disinfectant-mode:000003FA:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "piid": 5,
+        "name": "Fabric Softener Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:fabric-softener-self-delivery-notify:0000045A:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1111:1",
+        "piid": 1,
+        "name": "Specialized Detergent Left Level",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-left-level:000001A4:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1111:1",
+        "piid": 2,
+        "name": "Specialized Detergent Self Delivery",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery:000001A3:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1111:1",
+        "piid": 3,
+        "name": "Specialized Detergent Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery-level:000001A5:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1111:1",
+        "piid": 4,
+        "name": "Specialized Detergent Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery-notify:0000045B:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 1,
+        "name": "Detergent Left Level",
+        "type": "urn:miot-spec-v2:property:detergent-left-level:000000D1:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Low"
+          },
+          {
+            "value": 2,
+            "description": "Normal"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 2,
+        "name": "Detergent Self Delivery",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery:000000D0:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 3,
+        "name": "Detergent Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery-level:00000184:dreame-r1111:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 4,
+        "name": "Detergent Left Time",
+        "type": "urn:miot-spec-v2:property:detergent-left-time:00000386:dreame-r1111:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "hours",
+        "value_range": [
+          0,
+          9999,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 5,
+        "name": "Detergent Depletion Reminder",
+        "type": "urn:miot-spec-v2:property:detergent-depletion-reminder:000003B7:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "piid": 6,
+        "name": "Detergent Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery-notify:00000459:dreame-r1111:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      }
+    ],
+    "actions": [
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 1,
+        "name": "Stop Washing",
+        "type": "urn:miot-spec-v2:action:stop-washing:0000283B:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 2,
+        "name": "Start Wash",
+        "type": "urn:miot-spec-v2:action:start-wash:00002824:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 3,
+        "name": "Pause",
+        "type": "urn:miot-spec-v2:action:pause:0000280C:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 4,
+        "name": "Make Cabin Openable",
+        "type": "urn:miot-spec-v2:action:make-cabin-openable:0000286B:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 5,
+        "name": "Adjust Target Temperature Level",
+        "type": "urn:miot-spec-v2:action:adjust-target-temperature-level:0000286C:dreame-r1111:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 6,
+        "name": "Adjust Spin Speed Level",
+        "type": "urn:miot-spec-v2:action:adjust-spin-speed-level:0000286D:dreame-r1111:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 7,
+        "name": "Adjust Drying Time Level",
+        "type": "urn:miot-spec-v2:action:adjust-drying-time-level:0000286E:dreame-r1111:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 8,
+        "name": "Adjust Rinsh Times Level",
+        "type": "urn:miot-spec-v2:action:adjust-rinsh-times-level:0000286F:dreame-r1111:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 9,
+        "name": "Set Customize Params",
+        "type": "urn:miot-spec-v2:action:set-customize-params:00002883:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 10,
+        "name": "Stop Shake Disperse",
+        "type": "urn:miot-spec-v2:action:stop-shake-disperse:0000288B:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "aiid": 11,
+        "name": "Start Shake Disperse",
+        "type": "urn:miot-spec-v2:action:start-shake-disperse:000028D5:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "aiid": 1,
+        "name": "Lock",
+        "type": "urn:miot-spec-v2:action:lock:000028E2:dreame-r1111:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "aiid": 1,
+        "name": "Reset Detergent Management Level",
+        "type": "urn:miot-spec-v2:action:reset-detergent-management-level:000028DC:dreame-r1111:1",
+        "in": [],
+        "out": []
+      }
+    ],
+    "events": [
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Washing End",
+        "type": "urn:miot-spec-v2:event:wash-end:0000500B:dreame-r1111:1",
+        "arguments": []
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Child Lock Trigger",
+        "type": "urn:miot-spec-v2:event:child-lock-trigger:0000509D:dreame-r1111:1",
+        "arguments": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Locked",
+        "type": "urn:miot-spec-v2:event:locked:000050A5:dreame-r1111:1",
+        "arguments": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1111:1",
+        "eiid": 2,
+        "name": "Screen Usage",
+        "type": "urn:miot-spec-v2:event:screen-usage:000050A6:dreame-r1111:1",
+        "arguments": [
+          7
+        ]
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Low Fabric Softener Level",
+        "type": "urn:miot-spec-v2:event:low-fabric-softener-level:00005024:dreame-r1111:1",
+        "arguments": []
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Low Specialized Detergent Level",
+        "type": "urn:miot-spec-v2:event:low-specialized-detergent-level:0000504C:dreame-r1111:1",
+        "arguments": []
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1111:1",
+        "eiid": 1,
+        "name": "Low Detergent Level",
+        "type": "urn:miot-spec-v2:event:low-detergent-level:00005019:dreame-r1111:1",
+        "arguments": []
+      }
+    ]
+  },
+  {
+    "model": "dreame.washer.r1112",
+    "status": "debug",
+    "marketing_name": null,
+    "live_verified": false,
+    "source_url": "https://miot-spec.org/miot-spec-v2/instance?type=urn%3Amiot-spec-v2%3Adevice%3Awasher%3A0000A01F%3Adreame-r1112%3A1",
+    "source_sha256": "972e58e4744c1ae99a1e5e641685f5dcac5783d5c9ce9d843735e3ccb0b62772",
+    "schema_type": "urn:miot-spec-v2:device:washer:0000A01F:dreame-r1112:1",
+    "description": "Washer",
+    "properties": [
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1112:1",
+        "piid": 1,
+        "name": "Device Manufacturer",
+        "type": "urn:miot-spec-v2:property:manufacturer:00000001:dreame-r1112:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1112:1",
+        "piid": 2,
+        "name": "Device Model",
+        "type": "urn:miot-spec-v2:property:model:00000002:dreame-r1112:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1112:1",
+        "piid": 3,
+        "name": "Device ID",
+        "type": "urn:miot-spec-v2:property:serial-number:00000003:dreame-r1112:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1112:1",
+        "piid": 4,
+        "name": "Current Firmware Version",
+        "type": "urn:miot-spec-v2:property:firmware-revision:00000005:dreame-r1112:1",
+        "format": "string",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 1,
+        "service": "Device Information",
+        "service_type": "urn:miot-spec-v2:service:device-information:00007801:dreame-r1112:1",
+        "piid": 5,
+        "name": "Serial Number",
+        "type": "urn:miot-spec-v2:property:serial-no:000000FF:dreame-r1112:1",
+        "format": "string",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 1,
+        "name": "Left Time",
+        "type": "urn:miot-spec-v2:property:left-time:0000003C:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          1440,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 2,
+        "name": "Target Temperature",
+        "type": "urn:miot-spec-v2:property:target-temperature:00000021:dreame-r1112:1",
+        "format": "float",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          16,
+          32,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 3,
+        "name": "Temperature",
+        "type": "urn:miot-spec-v2:property:temperature:00000020:dreame-r1112:1",
+        "format": "float",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          -30,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 4,
+        "name": "Target Water Level",
+        "type": "urn:miot-spec-v2:property:target-water-level:00000069:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Level1"
+          },
+          {
+            "value": 2,
+            "description": "Level2"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 5,
+        "name": "Dryer",
+        "type": "urn:miot-spec-v2:property:dryer:00000027:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 6,
+        "name": "Drying Level",
+        "type": "urn:miot-spec-v2:property:drying-level:0000003B:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Level1"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 7,
+        "name": "Drying Time",
+        "type": "urn:miot-spec-v2:property:drying-time:0000006A:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          30
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 8,
+        "name": "Door State",
+        "type": "urn:miot-spec-v2:property:door-state:0000006B:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Open"
+          },
+          {
+            "value": 2,
+            "description": "Closed"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 9,
+        "name": "Soak Time",
+        "type": "urn:miot-spec-v2:property:soak-time:0000006C:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 10,
+        "name": "Wash Time",
+        "type": "urn:miot-spec-v2:property:wash-time:0000006D:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 11,
+        "name": "Rinsh Time",
+        "type": "urn:miot-spec-v2:property:rinsh-time:0000006E:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 12,
+        "name": "Rinsh Times",
+        "type": "urn:miot-spec-v2:property:rinsh-times:0000006F:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          3,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 13,
+        "name": "Spin Time",
+        "type": "urn:miot-spec-v2:property:spin-time:00000070:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          120,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 14,
+        "name": "Spin Speed",
+        "type": "urn:miot-spec-v2:property:spin-speed:00000071:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          200,
+          1400,
+          100
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 15,
+        "name": "Water Consumption",
+        "type": "urn:miot-spec-v2:property:water-consumption:000000C1:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          255,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 16,
+        "name": "Power Consumption",
+        "type": "urn:miot-spec-v2:property:power-consumption:0000002F:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 17,
+        "name": "Switch Status",
+        "type": "urn:miot-spec-v2:property:on:00000006:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 18,
+        "name": "Mode",
+        "type": "urn:miot-spec-v2:property:mode:00000008:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 19,
+        "name": "Sleep Mode",
+        "type": "urn:miot-spec-v2:property:sleep-mode:00000028:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 20,
+        "name": "Run Status",
+        "type": "urn:miot-spec-v2:property:run-status:0000014C:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Idle"
+          },
+          {
+            "value": 2,
+            "description": "Delay"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 21,
+        "name": "UV",
+        "type": "urn:miot-spec-v2:property:uv:00000029:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 22,
+        "name": "Pre Wash",
+        "type": "urn:miot-spec-v2:property:pre-wash:00000154:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 23,
+        "name": "Has Washed Times",
+        "type": "urn:miot-spec-v2:property:has-washed-times:00000155:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 24,
+        "name": "Status",
+        "type": "urn:miot-spec-v2:property:status:00000007:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Idle"
+          },
+          {
+            "value": 2,
+            "description": "Busy"
+          },
+          {
+            "value": 3,
+            "description": "Delay"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 25,
+        "name": "Level Adjustment Number",
+        "type": "urn:miot-spec-v2:property:level-adjustment-number:0000016A:dreame-r1112:1",
+        "format": "int8",
+        "access": [],
+        "unit": null,
+        "value_range": [
+          -128,
+          127,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": null,
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 26,
+        "name": "Device Fault",
+        "type": "urn:miot-spec-v2:property:fault:00000009:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "No Faults"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 27,
+        "name": "Reservation Wash Status",
+        "type": "urn:miot-spec-v2:property:reservation-wash-status:0000016D:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "None"
+          },
+          {
+            "value": 2,
+            "description": "Start Wash"
+          },
+          {
+            "value": 3,
+            "description": "Finish Wash"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 28,
+        "name": "Reservation Left Time",
+        "type": "urn:miot-spec-v2:property:reservation-left-time:0000016E:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify",
+          "write"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          2880,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 29,
+        "name": "Steam Sterilization",
+        "type": "urn:miot-spec-v2:property:steam-sterilization:000001A2:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 30,
+        "name": "Stains Type",
+        "type": "urn:miot-spec-v2:property:stains-type:000001CE:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "None"
+          },
+          {
+            "value": 1,
+            "description": "Baby Food"
+          },
+          {
+            "value": 2,
+            "description": "Soil Stains"
+          },
+          {
+            "value": 3,
+            "description": "Chocolate Stains"
+          },
+          {
+            "value": 4,
+            "description": "Sweat Stains"
+          },
+          {
+            "value": 5,
+            "description": "Oil Stains"
+          },
+          {
+            "value": 6,
+            "description": "Egg Stains"
+          },
+          {
+            "value": 7,
+            "description": "Fruit Stains"
+          },
+          {
+            "value": 8,
+            "description": "Grass Stains"
+          },
+          {
+            "value": 9,
+            "description": "Milk Stains"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 31,
+        "name": "Run Status List",
+        "type": "urn:miot-spec-v2:property:run-status-list:000001D6:dreame-r1112:1",
+        "format": "uint32",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65536,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 32,
+        "name": "Auto Shake Disperse",
+        "type": "urn:miot-spec-v2:property:auto-shake-disperse:000001DC:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 33,
+        "name": "Soft Wash",
+        "type": "urn:miot-spec-v2:property:soft-wash:000001DD:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 34,
+        "name": "Dirty Level",
+        "type": "urn:miot-spec-v2:property:dirty-level:00000216:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Dirty"
+          },
+          {
+            "value": 1,
+            "description": "Dirty"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 35,
+        "name": "Curstate Washing",
+        "type": "urn:miot-spec-v2:property:curstate-washing:00000217:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Washing"
+          },
+          {
+            "value": 1,
+            "description": "First Entering Water"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 36,
+        "name": "Curstate Rinsh",
+        "type": "urn:miot-spec-v2:property:curstate-rinsh:00000218:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Rinshing"
+          },
+          {
+            "value": 1,
+            "description": "Entering Water"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 37,
+        "name": "Curstate Dry",
+        "type": "urn:miot-spec-v2:property:curstate-dry:00000219:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Not Drying"
+          },
+          {
+            "value": 1,
+            "description": "Weighing"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 38,
+        "name": "Curstate Left Time",
+        "type": "urn:miot-spec-v2:property:curstate-left-time:0000021A:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          1,
+          1440,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 39,
+        "name": "Cur Drum Temperature",
+        "type": "urn:miot-spec-v2:property:cur-drum-temperature:0000021B:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read"
+        ],
+        "unit": "celsius",
+        "value_range": [
+          0,
+          255,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 40,
+        "name": "Cur Spin Speed",
+        "type": "urn:miot-spec-v2:property:cur-spin-speed:0000021C:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          1600,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 41,
+        "name": "Shake Time",
+        "type": "urn:miot-spec-v2:property:shake-time:00000292:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          240,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 42,
+        "name": "Steam Time",
+        "type": "urn:miot-spec-v2:property:steam-time:000002A2:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          240,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 43,
+        "name": "High Water Switch",
+        "type": "urn:miot-spec-v2:property:high-water-switch:0000030D:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 44,
+        "name": "Self Delivery Auto Turnoff",
+        "type": "urn:miot-spec-v2:property:self-delivery-auto-turnoff:00000319:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 45,
+        "name": "Filter Need Cleaning",
+        "type": "urn:miot-spec-v2:property:filter-need-cleaning:0000032B:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 46,
+        "name": "Child Protected Enabled",
+        "type": "urn:miot-spec-v2:property:child-protected-enabled:00000348:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 47,
+        "name": "Child Protected Status",
+        "type": "urn:miot-spec-v2:property:child-protected-status:00000349:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 48,
+        "name": "Shake Disperse Notify",
+        "type": "urn:miot-spec-v2:property:shake-disperse-notify:0000034A:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 49,
+        "name": "Laundry Beads",
+        "type": "urn:miot-spec-v2:property:laundry-beads:0000038F:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 50,
+        "name": "Ironing",
+        "type": "urn:miot-spec-v2:property:ironing:000003D8:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 51,
+        "name": "One Click Wash",
+        "type": "urn:miot-spec-v2:property:one-click-wash:000003D9:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 52,
+        "name": "Drying Degree",
+        "type": "urn:miot-spec-v2:property:drying-degree:0000026A:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "write",
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Null"
+          },
+          {
+            "value": 1,
+            "description": "Ironing"
+          },
+          {
+            "value": 2,
+            "description": "Wear Immediately"
+          },
+          {
+            "value": 3,
+            "description": "Store"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 53,
+        "name": "Ai Mode",
+        "type": "urn:miot-spec-v2:property:ai-mode:000003FC:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 54,
+        "name": "Has Dried Times",
+        "type": "urn:miot-spec-v2:property:has-dried-times:00000264:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          65535,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 55,
+        "name": "Blue Oxygen",
+        "type": "urn:miot-spec-v2:property:blue-oxygen:0000046D:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 56,
+        "name": "Quick Wash Level",
+        "type": "urn:miot-spec-v2:property:quick-wash-level:00000476:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Level1"
+          },
+          {
+            "value": 1,
+            "description": "Level2"
+          },
+          {
+            "value": 2,
+            "description": "Level3"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "piid": 57,
+        "name": "Dry Only",
+        "type": "urn:miot-spec-v2:property:dry-only:00000477:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1112:1",
+        "piid": 1,
+        "name": "Physical Control Locked",
+        "type": "urn:miot-spec-v2:property:physical-controls-locked:0000001D:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1112:1",
+        "piid": 2,
+        "name": "Current Physical Control Lock",
+        "type": "urn:miot-spec-v2:property:current-physical-control-lock:00000099:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1112:1",
+        "piid": 3,
+        "name": "Mode",
+        "type": "urn:miot-spec-v2:property:mode:00000008:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 1,
+        "name": "Switch Status",
+        "type": "urn:miot-spec-v2:property:on:00000006:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 2,
+        "name": "Brightness",
+        "type": "urn:miot-spec-v2:property:brightness:0000000D:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          1,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 3,
+        "name": "Display State",
+        "type": "urn:miot-spec-v2:property:display-state:00000131:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Auto"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 4,
+        "name": "Auto Screen Off",
+        "type": "urn:miot-spec-v2:property:auto-screen-off:0000018C:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 5,
+        "name": "Auto Screen Brightness",
+        "type": "urn:miot-spec-v2:property:auto-screen-brightness:000001CD:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 6,
+        "name": "Auto Screen Off Time",
+        "type": "urn:miot-spec-v2:property:auto-screen-off-time:00000263:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "1 Minute"
+          },
+          {
+            "value": 1,
+            "description": "3 Minutes"
+          },
+          {
+            "value": 2,
+            "description": "5 Minutes"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 7,
+        "name": "Usage Time",
+        "type": "urn:miot-spec-v2:property:usage-time:000002DB:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "minutes",
+        "value_range": [
+          0,
+          999,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "piid": 8,
+        "name": "Screen Sync",
+        "type": "urn:miot-spec-v2:property:screen-sync:0000048E:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1112:1",
+        "piid": 1,
+        "name": "Alarm",
+        "type": "urn:miot-spec-v2:property:alarm:00000012:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1112:1",
+        "piid": 2,
+        "name": "Volume",
+        "type": "urn:miot-spec-v2:property:volume:00000013:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 5,
+        "service": "Alarm",
+        "service_type": "urn:miot-spec-v2:service:alarm:00007804:dreame-r1112:1",
+        "piid": 3,
+        "name": "Auto Alarm Off",
+        "type": "urn:miot-spec-v2:property:auto-alarm-off:0000027E:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 6,
+        "service": "Countdown",
+        "service_type": "urn:miot-spec-v2:service:countdown:0000782D:dreame-r1112:1",
+        "piid": 1,
+        "name": "Countdown Time",
+        "type": "urn:miot-spec-v2:property:countdown-time:00000055:dreame-r1112:1",
+        "format": "uint32",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": "hours",
+        "value_range": [
+          0,
+          24,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "piid": 1,
+        "name": "Fabric Softener Left Level",
+        "type": "urn:miot-spec-v2:property:fabric-softener-left-level:00000112:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "piid": 2,
+        "name": "Fabric Softener Self Delivery",
+        "type": "urn:miot-spec-v2:property:fabric-softener-self-delivery:00000111:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": [
+          0,
+          1000,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "number"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "piid": 3,
+        "name": "Softener Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:softener-self-delivery-level:00000185:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "piid": 4,
+        "name": "Disinfectant Mode",
+        "type": "urn:miot-spec-v2:property:disinfectant-mode:000003FA:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "piid": 5,
+        "name": "Fabric Softener Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:fabric-softener-self-delivery-notify:0000045A:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1112:1",
+        "piid": 1,
+        "name": "Specialized Detergent Left Level",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-left-level:000001A4:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "percentage",
+        "value_range": [
+          0,
+          100,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1112:1",
+        "piid": 2,
+        "name": "Specialized Detergent Self Delivery",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery:000001A3:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1112:1",
+        "piid": 3,
+        "name": "Specialized Detergent Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery-level:000001A5:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1112:1",
+        "piid": 4,
+        "name": "Specialized Detergent Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:specialized-detergent-self-delivery-notify:0000045B:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 1,
+        "name": "Detergent Left Level",
+        "type": "urn:miot-spec-v2:property:detergent-left-level:000000D1:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 1,
+            "description": "Low"
+          },
+          {
+            "value": 2,
+            "description": "Normal"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 2,
+        "name": "Detergent Self Delivery",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery:000000D0:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 3,
+        "name": "Detergent Self Delivery Level",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery-level:00000184:dreame-r1112:1",
+        "format": "uint8",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": [
+          {
+            "value": 0,
+            "description": "Few"
+          },
+          {
+            "value": 1,
+            "description": "Standard"
+          },
+          {
+            "value": 2,
+            "description": "Many"
+          },
+          {
+            "value": 3,
+            "description": "Lots Of"
+          }
+        ],
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": "select"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 4,
+        "name": "Detergent Left Time",
+        "type": "urn:miot-spec-v2:property:detergent-left-time:00000386:dreame-r1112:1",
+        "format": "uint16",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": "hours",
+        "value_range": [
+          0,
+          9999,
+          1
+        ],
+        "value_list": null,
+        "suggested_state_platform": "sensor",
+        "suggested_control_platform": null
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 5,
+        "name": "Detergent Depletion Reminder",
+        "type": "urn:miot-spec-v2:property:detergent-depletion-reminder:000003B7:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "write",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": "switch"
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "piid": 6,
+        "name": "Detergent Self Delivery Notify",
+        "type": "urn:miot-spec-v2:property:detergent-self-delivery-notify:00000459:dreame-r1112:1",
+        "format": "bool",
+        "access": [
+          "read",
+          "notify"
+        ],
+        "unit": null,
+        "value_range": null,
+        "value_list": null,
+        "suggested_state_platform": "binary_sensor",
+        "suggested_control_platform": null
+      }
+    ],
+    "actions": [
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 1,
+        "name": "Stop Washing",
+        "type": "urn:miot-spec-v2:action:stop-washing:0000283B:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 2,
+        "name": "Start Wash",
+        "type": "urn:miot-spec-v2:action:start-wash:00002824:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 3,
+        "name": "Pause",
+        "type": "urn:miot-spec-v2:action:pause:0000280C:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 4,
+        "name": "Make Cabin Openable",
+        "type": "urn:miot-spec-v2:action:make-cabin-openable:0000286B:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 5,
+        "name": "Adjust Target Temperature Level",
+        "type": "urn:miot-spec-v2:action:adjust-target-temperature-level:0000286C:dreame-r1112:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 6,
+        "name": "Adjust Spin Speed Level",
+        "type": "urn:miot-spec-v2:action:adjust-spin-speed-level:0000286D:dreame-r1112:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 7,
+        "name": "Adjust Drying Time Level",
+        "type": "urn:miot-spec-v2:action:adjust-drying-time-level:0000286E:dreame-r1112:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 8,
+        "name": "Adjust Rinsh Times Level",
+        "type": "urn:miot-spec-v2:action:adjust-rinsh-times-level:0000286F:dreame-r1112:1",
+        "in": [
+          25
+        ],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 9,
+        "name": "Set Customize Params",
+        "type": "urn:miot-spec-v2:action:set-customize-params:00002883:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 10,
+        "name": "Stop Shake Disperse",
+        "type": "urn:miot-spec-v2:action:stop-shake-disperse:0000288B:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "aiid": 11,
+        "name": "Start Shake Disperse",
+        "type": "urn:miot-spec-v2:action:start-shake-disperse:000028D5:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "aiid": 1,
+        "name": "Lock",
+        "type": "urn:miot-spec-v2:action:lock:000028E2:dreame-r1112:1",
+        "in": [],
+        "out": []
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "aiid": 1,
+        "name": "Reset Detergent Management Level",
+        "type": "urn:miot-spec-v2:action:reset-detergent-management-level:000028DC:dreame-r1112:1",
+        "in": [],
+        "out": []
+      }
+    ],
+    "events": [
+      {
+        "siid": 2,
+        "service": "Washer",
+        "service_type": "urn:miot-spec-v2:service:washer:00007834:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Washing End",
+        "type": "urn:miot-spec-v2:event:wash-end:0000500B:dreame-r1112:1",
+        "arguments": []
+      },
+      {
+        "siid": 3,
+        "service": "Physical Control Locked",
+        "service_type": "urn:miot-spec-v2:service:physical-controls-locked:00007807:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Child Lock Trigger",
+        "type": "urn:miot-spec-v2:event:child-lock-trigger:0000509D:dreame-r1112:1",
+        "arguments": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Locked",
+        "type": "urn:miot-spec-v2:event:locked:000050A5:dreame-r1112:1",
+        "arguments": []
+      },
+      {
+        "siid": 4,
+        "service": "Screen",
+        "service_type": "urn:miot-spec-v2:service:screen:00007806:dreame-r1112:1",
+        "eiid": 2,
+        "name": "Screen Usage",
+        "type": "urn:miot-spec-v2:event:screen-usage:000050A6:dreame-r1112:1",
+        "arguments": [
+          7
+        ]
+      },
+      {
+        "siid": 7,
+        "service": "Fabric Softener Management",
+        "service_type": "urn:miot-spec-v2:service:fabric-softener-management:000078AB:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Low Fabric Softener Level",
+        "type": "urn:miot-spec-v2:event:low-fabric-softener-level:00005024:dreame-r1112:1",
+        "arguments": []
+      },
+      {
+        "siid": 8,
+        "service": "Specialized Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:specialized-detergent-management:000078C7:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Low Specialized Detergent Level",
+        "type": "urn:miot-spec-v2:event:low-specialized-detergent-level:0000504C:dreame-r1112:1",
+        "arguments": []
+      },
+      {
+        "siid": 9,
+        "service": "Detergent Management",
+        "service_type": "urn:miot-spec-v2:service:detergent-management:0000788B:dreame-r1112:1",
+        "eiid": 1,
+        "name": "Low Detergent Level",
+        "type": "urn:miot-spec-v2:event:low-detergent-level:00005019:dreame-r1112:1",
+        "arguments": []
+      }
+    ]
+  }
+]

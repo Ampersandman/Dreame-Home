@@ -1,0 +1,27 @@
+{
+  "title": "Dreame Home",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Dreame Home",
+        "description": "Read devices and telemetry from your Dreame Home account. Choose the server region used by the app. Your password is used for login; Home Assistant stores the refresh token.",
+        "data": {"username": "Username", "password": "Password", "region": "Server region", "mqtt_enabled": "Enable live MQTT updates"}
+      },
+      "reauth_confirm": {
+        "title": "Sign in again",
+        "description": "Enter the credentials for the same Dreame Home account and region.",
+        "data": {"username": "Username", "password": "Password", "region": "Server region", "mqtt_enabled": "Enable live MQTT updates"}
+      }
+    },
+    "error": {
+      "invalid_auth": "Dreame rejected the login credentials.",
+      "cannot_connect": "Unable to connect to the Dreame cloud or obtain a complete device list.",
+      "rate_limited": "Dreame is limiting requests. Try again later."
+    },
+    "abort": {
+      "already_configured": "This Dreame account and region are already configured.",
+      "reauth_successful": "Authentication updated successfully.",
+      "unique_id_mismatch": "Sign in with the same account and region as the existing integration."
+    }
+  }
+}

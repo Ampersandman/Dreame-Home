@@ -1,0 +1,3370 @@
+{
+  "model": "dreame.dryer.l9nacn",
+  "format_version": 1,
+  "source": {
+    "zip_sha256": "8287b1b1c3af1a64f2799d90cf440d445a3bd72ba2281eb756aef282648e2b89",
+    "bundle": "dreame.dryer.l9nacn/index.ios.bundle",
+    "bundle_sha256": "4dc0e363c45820435fe69afa3be2bdbe81f3505d977019aeb2c8cb220b09a3ff",
+    "plugin_version": 130,
+    "source_url": "https://oss.iot.dreame.tech/pd/pg/extensions/2186/ali_dreame/ios/f61ecebafd0dbf15219f10e2f30f1e6edreame.dryer.l9nacn_130.zip",
+    "extraction": "static literals only; no plugin code execution"
+  },
+  "properties": [
+    {
+      "key": "prop.2.2",
+      "name": "faultInfo",
+      "siid": 2,
+      "piid": 2,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 1,
+          "label": "FULL – Water Tank Full",
+          "translation_key": "FULLWaterTankFullReminder",
+          "code": "FULL"
+        },
+        {
+          "value": 2,
+          "label": "Door Open / Lock Error",
+          "translation_key": "LockError",
+          "code": "dC"
+        },
+        {
+          "value": 3,
+          "label": "Compressor Temp Sensor Error",
+          "translation_key": "E41",
+          "code": "E41"
+        },
+        {
+          "value": 4,
+          "label": "FULL – Water Tank Full",
+          "translation_key": "FULLWaterTankFullReminder",
+          "code": "FULL"
+        },
+        {
+          "value": 5,
+          "label": "Door Open / Lock Error",
+          "translation_key": "LockError",
+          "code": "dC"
+        },
+        {
+          "value": 6,
+          "label": "Inverter Drum Motor Error",
+          "translation_key": "E51",
+          "code": "E51"
+        },
+        {
+          "value": 7,
+          "label": "Drum Motor Inverter Board Error",
+          "translation_key": "E61",
+          "code": "E61"
+        },
+        {
+          "value": 8,
+          "label": "Main Display Board Comm. Error",
+          "translation_key": "E71",
+          "code": "E71"
+        },
+        {
+          "value": 9,
+          "label": "Display Board‑Drum Motor Inverter Comm. Error",
+          "translation_key": "E72",
+          "code": "E72"
+        },
+        {
+          "value": 10,
+          "label": "Inverter Compressor Fault",
+          "translation_key": "E52",
+          "code": "E52"
+        },
+        {
+          "value": 11,
+          "label": "Inverter Impeller Motor Fault",
+          "translation_key": "E53",
+          "code": "E53"
+        },
+        {
+          "value": 12,
+          "label": "Compressor Inverter Board Fault",
+          "translation_key": "E62",
+          "code": "E62"
+        },
+        {
+          "value": 13,
+          "label": "Impeller Inverter Board Fault",
+          "translation_key": "E63",
+          "code": "E63"
+        },
+        {
+          "value": 14,
+          "label": "Display Board-Compressor Inverter Comm. Error",
+          "translation_key": "E73",
+          "code": "E73"
+        },
+        {
+          "value": 15,
+          "label": "Display Board-Inpeller Inverter Comm. Error",
+          "translation_key": "E74",
+          "code": "E74"
+        },
+        {
+          "value": 16,
+          "label": "Air Duct Temp Sensor Fault",
+          "translation_key": "E42",
+          "code": "E42"
+        },
+        {
+          "value": 17,
+          "label": "Front Unit Temp Sensor Fault",
+          "translation_key": "E43",
+          "code": "E43"
+        },
+        {
+          "value": 18,
+          "label": "Steam Generator Temp Sensor Fault",
+          "translation_key": "E44",
+          "code": "E44"
+        },
+        {
+          "value": 19,
+          "label": "Steam Generator Heating Errort",
+          "translation_key": "E21",
+          "code": "E21"
+        },
+        {
+          "value": 20,
+          "label": "Steam Generator Float Switch Malfunction",
+          "translation_key": "SteamSwitchMalfunction",
+          "code": " "
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7911
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.3.14",
+      "name": "authorization",
+      "siid": 3,
+      "piid": 14,
+      "access": [
+        "notify",
+        "read"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7912
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.2.1",
+      "name": "isOnline",
+      "siid": 2,
+      "piid": 1,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Power off",
+          "translation_key": "Poweroff"
+        },
+        {
+          "value": 1,
+          "label": "Standby",
+          "translation_key": "Standby"
+        },
+        {
+          "value": 2,
+          "label": "Pause",
+          "translation_key": "Pause"
+        },
+        {
+          "value": 3,
+          "label": "Running",
+          "translation_key": "Run"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7913
+      },
+      "notes": "isOnline is operating status, not boolean cloud connectivity"
+    },
+    {
+      "key": "prop.3.2",
+      "name": "steamWater",
+      "siid": 3,
+      "piid": 2,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7914
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.2.4",
+      "name": "washStatus",
+      "siid": 2,
+      "piid": 4,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Scheduled",
+          "translation_key": "AppointmentWaiting"
+        },
+        {
+          "value": 1,
+          "label": "Wrinkle Care",
+          "translation_key": "AutoCare"
+        },
+        {
+          "value": 2,
+          "label": "Completed",
+          "translation_key": "Completed"
+        },
+        {
+          "value": 3,
+          "label": "Drying",
+          "translation_key": "Dry"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7915
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.2.3",
+      "name": "currentProgram",
+      "siid": 2,
+      "piid": 3,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "AI Dry",
+          "translation_key": "AISmartDry"
+        },
+        {
+          "value": 1,
+          "label": "Quick Dry",
+          "translation_key": "QuickDry"
+        },
+        {
+          "value": 2,
+          "label": "Large Items",
+          "translation_key": "BulkyItemsDry"
+        },
+        {
+          "value": 3,
+          "label": "Wool",
+          "translation_key": "WoolDry"
+        },
+        {
+          "value": 4,
+          "label": "Down",
+          "translation_key": "DownDry"
+        },
+        {
+          "value": 5,
+          "label": "ECO",
+          "translation_key": "ECO"
+        },
+        {
+          "value": 6,
+          "label": "Shirts",
+          "translation_key": "ShirtDry"
+        },
+        {
+          "value": 7,
+          "label": "Towels",
+          "translation_key": "BathTowelDry"
+        },
+        {
+          "value": 8,
+          "label": "Delicates",
+          "translation_key": "UnderwearDry"
+        },
+        {
+          "value": 9,
+          "label": "Synthetics",
+          "translation_key": "ArtificialFiber"
+        },
+        {
+          "value": 10,
+          "label": "Sportswear",
+          "translation_key": "Sportswear"
+        },
+        {
+          "value": 11,
+          "label": "Outdoor",
+          "translation_key": "OuterWear"
+        },
+        {
+          "value": 12,
+          "label": "Small Load",
+          "translation_key": "LowDry"
+        },
+        {
+          "value": 13,
+          "label": "Silk",
+          "translation_key": "SilkDry"
+        },
+        {
+          "value": 14,
+          "label": "Sanitize Dry",
+          "translation_key": "SanitizeDry"
+        },
+        {
+          "value": 15,
+          "label": "Pet Hair Removal",
+          "translation_key": "PetHairRemoval"
+        },
+        {
+          "value": 18,
+          "label": "Hot Air",
+          "translation_key": "ThermalCare"
+        },
+        {
+          "value": 19,
+          "label": "Cool Air",
+          "translation_key": "AirRefresh"
+        },
+        {
+          "value": 16,
+          "label": "Quilt Refresh",
+          "translation_key": "DuvetRefresh"
+        },
+        {
+          "value": 17,
+          "label": "Wool",
+          "translation_key": "WoolCare"
+        },
+        {
+          "value": 20,
+          "label": "Down",
+          "translation_key": "DownRefresh"
+        },
+        {
+          "value": 21,
+          "label": "Shirts",
+          "translation_key": "ShirtSteam"
+        },
+        {
+          "value": 22,
+          "label": "Silk",
+          "translation_key": "SilkCare"
+        },
+        {
+          "value": 23,
+          "label": "Cotton",
+          "translation_key": "CottonCare"
+        },
+        {
+          "value": 24,
+          "label": "Hygiene Care",
+          "translation_key": "MonsoonCare"
+        },
+        {
+          "value": 25,
+          "label": "Color Care",
+          "translation_key": "ColorProtectDry"
+        },
+        {
+          "value": 26,
+          "label": "School Uniform",
+          "translation_key": "SchoolUniform"
+        },
+        {
+          "value": 27,
+          "label": "Synthetic",
+          "translation_key": "Synthetic"
+        },
+        {
+          "value": 28,
+          "label": "Home Textiles",
+          "translation_key": "HomeTextiles"
+        },
+        {
+          "value": 29,
+          "label": "Air Dry",
+          "translation_key": "AirDry"
+        },
+        {
+          "value": 30,
+          "label": "Denim",
+          "translation_key": "Denim"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7916
+      },
+      "notes": null,
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_request_index",
+          "line": 7929
+        }
+      ],
+      "control_field": "currentProgram",
+      "label": "Program",
+      "translation_key": "Program",
+      "enum_source": {
+        "selected_table": "ProgramMode_W",
+        "is_export_sales_literal": 1,
+        "flag_provenance": {
+          "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+          "line": 977
+        },
+        "selector_provenance": {
+          "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+          "line": 1562
+        },
+        "selection_condition": "Literal isExportSales; no account/country/model condition in this plugin.",
+        "duration_adjustment": {
+          "table": "ProgramMode_W",
+          "program_index": 3,
+          "firmware_prefix_number_lte": 16,
+          "minutes_if_lte": 120,
+          "minutes_otherwise": 110
+        }
+      }
+    },
+    {
+      "key": "prop.3.4",
+      "name": "childLock",
+      "siid": 3,
+      "piid": 4,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7917
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_2",
+          "line": 15710
+        }
+      ],
+      "control_field": "ChildColck",
+      "label": "Child Lock is activated upon operation",
+      "translation_key": "ChildColck"
+    },
+    {
+      "key": "prop.3.8",
+      "name": "autoCare",
+      "siid": 3,
+      "piid": 8,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7918
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_2",
+          "line": 15716
+        }
+      ],
+      "control_field": "anticrease",
+      "label": "Wrinkle Care",
+      "translation_key": "AutoCare"
+    },
+    {
+      "key": "prop.3.11",
+      "name": "night",
+      "siid": 3,
+      "piid": 11,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7919
+      },
+      "notes": "Plugin notification alias night conflicts with explicit NightMode control3.13. A null observation is unknown and must not be interpreted as a disabled night mode. Separate live verification is documented in docs/l9-investigation.md."
+    },
+    {
+      "key": "prop.2.11",
+      "name": "finishTime",
+      "siid": 2,
+      "piid": 11,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7920
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.2.12",
+      "name": "yuyueTime",
+      "siid": 2,
+      "piid": 12,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": "min",
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7921
+      },
+      "notes": null,
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_Details_index",
+          "line": 13701
+        }
+      ],
+      "control_field": "yuyueTime",
+      "label": "Start Scheduling",
+      "translation_key": "StartDelayTime",
+      "write_input_notes": "UI computes delayed-start minutes and clamps to a minimum of30; this is an app constraint, not a proven firmware range."
+    },
+    {
+      "key": "prop.2.6",
+      "name": "dryerlevel",
+      "siid": 2,
+      "piid": 6,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Iron Dry",
+          "translation_key": "IronDry"
+        },
+        {
+          "value": 1,
+          "label": "Ready to Wear",
+          "translation_key": "CupboardDry"
+        },
+        {
+          "value": 2,
+          "label": "Cupboard Dry",
+          "translation_key": "ExtraDry"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7922
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+          "line": 15970
+        }
+      ],
+      "control_field": "drynessLevel",
+      "label": "Dryness Level",
+      "translation_key": "DrynessLevel",
+      "enum_provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15897
+      }
+    },
+    {
+      "key": "prop.2.5",
+      "name": "airflow",
+      "siid": 2,
+      "piid": 5,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Delicate",
+          "translation_key": "Soft"
+        },
+        {
+          "value": 1,
+          "label": "Normal",
+          "translation_key": "Normal"
+        },
+        {
+          "value": 2,
+          "label": "Strong",
+          "translation_key": "Hard"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7923
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+          "line": 15984
+        }
+      ],
+      "control_field": "airflow",
+      "label": "Air Flow",
+      "translation_key": "AirFlow",
+      "enum_provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15920
+      }
+    },
+    {
+      "key": "prop.2.10",
+      "name": "addtime",
+      "siid": 2,
+      "piid": 10,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Default",
+          "translation_key": "Default"
+        },
+        {
+          "value": 1,
+          "label": "+5"
+        },
+        {
+          "value": 2,
+          "label": "+10"
+        },
+        {
+          "value": 3,
+          "label": "+20"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7924
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+          "line": 15977
+        }
+      ],
+      "control_field": "addTime",
+      "label": "Extra Time",
+      "translation_key": "ExtraTime",
+      "enum_provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15907
+      }
+    },
+    {
+      "key": "prop.2.13",
+      "name": "steam",
+      "siid": 2,
+      "piid": 13,
+      "access": [
+        "notify",
+        "write"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Delicate",
+          "translation_key": "Soft"
+        },
+        {
+          "value": 1,
+          "label": "Normal",
+          "translation_key": "Normal"
+        },
+        {
+          "value": 2,
+          "label": "Strong",
+          "translation_key": "Hard"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7925
+      },
+      "notes": "Program-specific defaults may disable this control; see program_default_configs.",
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+          "line": 15991
+        }
+      ],
+      "control_field": "steam",
+      "label": "Steam Level",
+      "translation_key": "steam",
+      "enum_provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15930
+      }
+    },
+    {
+      "key": "prop.2.9",
+      "name": "programTime",
+      "siid": 2,
+      "piid": 9,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7926
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.5.1",
+      "name": "ota",
+      "siid": 5,
+      "piid": 1,
+      "access": [
+        "notify"
+      ],
+      "read_candidate": true,
+      "live_verified": false,
+      "wire_format": "scalar; type not declared by plugin subscription table",
+      "unit": null,
+      "value_list": [],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7927
+      },
+      "notes": null
+    },
+    {
+      "key": "prop.3.10",
+      "name": "Accelerate",
+      "siid": 3,
+      "piid": 10,
+      "access": [
+        "write"
+      ],
+      "read_candidate": false,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      },
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_1",
+          "line": 15315
+        }
+      ],
+      "control_field": "Accelerate",
+      "label": "Speed Mode",
+      "translation_key": "SpeedMode",
+      "notes": "Program-specific defaults may disable this control; see program_default_configs."
+    },
+    {
+      "key": "prop.3.12",
+      "name": "lowtempdry",
+      "siid": 3,
+      "piid": 12,
+      "access": [
+        "write"
+      ],
+      "read_candidate": false,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      },
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_1",
+          "line": 15308
+        }
+      ],
+      "control_field": "lowtempdry",
+      "label": "Low Temp",
+      "translation_key": "LowtempDry",
+      "notes": "Program-specific defaults may disable this control; see program_default_configs."
+    },
+    {
+      "key": "prop.3.3",
+      "name": "UVmode",
+      "siid": 3,
+      "piid": 3,
+      "access": [
+        "write"
+      ],
+      "read_candidate": false,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      },
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_1",
+          "line": 15301
+        }
+      ],
+      "control_field": "UVmode",
+      "label": "Sanitize",
+      "translation_key": "Sterilization",
+      "notes": "Program-specific defaults may disable this control; see program_default_configs."
+    },
+    {
+      "key": "prop.3.13",
+      "name": "night",
+      "siid": 3,
+      "piid": 13,
+      "access": [
+        "write"
+      ],
+      "read_candidate": false,
+      "live_verified": false,
+      "wire_format": "integer flag; UI setters use 0/1",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      },
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_utils_index",
+          "line": 837
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_components_ModeCard_mode_card_2",
+          "line": 15704
+        }
+      ],
+      "control_field": "night",
+      "label": "Enable Night Mode",
+      "translation_key": "NightMode",
+      "notes": "Program-specific defaults may disable this control; see program_default_configs."
+    },
+    {
+      "key": "prop.3.5",
+      "name": "reservation",
+      "siid": 3,
+      "piid": 5,
+      "access": [
+        "write"
+      ],
+      "read_candidate": false,
+      "live_verified": false,
+      "wire_format": "integer flag; reservation/reservationOff setters send 1/0",
+      "unit": null,
+      "value_list": [
+        {
+          "value": 0,
+          "label": "Off"
+        },
+        {
+          "value": 1,
+          "label": "On"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7909
+      },
+      "control_sources": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_request_index",
+          "line": 7909
+        }
+      ],
+      "control_field": "reservation",
+      "label": "Start Scheduling",
+      "translation_key": "StartDelayTime",
+      "write_preconditions": [
+        "Export plugin checks authorization property3.14 equals1 before enabling delay start."
+      ]
+    }
+  ],
+  "read_candidates": [
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      14
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      3,
+      11
+    ],
+    [
+      2,
+      11
+    ],
+    [
+      2,
+      12
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      10
+    ],
+    [
+      2,
+      13
+    ],
+    [
+      2,
+      9
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "direct_read_pairs": [
+    [
+      3,
+      14
+    ]
+  ],
+  "read_item_did": "actual device id (Device.deviceID)",
+  "action_definitions": [
+    {
+      "name": "reportAll",
+      "literal_parameters": [
+        2,
+        4,
+        1
+      ],
+      "observed_helpers": [
+        "action"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7904
+      },
+      "siid": 2,
+      "aiid": 4,
+      "inputs": [
+        {
+          "piid": 4,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "powerOn",
+      "literal_parameters": [
+        2,
+        1,
+        1
+      ],
+      "observed_helpers": [
+        "action"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7905
+      },
+      "siid": 2,
+      "aiid": 1,
+      "inputs": [
+        {
+          "piid": 1,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "powerOff",
+      "literal_parameters": [
+        2,
+        1,
+        0
+      ],
+      "observed_helpers": [
+        "action"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7906
+      },
+      "siid": 2,
+      "aiid": 1,
+      "inputs": [
+        {
+          "piid": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "execute",
+      "literal_parameters": [
+        2,
+        2,
+        1
+      ],
+      "observed_helpers": [
+        "action"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7907
+      },
+      "siid": 2,
+      "aiid": 2,
+      "inputs": [
+        {
+          "piid": 2,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "literal_parameters": [
+        2,
+        2,
+        0
+      ],
+      "observed_helpers": [
+        "action"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7908
+      },
+      "siid": 2,
+      "aiid": 2,
+      "inputs": [
+        {
+          "piid": 2,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "reservation",
+      "literal_parameters": [
+        3,
+        5,
+        1
+      ],
+      "observed_helpers": [
+        "setProperties"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7909
+      }
+    },
+    {
+      "name": "reservationOff",
+      "literal_parameters": [
+        3,
+        5,
+        0
+      ],
+      "observed_helpers": [
+        "setProperties"
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7910
+      }
+    }
+  ],
+  "action_wire_format": {
+    "did": "actual device id",
+    "siid": "parameters[0]",
+    "aiid": "parameters[1]",
+    "in": [
+      {
+        "piid": "parameters[1]",
+        "value": "parameters[2]"
+      }
+    ]
+  },
+  "property_write_definitions": [
+    {
+      "siid": 2,
+      "piid": 10,
+      "field": "addTime",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 2,
+      "piid": 6,
+      "field": "drynessLevel",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 10,
+      "field": "Accelerate",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 12,
+      "field": "lowtempdry",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 2,
+      "piid": 5,
+      "field": "airflow",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 8,
+      "field": "anticrease",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 3,
+      "field": "UVmode",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 13,
+      "field": "night",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 2,
+      "piid": 13,
+      "field": "steam",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 4,
+      "field": "ChildColck",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_utils_index",
+        "line": 837
+      }
+    },
+    {
+      "siid": 2,
+      "piid": 3,
+      "field": "currentProgram",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7929
+      }
+    },
+    {
+      "siid": 3,
+      "piid": 5,
+      "field": "reservation",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_request_index",
+        "line": 7909
+      }
+    },
+    {
+      "siid": 2,
+      "piid": 12,
+      "field": "yuyueTime",
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_Details_index",
+        "line": 13701
+      }
+    }
+  ],
+  "property_write_wire_format": {
+    "did": "actual device id",
+    "siid": "parameters[0]",
+    "piid": "parameters[1]",
+    "value": "parameters[2]"
+  },
+  "property_bulk_write_wire_format": "Array of property-write objects; omit undefined entries from stored program configs.",
+  "control_enum_tables": {
+    "intensity": {
+      "values": [
+        {
+          "value": 0,
+          "label": "Iron Dry",
+          "translation_key": "IronDry"
+        },
+        {
+          "value": 1,
+          "label": "Ready to Wear",
+          "translation_key": "CupboardDry"
+        },
+        {
+          "value": 2,
+          "label": "Cupboard Dry",
+          "translation_key": "ExtraDry"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15897
+      }
+    },
+    "addTime": {
+      "values": [
+        {
+          "value": 0,
+          "label": "Default",
+          "translation_key": "Default"
+        },
+        {
+          "value": 1,
+          "label": "+5"
+        },
+        {
+          "value": 2,
+          "label": "+10"
+        },
+        {
+          "value": 3,
+          "label": "+20"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15907
+      }
+    },
+    "airflow": {
+      "values": [
+        {
+          "value": 0,
+          "label": "Delicate",
+          "translation_key": "Soft"
+        },
+        {
+          "value": 1,
+          "label": "Normal",
+          "translation_key": "Normal"
+        },
+        {
+          "value": 2,
+          "label": "Strong",
+          "translation_key": "Hard"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15920
+      }
+    },
+    "steam": {
+      "values": [
+        {
+          "value": 0,
+          "label": "Delicate",
+          "translation_key": "Soft"
+        },
+        {
+          "value": 1,
+          "label": "Normal",
+          "translation_key": "Normal"
+        },
+        {
+          "value": 2,
+          "label": "Strong",
+          "translation_key": "Hard"
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_views_components_Parameters_index",
+        "line": 15930
+      }
+    }
+  },
+  "programs": {
+    "ProgramMode": {
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+        "line": 1126
+      },
+      "values": [
+        {
+          "value": 0,
+          "translation_key": "AISmartDry",
+          "label": "AI Dry",
+          "default_minutes": 102
+        },
+        {
+          "value": 1,
+          "translation_key": "QuickDry",
+          "label": "Quick Dry",
+          "default_minutes": 30
+        },
+        {
+          "value": 2,
+          "translation_key": "BulkyItemsDry",
+          "label": "Large Items",
+          "default_minutes": 147
+        },
+        {
+          "value": 3,
+          "translation_key": "WoolDry",
+          "label": "Wool",
+          "default_minutes": 110
+        },
+        {
+          "value": 4,
+          "translation_key": "DownDry",
+          "label": "Down",
+          "default_minutes": 120
+        },
+        {
+          "value": 5,
+          "translation_key": "BabyClothes",
+          "label": "BabyClothes",
+          "default_minutes": 115
+        },
+        {
+          "value": 6,
+          "translation_key": "ShirtDry",
+          "label": "Shirts",
+          "default_minutes": 67
+        },
+        {
+          "value": 7,
+          "translation_key": "BathTowelDry",
+          "label": "Towels",
+          "default_minutes": 118
+        },
+        {
+          "value": 8,
+          "translation_key": "UnderwearDry",
+          "label": "Delicates",
+          "default_minutes": 91
+        },
+        {
+          "value": 9,
+          "translation_key": "CottonDry",
+          "label": "Cotton Dry",
+          "default_minutes": 112
+        },
+        {
+          "value": 10,
+          "translation_key": "Sportswear",
+          "label": "Sportswear",
+          "default_minutes": 72
+        },
+        {
+          "value": 11,
+          "translation_key": "OuterWear",
+          "label": "Outdoor",
+          "default_minutes": 135
+        },
+        {
+          "value": 12,
+          "translation_key": "LowDry",
+          "label": "Small Load",
+          "default_minutes": 41
+        },
+        {
+          "value": 13,
+          "translation_key": "SilkDry",
+          "label": "Silk",
+          "default_minutes": 58
+        },
+        {
+          "value": 14,
+          "translation_key": "SanitizeDry",
+          "label": "Sanitize Dry",
+          "default_minutes": 150
+        },
+        {
+          "value": 15,
+          "translation_key": "PetHairRemoval",
+          "label": "Pet Hair Removal",
+          "default_minutes": 122
+        },
+        {
+          "value": 18,
+          "translation_key": "ThermalCare",
+          "label": "Hot Air",
+          "default_minutes": 15
+        },
+        {
+          "value": 19,
+          "translation_key": "AirRefresh",
+          "label": "Cool Air",
+          "default_minutes": 20
+        },
+        {
+          "value": 16,
+          "translation_key": "DuvetRefresh",
+          "label": "Quilt Refresh",
+          "default_minutes": 45
+        },
+        {
+          "value": 17,
+          "translation_key": "WoolCare",
+          "label": "Wool",
+          "default_minutes": 22
+        },
+        {
+          "value": 20,
+          "translation_key": "DownRefresh",
+          "label": "Down",
+          "default_minutes": 30
+        },
+        {
+          "value": 21,
+          "translation_key": "ShirtSteam",
+          "label": "Shirts",
+          "default_minutes": 25
+        },
+        {
+          "value": 22,
+          "translation_key": "SilkCare",
+          "label": "Silk",
+          "default_minutes": 17
+        },
+        {
+          "value": 23,
+          "translation_key": "CottonCare",
+          "label": "Cotton",
+          "default_minutes": 35
+        },
+        {
+          "value": 24,
+          "translation_key": "MonsoonCare",
+          "label": "Hygiene Care",
+          "default_minutes": 50
+        },
+        {
+          "value": 25,
+          "translation_key": "ColorProtectDry",
+          "label": "Color Care",
+          "default_minutes": 102
+        },
+        {
+          "value": 26,
+          "translation_key": "SchoolUniform",
+          "label": "School Uniform",
+          "default_minutes": 77
+        },
+        {
+          "value": 27,
+          "translation_key": "Synthetic",
+          "label": "Synthetic",
+          "default_minutes": 62
+        },
+        {
+          "value": 28,
+          "translation_key": "HomeTextiles",
+          "label": "Home Textiles",
+          "default_minutes": 137
+        },
+        {
+          "value": 29,
+          "translation_key": "AirDry",
+          "label": "Air Dry",
+          "default_minutes": 45
+        },
+        {
+          "value": 30,
+          "translation_key": "Denim",
+          "label": "Denim",
+          "default_minutes": 110
+        }
+      ]
+    },
+    "ProgramMode_W": {
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+        "line": 1344
+      },
+      "values": [
+        {
+          "value": 0,
+          "translation_key": "AISmartDry",
+          "label": "AI Dry",
+          "default_minutes": 102
+        },
+        {
+          "value": 1,
+          "translation_key": "QuickDry",
+          "label": "Quick Dry",
+          "default_minutes": 30
+        },
+        {
+          "value": 2,
+          "translation_key": "BulkyItemsDry",
+          "label": "Large Items",
+          "default_minutes": 147
+        },
+        {
+          "value": 3,
+          "translation_key": "WoolDry",
+          "label": "Wool",
+          "default_minutes": 110
+        },
+        {
+          "value": 4,
+          "translation_key": "DownDry",
+          "label": "Down",
+          "default_minutes": 120
+        },
+        {
+          "value": 5,
+          "translation_key": "ECO",
+          "label": "ECO",
+          "default_minutes": 112
+        },
+        {
+          "value": 6,
+          "translation_key": "ShirtDry",
+          "label": "Shirts",
+          "default_minutes": 67
+        },
+        {
+          "value": 7,
+          "translation_key": "BathTowelDry",
+          "label": "Towels",
+          "default_minutes": 118
+        },
+        {
+          "value": 8,
+          "translation_key": "UnderwearDry",
+          "label": "Delicates",
+          "default_minutes": 91
+        },
+        {
+          "value": 9,
+          "translation_key": "ArtificialFiber",
+          "label": "Synthetics",
+          "default_minutes": 72
+        },
+        {
+          "value": 10,
+          "translation_key": "Sportswear",
+          "label": "Sportswear",
+          "default_minutes": 72
+        },
+        {
+          "value": 11,
+          "translation_key": "OuterWear",
+          "label": "Outdoor",
+          "default_minutes": 135
+        },
+        {
+          "value": 12,
+          "translation_key": "LowDry",
+          "label": "Small Load",
+          "default_minutes": 41
+        },
+        {
+          "value": 13,
+          "translation_key": "SilkDry",
+          "label": "Silk",
+          "default_minutes": 58
+        },
+        {
+          "value": 14,
+          "translation_key": "SanitizeDry",
+          "label": "Sanitize Dry",
+          "default_minutes": 150
+        },
+        {
+          "value": 15,
+          "translation_key": "PetHairRemoval",
+          "label": "Pet Hair Removal",
+          "default_minutes": 122
+        },
+        {
+          "value": 18,
+          "translation_key": "ThermalCare",
+          "label": "Hot Air",
+          "default_minutes": 15
+        },
+        {
+          "value": 19,
+          "translation_key": "AirRefresh",
+          "label": "Cool Air",
+          "default_minutes": 20
+        },
+        {
+          "value": 16,
+          "translation_key": "DuvetRefresh",
+          "label": "Quilt Refresh",
+          "default_minutes": 45
+        },
+        {
+          "value": 17,
+          "translation_key": "WoolCare",
+          "label": "Wool",
+          "default_minutes": 22
+        },
+        {
+          "value": 20,
+          "translation_key": "DownRefresh",
+          "label": "Down",
+          "default_minutes": 30
+        },
+        {
+          "value": 21,
+          "translation_key": "ShirtSteam",
+          "label": "Shirts",
+          "default_minutes": 25
+        },
+        {
+          "value": 22,
+          "translation_key": "SilkCare",
+          "label": "Silk",
+          "default_minutes": 17
+        },
+        {
+          "value": 23,
+          "translation_key": "CottonCare",
+          "label": "Cotton",
+          "default_minutes": 35
+        },
+        {
+          "value": 24,
+          "translation_key": "MonsoonCare",
+          "label": "Hygiene Care",
+          "default_minutes": 50
+        },
+        {
+          "value": 25,
+          "translation_key": "ColorProtectDry",
+          "label": "Color Care",
+          "default_minutes": 102
+        },
+        {
+          "value": 26,
+          "translation_key": "SchoolUniform",
+          "label": "School Uniform",
+          "default_minutes": 77
+        },
+        {
+          "value": 27,
+          "translation_key": "Synthetic",
+          "label": "Synthetic",
+          "default_minutes": 62
+        },
+        {
+          "value": 28,
+          "translation_key": "HomeTextiles",
+          "label": "Home Textiles",
+          "default_minutes": 137
+        },
+        {
+          "value": 29,
+          "translation_key": "AirDry",
+          "label": "Air Dry",
+          "default_minutes": 45
+        },
+        {
+          "value": 30,
+          "translation_key": "Denim",
+          "label": "Denim",
+          "default_minutes": 110
+        }
+      ]
+    }
+  },
+  "program_default_configs": {
+    "defaultConfig": {
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_ProgramDefaultConfig",
+        "line": 1579
+      },
+      "values": [
+        {
+          "addTime": null,
+          "drynessLevel": 1,
+          "Accelerate": 0,
+          "lowtempdry": 0,
+          "airflow": 1,
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": 0,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": null,
+          "drynessLevel": 1,
+          "Accelerate": null,
+          "lowtempdry": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": null,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": null,
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "Accelerate": 0,
+          "lowtempdry": 0,
+          "airflow": 1,
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": 0,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": 0,
+          "drynessLevel": null,
+          "Accelerate": null,
+          "lowtempdry": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "anticrease": 0,
+          "UVmode": null,
+          "night": null,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 2,
+          "addTime": null,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "addTime": null,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": 1,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 0,
+            "filter": [
+              1,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": null
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": {
+            "value": 0,
+            "filter": [
+              2
+            ]
+          },
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": 1,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": 2,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 0,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 2,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        }
+      ]
+    },
+    "defaultConfig_W": {
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_ProgramDefaultConfig",
+        "line": 1996
+      },
+      "values": [
+        {
+          "addTime": null,
+          "drynessLevel": 1,
+          "Accelerate": 0,
+          "lowtempdry": 0,
+          "airflow": 1,
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": 0,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": null,
+          "drynessLevel": 1,
+          "Accelerate": null,
+          "lowtempdry": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": null,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": null,
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "Accelerate": 0,
+          "lowtempdry": 0,
+          "airflow": 1,
+          "anticrease": 0,
+          "UVmode": 0,
+          "night": 0,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "addTime": 0,
+          "drynessLevel": null,
+          "Accelerate": null,
+          "lowtempdry": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "anticrease": 0,
+          "UVmode": null,
+          "night": null,
+          "steam": null,
+          "ChildColck": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": null,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 2,
+          "addTime": null,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "addTime": null,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": 1,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": null
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 0,
+            "filter": [
+              1,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": null,
+          "anticrease": null
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": {
+            "value": 0,
+            "filter": [
+              2
+            ]
+          },
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": null,
+          "lowtempdry": null,
+          "UVmode": null,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": null
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 1,
+            "filter": [
+              0,
+              2
+            ]
+          },
+          "steam": 1,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": {
+            "value": 2,
+            "filter": [
+              0,
+              1
+            ]
+          },
+          "steam": 2,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 0,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 2,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 1,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": {
+            "value": 2,
+            "filter": [
+              0
+            ]
+          },
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 1,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": null,
+          "addTime": 0,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": null,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        },
+        {
+          "drynessLevel": 1,
+          "addTime": null,
+          "airflow": 1,
+          "steam": null,
+          "lowtempdry": 0,
+          "UVmode": 0,
+          "Accelerate": 0,
+          "ChildColck": 0,
+          "night": 0,
+          "anticrease": 0
+        }
+      ]
+    }
+  },
+  "program_table_selection": {
+    "selected_table": "ProgramMode_W",
+    "is_export_sales_literal": 1,
+    "flag_provenance": {
+      "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+      "line": 977
+    },
+    "selector_provenance": {
+      "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+      "line": 1562
+    },
+    "selection_condition": "Literal isExportSales; no account/country/model condition in this plugin.",
+    "duration_adjustment": {
+      "table": "ProgramMode_W",
+      "program_index": 3,
+      "firmware_prefix_number_lte": 16,
+      "minutes_if_lte": 120,
+      "minutes_otherwise": 110
+    }
+  },
+  "program_selection_property": {
+    "siid": 2,
+    "piid": 3
+  },
+  "program_constants": {
+    "raw_static_expressions": "{\n    \"usageRecordList\": isExportSales ? deviceid + \"wdryer_usageRecordList\" : deviceid + \"usageRecordList\",\n    \"collectionList\": isExportSales ? deviceid + \"wdryer_collectionList\" : deviceid + \"dryer_collectionList\",\n    \"storageReminder\": isExportSales ? deviceid + \"wdryer_storageReminder\" : deviceid + \"dryer_storageReminder\",\n    \"yanshi\": isExportSales ? deviceid + \"wdryer_yanshi\" : deviceid + \"dryer_yanshi\",\n    \"memoryEnable\": isExportSales ? deviceid + \"wdryer_memoryEnable\" : deviceid + \"dryer_memoryEnable\",\n    \"errorCode\": isExportSales ? deviceid + \"wdryer_errorCode\" : deviceid + \"dryer_errorCode\"\n  }",
+    "provenance": {
+      "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+      "line": 981
+    },
+    "storage": "device-id-suffixed local AsyncStorage keys; not cloud property ids"
+  },
+  "cloud_property_keys": [
+    {
+      "key": "prop.s_auto_upgrade",
+      "name": "Auto Update",
+      "access": [
+        "read",
+        "write"
+      ],
+      "live_verified": false,
+      "wire_format": "string flag; app writes Number(val).toString() and reads Boolean(parseInt(value))",
+      "value_list": [
+        {
+          "value": "0",
+          "label": "Off"
+        },
+        {
+          "value": "1",
+          "label": "On"
+        }
+      ],
+      "read_helper": "Service.smarthome.batchGetDeviceDatas",
+      "write_helper": "Service.smarthome.batchSetDeviceDatas",
+      "read_helper_input": [
+        {
+          "did": "actual device id",
+          "props": [
+            "prop.s_auto_upgrade"
+          ]
+        }
+      ],
+      "read_helper_result": "Native plugin response is grouped by actual device id, then cloud property key; this does not specify the HTTP response envelope.",
+      "provenance": [
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_SubscribePage_index",
+          "line": 421
+        },
+        {
+          "module": "projects_dreame.dryer.l9nacn_views_Setting_page_FirmwareUpgrades_index",
+          "line": 20002
+        }
+      ],
+      "notes": "The app initializes an absent value to string1; read-only consumers must preserve absence without writing."
+    }
+  ],
+  "enum_tables": {
+    "RunStatus": {
+      "values": [
+        {
+          "key": 0,
+          "value": {
+            "translation_key": "Poweroff",
+            "label": "Power off"
+          }
+        },
+        {
+          "key": 1,
+          "value": {
+            "translation_key": "Standby",
+            "label": "Standby"
+          }
+        },
+        {
+          "key": 2,
+          "value": {
+            "translation_key": "Pause",
+            "label": "Pause"
+          }
+        },
+        {
+          "key": 3,
+          "value": {
+            "translation_key": "Run",
+            "label": "Running"
+          }
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+        "line": 989
+      }
+    },
+    "WashStatus": {
+      "values": [
+        {
+          "key": 0,
+          "value": {
+            "translation_key": "AppointmentWaiting",
+            "label": "Scheduled"
+          }
+        },
+        {
+          "key": 1,
+          "value": {
+            "translation_key": "AutoCare",
+            "label": "Wrinkle Care"
+          }
+        },
+        {
+          "key": 2,
+          "value": {
+            "translation_key": "Completed",
+            "label": "Completed"
+          }
+        },
+        {
+          "key": 3,
+          "value": {
+            "translation_key": "Dry",
+            "label": "Drying"
+          }
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+        "line": 1002
+      }
+    },
+    "Fault": {
+      "values": [
+        {
+          "key": 1,
+          "code": "FULL",
+          "value": {
+            "translation_key": "FULLWaterTankFullReminder",
+            "label": "FULL – Water Tank Full"
+          },
+          "solution": {
+            "translation_key": "Solution1",
+            "label": "Press start/stop to continue."
+          }
+        },
+        {
+          "key": 2,
+          "code": "dC",
+          "value": {
+            "translation_key": "LockError",
+            "label": "Door Open / Lock Error"
+          },
+          "solution": {
+            "translation_key": "Solution1",
+            "label": "Press start/stop to continue."
+          }
+        },
+        {
+          "key": 3,
+          "code": "E41",
+          "value": {
+            "translation_key": "E41",
+            "label": "Compressor Temp Sensor Error"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 4,
+          "code": "FULL",
+          "value": {
+            "translation_key": "FULLWaterTankFullReminder",
+            "label": "FULL – Water Tank Full"
+          },
+          "solution": {
+            "translation_key": "Solution1",
+            "label": "Press start/stop to continue."
+          }
+        },
+        {
+          "key": 5,
+          "code": "dC",
+          "value": {
+            "translation_key": "LockError",
+            "label": "Door Open / Lock Error"
+          },
+          "solution": {
+            "translation_key": "Solution1",
+            "label": "Press start/stop to continue."
+          }
+        },
+        {
+          "key": 6,
+          "code": "E51",
+          "value": {
+            "translation_key": "E51",
+            "label": "Inverter Drum Motor Error"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 7,
+          "code": "E61",
+          "value": {
+            "translation_key": "E61",
+            "label": "Drum Motor Inverter Board Error"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 8,
+          "code": "E71",
+          "value": {
+            "translation_key": "E71",
+            "label": "Main Display Board Comm. Error"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 9,
+          "code": "E72",
+          "value": {
+            "translation_key": "E72",
+            "label": "Display Board‑Drum Motor Inverter Comm. Error"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 10,
+          "code": "E52",
+          "value": {
+            "translation_key": "E52",
+            "label": "Inverter Compressor Fault"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 11,
+          "code": "E53",
+          "value": {
+            "translation_key": "E53",
+            "label": "Inverter Impeller Motor Fault"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 12,
+          "code": "E62",
+          "value": {
+            "translation_key": "E62",
+            "label": "Compressor Inverter Board Fault"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 13,
+          "code": "E63",
+          "value": {
+            "translation_key": "E63",
+            "label": "Impeller Inverter Board Fault"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 14,
+          "code": "E73",
+          "value": {
+            "translation_key": "E73",
+            "label": "Display Board-Compressor Inverter Comm. Error"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 15,
+          "code": "E74",
+          "value": {
+            "translation_key": "E74",
+            "label": "Display Board-Inpeller Inverter Comm. Error"
+          },
+          "solution": {
+            "translation_key": "Solution3",
+            "label": "Press start/stop to reset."
+          }
+        },
+        {
+          "key": 16,
+          "code": "E42",
+          "value": {
+            "translation_key": "E42",
+            "label": "Air Duct Temp Sensor Fault"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 17,
+          "code": "E43",
+          "value": {
+            "translation_key": "E43",
+            "label": "Front Unit Temp Sensor Fault"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 18,
+          "code": "E44",
+          "value": {
+            "translation_key": "E44",
+            "label": "Steam Generator Temp Sensor Fault"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 19,
+          "code": "E21",
+          "value": {
+            "translation_key": "E21",
+            "label": "Steam Generator Heating Errort"
+          },
+          "solution": {
+            "translation_key": "Solution2",
+            "label": "Power off and restart."
+          }
+        },
+        {
+          "key": 20,
+          "code": " ",
+          "value": {
+            "translation_key": "SteamSwitchMalfunction",
+            "label": "Steam Generator Float Switch Malfunction"
+          }
+        }
+      ],
+      "provenance": {
+        "module": "projects_dreame.dryer.l9nacn_dictionary_index",
+        "line": 1015
+      }
+    }
+  },
+  "cautions": [
+    "Subscriptions confirm coordinate use, not formal property access flags or current firmware support.",
+    "reportAll literal [2,4,1] is an action that requests device reports; it is excluded from read-only discovery.",
+    "Night mode uses prop.3.11 in FunctionsToParam but siid3/piid13 in the ModeCard2 control UI; preserve this unresolved conflict.",
+    "getProgramMode selects ProgramMode_W; firmware version<=0.1.6 changes program index3 default minutes to120, later versions use110.",
+    "No units or writable ranges are inferred from unrelated vacuum or washer schemas.",
+    "Control-only coordinates have read_candidate false; unknown MQTT coordinates remain observable without guessed labels.",
+    "The hidden NightMode entry in ModeSwitch leaves its setter piid at0; this malformed UI path is not a valid property definition or read candidate."
+  ]
+}

@@ -1,0 +1,33 @@
+﻿# Dreame Home read-only beta
+
+This component discovers devices registered to a Dreame Home account and exposes successful observed telemetry as Home Assistant sensors and binary sensors. Exact L9 washer and dryer definitions supply source-backed names, enum labels and confirmed units. Beta `0.2.0b3` targets Home Assistant Core 2026.9.4 or newer. Its framework sources were reviewed; execution inside Home Assistant is still pending.
+
+Install through HACS by adding `https://github.com/Ampersandman/Dreame-Home` as a custom repository with category **Integration**, downloading **Dreame Home**, and restarting Home Assistant. See the [HACS installation guide](https://github.com/Ampersandman/Dreame-Home/blob/main/docs/ha-os-installation.md). The API is included under `api/`; HACS needs no separate client package or release asset.
+
+Live EU cloud validation succeeded for these appliances. The counts below describe distinct property coordinates observed through addressed reads and MQTT, rather than the number of Home Assistant entities or every possible operating state.
+
+| Appliance | Exact cloud model | Firmware | Initial read plan | Observed non-null coordinates |
+| --- | --- | --- | --- | --- |
+| L9 washing machine | `dreame.washer.l9nacn` | `3017` | 24 | 27 |
+| L9 Twin Inverter dryer | `dreame.dryer.l9nacn` | `3029` | 17 | 22 |
+| L10s Ultra Gen 3 vacuum | `dreame.vacuum.r5023a` | `1304` | 15 | 15 |
+
+All three appliances connected to MQTT with verified TLS. The final dryer read returned 23 successful property codes and 20 non-null values: `3.11`, `5.1` and `4.7` were null. Earlier MQTT supplied values for `5.1` and `4.7`, leaving 22 distinct non-null observations overall. Only `3.11` has never supplied a non-null value. Null RPC replies preserve earlier successful MQTT values without advancing their freshness; `last_reply_null` distinguishes the latest reply from retained state. The app's conflicting `3.11` subscription and `3.13` night-mode control remain distinct. The observed `3.13` receives its exact UI name, while unknown `4.7` keeps a neutral label.
+
+The initial washer and dryer plans contain only coordinates used for reading or notifications by their exact app plugins. Source write-only fields are excluded from those plans. Additional successful observations, including MQTT reports of such fields, can create entities and become eligible for later property reads. Failed responses and previously unobserved null values do not create entities. Enum labels use explicit property mappings; unknown codes and inferred Boolean conversions retain their raw scalar values. The original enum code remains in the `raw_code` attribute. Discovery of another model does not apply the L9 definitions to it.
+
+Both exact L9 schemas also identify the cloud userdata key `prop.s_auto_upgrade`. The component fetches this setting at discovery cadence and names its read-only sensor **Automatic firmware updates** when a value is returned. Its wire strings `'0'` and `'1'` remain unchanged. Missing values produce no default or cloud write, and a setting read failure does not make appliance telemetry unavailable. This additional HTTP setting path still needs live acceptance separate from the successful property/MQTT capture.
+
+The vacuum receives its bounded 15-property initial read and a battery sensor for successful `3.1` observations. Other successful coordinates, cached cloud keys, actual Boolean values and supported scalar leaves of compound JSON receive stable entities. Unknown addresses keep labels such as `Property 4.7`. Structured values retain a separate root entity; ordinary arrays remain there, while dictionary leaves and uniquely keyed setting lists can expand into stable leaf entities. Further appliance states and events remain to investigate.
+
+After the restart, add **Dreame Home** under Settings > Devices & services. Choose the region used by the app; the validated region is `eu`. Enter credentials locally in the setup form. Setup stores the username, region, account identifiers and refresh token, persists token rotation, and supports reauthentication. It does not persist the password or access token. Home Assistant's configuration storage is not encrypted by this integration.
+
+MQTT is optional in the setup form. Without it, metadata and addressed property reads remain available. Discovery runs every ten minutes; property reads run approximately once a minute. Cloud-reported online state and MQTT connection state have separate entities. The cloud online flag may lag physical power changes by up to ten minutes, and a broker connection alone does not establish current appliance state. Per-device read failures remain separate from account discovery failures.
+
+Compound expansion is bounded to 256 leaves per property, and polling is bounded to 240 addresses per refresh. Root entities for structured values are disabled by default; enable one in the entity registry to inspect its redacted `raw_value` attribute. The backend retains the original value privately. New MQTT coordinates create entities dynamically. Unknown messages remain in the bounded observation store and produce a redacted `dreame_home_message` event. Diagnostics omit unknown text values, credentials and raw account envelopes.
+
+The beta provides no appliance controls, writable entities, services or vacuum map renderer. It never automatically calls the app's `reportAll` action. Typed laundry Boolean entities, further state/event acceptance and richer vacuum support remain future work. See [live coverage](https://github.com/Ampersandman/Dreame-Home/blob/main/docs/live-coverage.md) and the [Home Assistant roadmap](https://github.com/Ampersandman/Dreame-Home/blob/main/docs/home-assistant-roadmap.md).
+
+The backend includes notices for MIT-licensed extraction from Tasshack/dreame-vacuum and corroborated pagination from TA2k/ioBroker.dreame. Exact L9 metadata comes from pinned model-specific app plugins. The EU broker uses a CA recovered from a signature-verified Dreame Home APK; hostname and certificate-chain verification remain enabled.
+
+GitHub workflows run offline protocol and component checks on Python 3.12 and 3.14, plus official HACS and hassfest validators. These checks do not establish compatibility with a running Home Assistant instance. First-run setup, device entities and reload/unload still require acceptance on Home Assistant Core 2026.9.4.

@@ -1,0 +1,71 @@
+{
+  "endpoints": {
+    "login": "/dreame-auth/oauth/token",
+    "list_devices": "/dreame-user-iot/iotuserbind/device/listV2",
+    "device_info": "/dreame-user-iot/iotuserbind/device/info",
+    "otc_info": "/dreame-user-iot/iotstatus/devOTCInfo",
+    "send_command": "/dreame-iot-com{broker_suffix}/device/sendCommand",
+    "cloud_properties": "/dreame-user-iot/iotstatus/props",
+    "history": "/dreame-user-iot/iotstatus/history",
+    "get_device_data": "/dreame-user-iot/iotuserdata/getDeviceData",
+    "set_device_data": "/dreame-user-iot/iotuserdata/setDeviceData",
+    "download_url": "/dreame-user-iot/iotfile/getDownloadUrl",
+    "oss_download_url": "/dreame-user-iot/iotfile/getOss1dDownloadUrl",
+    "device_file": "/file-bridge/user/getDeiviceFile"
+  },
+  "profiles": {
+    "dreame": {
+      "domain_suffix": ".iot.dreame.tech",
+      "port": 13267,
+      "signing_key": "EETjszu*XI5znHsI",
+      "app_version": "102060300",
+      "basic_authorization": "Basic ZHJlYW1lX2FwcHYxOkFQXmR2QHpAU1FZVnhOODg=",
+      "user_agent": "Dart/3.9 (dart:io)",
+      "browser_metadata": true,
+      "tenant_id": "000000",
+      "regions": [
+        "eu",
+        "cn",
+        "us",
+        "ru",
+        "sg",
+        "kr",
+        "by"
+      ]
+    },
+    "mova": {
+      "domain_suffix": ".iot.mova-tech.com",
+      "port": 13267,
+      "signing_key": "gigxlmqwZ]7oWZUF",
+      "app_version": "10605530",
+      "basic_authorization": "Basic bW92YV9hcHA6VjdLb0NoTFc4dkhBQ3FHYg==",
+      "user_agent": "Dart/3.10 (dart:io)",
+      "browser_metadata": true,
+      "tenant_id": "000002",
+      "regions": [
+        "eu",
+        "cn",
+        "us",
+        "sg",
+        "kr"
+      ]
+    },
+    "trouver": {
+      "domain_suffix": ".iot.trouver-tech.com",
+      "port": 13267,
+      "signing_key": "MMd02jyRqzuf1QBS",
+      "app_version": "10300532",
+      "basic_authorization": "Basic dHJvdXZlcl9hcHA6NXB0MGV6d0w1TzRHMG96aw==",
+      "user_agent": "Dart/3.6 (dart:io)",
+      "browser_metadata": false,
+      "tenant_id": "000005",
+      "regions": [
+        "eu",
+        "us",
+        "ru",
+        "sg"
+      ]
+    }
+  },
+  "password_salt": "RAylYC%fmSKp7%Tq"
+}
