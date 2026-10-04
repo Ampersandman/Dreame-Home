@@ -1,6 +1,6 @@
 ﻿# Dreame Home read-only beta
 
-This component discovers devices registered to a Dreame Home account and exposes successful observed telemetry as Home Assistant sensors and binary sensors. Exact L9 washer and dryer definitions supply source-backed names, enum labels and confirmed units. Beta `0.2.0b3` targets Home Assistant Core 2026.9.4 or newer. Its framework sources were reviewed; execution inside Home Assistant is still pending.
+This component discovers devices registered to a Dreame Home account and exposes successful observed telemetry as Home Assistant sensors and binary sensors. Exact L9 washer and dryer definitions supply source-backed names, enum labels and confirmed units. Beta `0.2.0b3` targets Home Assistant Core 2026.9.4 or newer. A user confirmed HACS installation, successful account setup, discovery of the three target appliances, and values updating on their Home Assistant installation.
 
 Install through HACS by adding `https://github.com/Ampersandman/Dreame-Home` as a custom repository with category **Integration**, downloading **Dreame Home**, and restarting Home Assistant. See the [HACS installation guide](https://github.com/Ampersandman/Dreame-Home/blob/main/docs/ha-os-installation.md). The API is included under `api/`; HACS needs no separate client package or release asset.
 
@@ -30,4 +30,4 @@ The beta provides no appliance controls, writable entities, services or vacuum m
 
 The backend includes notices for MIT-licensed extraction from Tasshack/dreame-vacuum and corroborated pagination from TA2k/ioBroker.dreame. Exact L9 metadata comes from pinned model-specific app plugins. The EU broker uses a CA recovered from a signature-verified Dreame Home APK; hostname and certificate-chain verification remain enabled.
 
-GitHub workflows run offline protocol and component checks on Python 3.12 and 3.14, plus official HACS and hassfest validators. These checks do not establish compatibility with a running Home Assistant instance. First-run setup, device entities and reload/unload still require acceptance on Home Assistant Core 2026.9.4.
+GitHub's Python 3.12/3.14 offline checks and official HACS/hassfest validators passed for the initial published commit. The separate user report confirms initial setup and updating telemetry on Home Assistant Core 2026.9.4. Per-property coverage, transport status, reload/unload, reauthentication, normal-cycle behavior and recorder effects still require detailed runtime acceptance.

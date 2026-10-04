@@ -42,8 +42,8 @@ The unrelated public debug candidates `dreame.washer.r1111` and `dreame.washer.r
 
 ## Remaining validation and functionality
 
-- Run the component in a supported Home Assistant installation: setup, reauthentication, reload/unload, update cadence and live availability remain runtime checks.
-- Publish repository/release metadata and run genuine HACS validation; a locally packaged beta is not a HACS-validated release.
+- The user confirmed HACS installation, account setup, discovery of all three devices and values updating on Home Assistant Core 2026.9.4. Exact entity coverage, MQTT transport status, reauthentication, reload/unload and stale behavior still need detailed runtime checks.
+- The repository is published with actual metadata, and official HACS/hassfest validation plus Python 3.12/3.14 offline checks passed. A tagged release is optional for custom-repository installation.
 - Capture ordinary wash/dry cycles, door changes and completion to verify optional properties, phase-dependent values, stale behavior and unknown enums.
 - Resolve dryer `4.7` and the night-mode coordinate contradiction from additional exact-model evidence.
 - Add controls, vacuum maps, history and packed-setting decoders only after their contracts and capabilities are verified.

@@ -2,6 +2,8 @@
 
 Target: Home Assistant OS 18.3, Core 2026.9.4, Supervisor 2026.09.3 and Frontend 20260826.7. The current integration is the read-only `dreame_home` beta, version `0.2.0b3`. Core 2026.9.4 is the minimum advertised version. Installation uses HACS; no file upload or terminal access is required.
 
+On 2026-10-04, the user confirmed completing HACS installation and account setup: all three target devices appeared, showed values and received updates. The checks below cover the remaining details; entity counts and Home Assistant MQTT status have not yet been supplied.
+
 ## Install the integration
 
 1. Open **HACS** and select **Custom repositories** from its top-right menu.
@@ -39,4 +41,4 @@ Pycryptodome 3.24.0 and paho-mqtt 2.1.0 were independently checked against fresh
 
 Core 2026.9.4 requires Python 3.14.2 or newer and installs probatio's voluptuous compatibility layer before its flow framework imports. The component selects the schema API exposed by that framework. These facts come from the pinned [project metadata](https://github.com/home-assistant/core/blob/2026.9.4/pyproject.toml), [package initialization](https://github.com/home-assistant/core/blob/2026.9.4/homeassistant/__init__.py), [data-entry flow](https://github.com/home-assistant/core/blob/2026.9.4/homeassistant/data_entry_flow.py), [config-entry lifecycle](https://github.com/home-assistant/core/blob/2026.9.4/homeassistant/config_entries.py), [coordinator](https://github.com/home-assistant/core/blob/2026.9.4/homeassistant/helpers/update_coordinator.py) and [sensor implementation](https://github.com/home-assistant/core/blob/2026.9.4/homeassistant/components/sensor/__init__.py).
 
-This source review and the offline tests do not establish execution inside Home Assistant OS. That first runtime validation is the purpose of the installation above. Supervisor, OS and frontend versions describe the target environment; they were not independently exercised. Controls, normal-cycle/event validation and vacuum maps remain later work.
+Source review and offline tests are separate from the user's successful first-run report. Initial installation, login, device discovery and updating telemetry have user-reported runtime acceptance. Reload, stored-token restart, reauthentication, exact coverage and normal-cycle/event behavior remain to be checked. Supervisor, OS and frontend versions describe the supplied environment; controls and vacuum maps remain later work.

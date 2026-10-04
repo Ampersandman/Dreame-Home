@@ -1,6 +1,6 @@
 # HACS repository and releases
 
-The integration repository is [Ampersandman/Dreame-Home](https://github.com/Ampersandman/Dreame-Home). It contains one integration at `custom_components/dreame_home/`, including its vendored API and exact-model catalogues. HACS can install the default branch as soon as the repository is populated and accessible; publishing a release is optional. This follows the [HACS integration repository requirements](https://www.hacs.xyz/docs/publish/integration/).
+The published integration repository is [Ampersandman/Dreame-Home](https://github.com/Ampersandman/Dreame-Home). It contains one integration at `custom_components/dreame_home/`, including its vendored API and exact-model catalogues. The user reports successful installation through HACS, account authentication, discovery of all three appliances and updating values for each on HA OS 18.3 / Core 2026.9.4. HACS source installation works without a release; publishing one is optional. This follows the [HACS integration repository requirements](https://www.hacs.xyz/docs/publish/integration/).
 
 ## Install through HACS
 
@@ -15,11 +15,11 @@ These are the [official custom repository steps](https://www.hacs.xyz/docs/faq/c
 
 ## What CI checks
 
-[validate.yml](../.github/workflows/validate.yml) runs on pushes, pull requests and manual requests. It installs the extracted client with its MQTT dependency, checks installed dependencies, verifies that the committed vendored backend matches `src/dreamehome`, builds the component ZIP, and runs the offline unit suite on Python 3.12 and 3.14. Tests use synthetic responses and source catalogues; no account credentials, device captures, APKs or research checkouts are needed.
+[validate.yml](../.github/workflows/validate.yml) runs on pushes, pull requests and manual requests. Genuine GitHub offline CI passed on Python 3.12 and 3.14, together with the HACS and hassfest jobs. The test jobs install the extracted client with its MQTT dependency, check installed dependencies, verify that the committed vendored backend matches `src/dreamehome`, build the component ZIP, and run the offline unit suite. Tests use synthetic responses and source catalogues; no account credentials, device captures, APKs or research checkouts are needed.
 
 Separate jobs run the official [HACS validation action](https://www.hacs.xyz/docs/publish/action/) with category `integration` and [Home Assistant hassfest](https://developers.home-assistant.io/blog/2020/04/16/hassfest/). No HACS checks are ignored. Local brand assets are committed at `custom_components/dreame_home/brand/icon.png`, which the [current HACS brand validator](https://github.com/hacs/integration/blob/main/custom_components/hacs/validate/brands.py) accepts. Enable repository issues and set a description and topics on GitHub so those repository checks can pass.
 
-Actions are pinned to verified source commits. The official HACS and hassfest action wrappers still pull their upstream validator container images by tag; these jobs consequently exercise the current validators. Passing them and the offline tests does not demonstrate a successful Home Assistant installation or connection to appliances. Runtime acceptance on the user's Home Assistant Core 2026.9.4 remains a separate check.
+Actions are pinned to verified source commits. The official HACS and hassfest action wrappers still pull their upstream validator container images by tag; these jobs consequently exercise the current validators. CI does not install Home Assistant. Separately, the user reports successful initial installation, authentication, discovery and updating telemetry on Core 2026.9.4. Per-property coverage, MQTT connectivity inside HA, reauthentication, reload/unload and cycle behavior remain unconfirmed; controls and maps were not validated.
 
 ## Publish an optional release
 
