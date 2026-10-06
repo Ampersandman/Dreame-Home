@@ -3,6 +3,23 @@
 from time import monotonic
 
 from .api.privacy import redactor
+from .api.laundry_controls import control_available, control_definitions
+from .api.vacuum_controls import vacuum_command_available, vacuum_control_supported
+
+
+def control_diagnostics(coordinator, state):
+    """Report named support and current eligibility without identities or values."""
+    model = state.device.model
+    observations = coordinator.control_observations(state.device.did)
+    ready = coordinator.control_ready(state.device.did)
+    definitions = control_definitions(model)
+    supported = [definition["key"] for definition in definitions]
+    eligible = [key for key in supported if ready and control_available(model, key, observations)]
+    if vacuum_control_supported(model):
+        supported = ["start", "pause", "stop", "return_to_base", "set_fan_speed"]
+        eligible = [key for key in supported if ready and vacuum_command_available(model, key, observations)]
+    return {"supported_commands": supported, "available_commands": eligible,
+            "gateway_ready": ready, "fresh_coordinate_count": len(observations)}
 
 
 def diagnostic_value(value):
@@ -27,6 +44,9 @@ async def async_get_config_entry_diagnostics(hass, entry):
             "value": diagnostic_value(row.get("compound", row.get("value"))),
             "has_value": "value" in row, "last_code": row.get("last_code"),
             "last_reply_null": row.get("last_reply_null", False),
+            "last_source": (row.get("last_source") if row.get("last_source")
+                            in ("rpc", "mqtt", "listing", "metadata") else None),
+            "has_current_reply_value": row.get("last_item", {}).get("value") is not None,
             "last_value_age_seconds": (max(0, round(now - state.timestamps[key]))
                                        if key in state.timestamps else None),
             "source": row.get("source"), "compound_truncated": row.get("compound_truncated", False),
@@ -43,6 +63,7 @@ async def async_get_config_entry_diagnostics(hass, entry):
             "mqtt_connected": bool(state.subscription and state.subscription.connected),
             "command_busy": state.command_busy,
             "last_command_status": state.last_command_status,
+            "controls": control_diagnostics(coordinator, state),
             "properties": properties, "event_count": len(state.store.events),
             "cached_key_count": len(state.store.cached),
             "dropped_properties": state.store.dropped_properties,

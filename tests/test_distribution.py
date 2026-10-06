@@ -38,6 +38,12 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(len(controls.control_definitions("dreame.dryer.l9nacn")), 12)
             vacuum = importlib.import_module(spec.name + ".vacuum_controls")
             self.assertTrue(vacuum.vacuum_control_supported("dreame.vacuum.r5023a"))
+            progress = importlib.import_module(spec.name + ".laundry_progress")
+            self.assertEqual(len(progress.progress_definitions("dreame.washer.l9nacn")), 2)
+            telemetry = importlib.import_module(spec.name + ".telemetry")
+            self.assertEqual(telemetry.telemetry_metadata("dreame.dryer.l9nacn", "2.11")["unit"], "min")
+            vacuum_telemetry = importlib.import_module(spec.name + ".vacuum_telemetry")
+            self.assertFalse(vacuum_telemetry.vacuum_telemetry_available("dreame.vacuum.r5023a", "4.63", {}))
         finally:
             for name in list(sys.modules):
                 if name == spec.name or name.startswith(spec.name + "."):
@@ -49,6 +55,9 @@ class DistributionTests(unittest.TestCase):
             self.assertIn("manifest.json", names)
             self.assertIn("api/mqtt_tls.py", names)
             self.assertIn("api/laundry.py", names)
+            self.assertIn("api/laundry_progress.py", names)
+            self.assertIn("api/telemetry.py", names)
+            self.assertIn("api/vacuum_telemetry.py", names)
             self.assertIn("api/data/l9_washer.json", names)
             self.assertIn("api/data/l9_dryer.json", names)
             self.assertIn("api/LICENSE", names)

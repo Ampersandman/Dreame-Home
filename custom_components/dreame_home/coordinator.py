@@ -309,17 +309,19 @@ class DreameCoordinator(DataUpdateCoordinator):
                 state.timestamps[key] = now
 
     async def _read(self, state):
+        # Exact model candidates remain retryable after null/empty/error replies.
+        # A completed first request is not proof that every address was usable.
+        initial = (list(VACUUM_INITIAL_READ_PAIRS)
+                   if state.device.model == "dreame.vacuum.r5023a"
+                   else laundry_read_pairs(state.device.model))
         pairs = {(row["siid"], row["piid"]) for row in state.store.properties.values()
-                 if "value" in row and row.get("last_code") in (None, 0, "0")}
-        initial = []
-        if not state.initial_read_done:
-            initial = (list(VACUUM_INITIAL_READ_PAIRS)
-                       if state.device.model == "dreame.vacuum.r5023a"
-                       else laundry_read_pairs(state.device.model))
+                 if row.get("value") is not None
+                 and (initial or row.get("last_code") in (None, 0, "0"))}
         if not pairs and not initial:
             return
         try:
-            # Each refresh reads at most 240 observed addresses; rotate if needed.
+            # Reserve exact candidates every refresh, then rotate valued addresses.
+            # Unknown models receive only their successful observed coordinates.
             ordered = sorted(pairs - set(initial))
             capacity = 240 - len(initial)
             offset = int(monotonic() // 60) * capacity % len(ordered) if ordered else 0

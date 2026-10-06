@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 import threading
+from time import monotonic
 from types import SimpleNamespace
 from typing import Any
 import unittest
@@ -18,6 +19,7 @@ from dreamehome.models import Device, Session
 from dreamehome.mqtt import DeviceSubscription
 from dreamehome.observations import ObservationStore, compound_fields, entity_fields
 from dreamehome.privacy import SENSITIVE, redactor
+from dreamehome.telemetry import telemetry_metadata
 
 COMPONENT = Path(__file__).resolve().parents[1] / "custom_components" / "dreame_home"
 
@@ -36,6 +38,7 @@ def entity_scope():
         "CoordinatorEntity": StubCoordinatorEntity, "compound_fields": compound_fields,
         "entity_fields": entity_fields, "SENSITIVE": SENSITIVE, "redactor": redactor, "DOMAIN": "dreame_home",
         "enum_label": enum_label, "laundry_definition": laundry_definition,
+        "telemetry_metadata": telemetry_metadata, "monotonic": monotonic,
     }
     exec(compile(source, "entity.py", "exec"), scope)
     return scope
@@ -283,6 +286,7 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
         namespace = {
             "load_catalog": lambda name: None,
             "control_definitions": lambda model: [],
+            "progress_definitions": lambda model: [],
             "DreameHomeClient": lambda *args, **kwargs: api,
             "DreameCoordinator": lambda *args: coordinator,
             "async_get_clientsession": lambda hass: object(), "AiohttpTransport": lambda session: session,

@@ -1,8 +1,8 @@
-# Appliance controls in 0.3.0b1
+# Appliance controls in 0.3.0b2
 
-Version `0.3.0b1` adds named controls for the exact L9 washer, exact L9 Twin Inverter dryer and L10s Ultra Gen 3 vacuum. Encoders come from their model plugins or the pinned upstream vacuum implementation. Offline tests exercise payloads, constraints and the gateway. **No control or setting write has been validated on live hardware.** The earlier [HA diagnostic review](ha-diagnostics-review.md) establishes telemetry and MQTT operation, not these new controls.
+Version `0.3.0b2` retains the named controls introduced in `0.3.0b1` for the exact L9 washer, exact L9 Twin Inverter dryer and L10s Ultra Gen 3 vacuum. Encoders come from their model plugins or the pinned upstream vacuum implementation. Offline tests exercise payloads, constraints and the gateway. **The supplied evidence does not establish an accepted live control or setting write.** The earlier [HA diagnostic review](ha-diagnostics-review.md) establishes telemetry and MQTT operation. The [2026-10-06 review](ha-diagnostics-review-2026-10-06.md) concerns a later diagnostic downloaded after the laundry cycles ended.
 
-Controls appear for supported exact models. A setting stays unavailable when its value or required command context is missing, null, failed, unknown or stale. The descriptor counts below are separate from telemetry/connectivity entities and actual entity totals.
+Controls appear for supported exact models. A setting stays unavailable when its value or required command context is missing, null, failed, unknown or stale. The descriptor counts below are separate from telemetry/connectivity entities and actual entity totals. Diagnostics now list `supported_commands`, `available_commands`, `gateway_ready` and `fresh_coordinate_count`; these distinguish model support from eligibility at the time of download. The earlier static coverage field `controls_enabled: false` did not describe the writable platforms accurately and has been replaced.
 
 ## Shared command behavior
 
@@ -16,7 +16,7 @@ Switches accept Boolean requests and encode integer `0` or `1`. Selects map labe
 
 ## L9 washing machine
 
-Exact model: `dreame.washer.l9nacn`. **16 descriptors: 8 selects, 5 switches and 3 buttons.**
+Exact model: `dreame.washer.l9nacn`. **13 writable property coordinates: 8 selects and 5 switches, plus 3 buttons; 16 descriptors in total.**
 
 | Control | Platform | Source property or action |
 | --- | --- | --- |
@@ -45,7 +45,7 @@ Start/resume requires standby or pause, no fault at property `2.2`, and authoriz
 
 ## L9 Twin Inverter dryer
 
-Exact model: `dreame.dryer.l9nacn`. **12 descriptors: 5 selects, 4 switches and 3 buttons.**
+Exact model: `dreame.dryer.l9nacn`. **9 writable property coordinates: 5 selects and 4 switches, plus 3 buttons; 12 descriptors in total.**
 
 | Control | Platform | Source property or action |
 | --- | --- | --- |
@@ -88,8 +88,14 @@ Exact model: `dreame.vacuum.r5023a`. A native HA vacuum entity offers **start, p
 
 The adapter retains model/task/status rules. Maintenance, dock washing/drying, specialized resume tasks, automatic/customized cleaning and missing context can block individual commands. Source-defined docking cases use return-to-base behavior. Fan changes require maximum-suction state and, during active cleaning, additional task context. Where source requires it, maximum suction is disabled before selecting fan speed. Room cleaning, maps and the full upstream feature set are not included.
 
-The initial vacuum plan expands from **15 to 20 candidates**, adding control-context properties `4.4`, `4.26`, `4.47`, `4.50` and `4.60`. The supplied HA diagnostic and earlier capture contain **15 successful vacuum coordinates**. Acceptance of the five added reads is not established; missing context can leave a feature unavailable. Candidate counts are not entity totals.
+The recurring vacuum seed contains **22 candidates**. Version `0.3.0b1` added control-context properties `4.4`, `4.26`, `4.47`, `4.50` and `4.60` to the earlier 15-property baseline; `0.3.0b2` adds source-backed progress candidates `4.63` and `4.64`. The later diagnostic contains 167 vacuum property rows, of which 145 have source mappings and 22 retain neutral labels. Neither progress candidate is present in that snapshot, so acceptance of those reads remains unverified. Actual successful context determines available vacuum features; candidate counts are not entity totals. See [cycle sensors](cycle-progress.md).
+
+## Unavailable after a cycle
+
+The user confirmed that the later diagnostic was downloaded after the laundry cycles ended. Both appliances reported cloud offline and retained power-off status `2.1=0`, with observations older than the 180-second command limit. Their unavailable controls are expected in that snapshot; it does not demonstrate a running-cycle or mapping failure. MQTT broker connectivity alone does not establish fresh appliance state.
+
+During a running cycle, parameter selects can also be unavailable because this integration restricts them to standby. Pause, stop and child-lock controls follow their separate source conditions; a fresh running snapshot is needed to check their eligibility. `last_command_status: null` records no command status in the current coordinator session and does not prove that controls were never used.
 
 ## Remaining acceptance
 
-Source encoders and offline gateway checks are separate from hardware execution. No laundry cycle, setting write or vacuum action was issued during this investigation. Existing runtime evidence covers the earlier telemetry beta. Deliberate control acceptance must compare acknowledgements to subsequent actual state and test refusal of invalid/stale context. Lifecycle, ordinary-cycle events, richer vacuum behavior, maps/history and compound-state acceptance remain pending. See [verification](verification.md) and [live coverage](live-coverage.md).
+Source encoders and offline gateway checks are separate from hardware execution. The investigation issued no device writes, but the diagnostic cannot establish the user's complete command history. Accepted writes require an explicit acknowledgement and subsequent actual-state comparison; supplied snapshots do not establish that acceptance. Fresh running-cycle telemetry is also needed to compare the new [progress/time sensors](cycle-progress.md) with the app. Lifecycle, ordinary-cycle events, richer vacuum behavior, maps/history and compound-state acceptance remain pending. See [verification](verification.md) and [live coverage](live-coverage.md).

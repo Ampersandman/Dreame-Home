@@ -41,7 +41,7 @@ class ExactSchemaTests(unittest.TestCase):
             "2.5": {"value": 1, "last_code": 0},
         })
         self.assertFalse(coverage["source_live_verified"])
-        self.assertFalse(coverage["controls_enabled"])
+        self.assertNotIn("controls_enabled", coverage)
         self.assertFalse(coverage["all_candidate_values_observed"])
         self.assertEqual(coverage["successful_value_count"], 1)
         self.assertEqual(coverage["successful_observed_count"], 2)
@@ -103,14 +103,14 @@ class InitialReadTests(unittest.IsolatedAsyncioTestCase):
         self.api.read_properties.reset_mock()
         self.api.read_properties.return_value = []
         await self.read(self.coordinator, state)
-        self.assertEqual(self.api.read_properties.call_args.args[1], [(2, 1)])
+        self.assertEqual(self.api.read_properties.call_args.args[1], laundry_read_pairs(WASHER))
 
     async def test_successful_mqtt_observation_allows_reading_a_write_only_source_field(self):
         state = self.state(WASHER)
         state.initial_read_done = True
         state.store.merge_properties([{"siid": 2, "piid": 5, "value": 4}], source="mqtt")
         await self.read(self.coordinator, state)
-        self.assertEqual(self.api.read_properties.call_args.args[1], [(2, 5)])
+        self.assertEqual(self.api.read_properties.call_args.args[1], laundry_read_pairs(WASHER) + [(2, 5)])
 
     async def test_null_reply_does_not_count_as_complete_or_create_an_entity(self):
         state = self.state(DRYER)
@@ -213,7 +213,12 @@ class FriendlySensorTests(unittest.TestCase):
         source = ast.parse((COMPONENT / "sensor.py").read_text(encoding="utf-8"))
         source.body = [node for node in source.body if not isinstance(node, (ast.Import, ast.ImportFrom))]
         import math
-        scope.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery"),
+        from dreamehome.laundry_progress import laundry_cycle_metrics, progress_definitions
+        from dreamehome.vacuum_telemetry import vacuum_telemetry_available
+        scope.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery", DURATION="duration", AREA="area"),
+                     SensorStateClass=SimpleNamespace(MEASUREMENT="measurement"),
+                     laundry_cycle_metrics=laundry_cycle_metrics, progress_definitions=progress_definitions,
+                     vacuum_telemetry_available=vacuum_telemetry_available,
                      PERCENTAGE="%", enum_label=enum_label, math=math)
         exec(compile(source, "sensor.py", "exec"), scope)
         return scope

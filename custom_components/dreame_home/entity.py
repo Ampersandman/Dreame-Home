@@ -2,6 +2,7 @@
 
 import math
 import json
+from time import monotonic
 from typing import Any
 from urllib.parse import quote
 
@@ -12,7 +13,28 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .api.observations import compound_fields, entity_fields
 from .api.laundry import enum_label, laundry_definition
 from .api.privacy import SENSITIVE, redactor
+from .api.telemetry import telemetry_metadata
 from .const import DOMAIN
+
+
+def property_definition(model, key, pointer=None):
+    definition = laundry_definition(model, key, pointer)
+    metadata = telemetry_metadata(model, key, pointer)
+    return {**(definition or {}), **metadata} if metadata else definition
+
+
+def fresh_observations(state, *, max_age=180):
+    """Select current RPC/MQTT replies for derived read-only telemetry."""
+    now = monotonic()
+    timestamps = getattr(state, "timestamps", {})
+    return {key: row for key, row in state.store.properties.items()
+            if row.get("value") is not None and not row.get("last_reply_null", False)
+            and row.get("last_source") in ("rpc", "mqtt")
+            and row.get("last_item", {}).get("value") is not None
+            and (row.get("last_code") is None
+                 or type(row.get("last_code")) is int and row["last_code"] == 0
+                 or type(row.get("last_code")) is str and row["last_code"] == "0")
+            and key in timestamps and 0 <= now - timestamps[key] <= max_age}
 
 
 def sensitive_path(key, pointer=None):
@@ -134,7 +156,7 @@ class DreamePropertyEntity(DreameEntity):
         self._sanitize = redactor()
         label = (f"Cloud key {key[7:]}" if key.startswith("cached:") else f"Property {key}")
         label += f" {pointer}" if pointer is not None else ""
-        definition = laundry_definition(coordinator.devices[did].device.model, key, pointer)
+        definition = property_definition(coordinator.devices[did].device.model, key, pointer)
         if definition:
             label = definition.get("label") or definition.get("name") or label
         suffix = f"prop:{quote(key, safe='.')}:state"
@@ -154,7 +176,7 @@ class DreamePropertyEntity(DreameEntity):
 
     @property
     def definition(self):
-        return laundry_definition(self.device_state.device.model, self.key, self.pointer)
+        return property_definition(self.device_state.device.model, self.key, self.pointer)
 
     @property
     def cloud_setting(self):

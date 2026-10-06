@@ -6,7 +6,9 @@ The priority devices are the **L9 washing machine**, **L9 Twin Inverter dryer**,
 
 ## Install through HACS
 
-Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.3.0b1` adds exact L9 setting/action controls and a native L10s Ultra Gen 3 vacuum entity. The earlier telemetry beta has user-confirmed installation and updating values on Core 2026.9.4; supplied diagnostics confirm all three devices are online and MQTT-connected, with 27 washer, 22 dryer and 15 vacuum property coordinates carrying values. **The new controls have not been validated on live hardware.** See the [control guide](docs/appliance-controls.md) and [diagnostic review](docs/ha-diagnostics-review.md) for their separate evidence and remaining checks.
+Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.3.0b2` adds readable cycle progress and elapsed time for the exact L9 models, corrects dryer duration labels/units, and retries known property candidates after null or failed replies. It retains the named laundry controls and native L10s Ultra Gen 3 vacuum entity introduced in `0.3.0b1`.
+
+The earlier `0.2.0b3` telemetry beta has user-confirmed installation and updating values on Core 2026.9.4; its [diagnostic review](docs/ha-diagnostics-review.md) confirms fresh telemetry and MQTT connectivity. A later `0.3.0b1` diagnostic was downloaded **after the laundry cycles ended**: both appliances reported power off, with retained old values, while the vacuum supplied 167 property rows. This does not establish a running-cycle failure or accepted control writes. See the [latest diagnostic review](docs/ha-diagnostics-review-2026-10-06.md), [cycle sensors](docs/cycle-progress.md) and [control guide](docs/appliance-controls.md) for the evidence and remaining checks.
 
 1. Open **HACS > menu > Custom repositories**.
 2. Add `https://github.com/Ampersandman/Dreame-Home`, category **Integration**.
@@ -18,7 +20,9 @@ HACS installs the component and its bundled API. Device IDs are discovered autom
 
 The component stores a refresh token in Home Assistant's configuration entry and supports reauthentication. It does not persist the password or access token. Repository files contain no account credentials, actual device IDs or private captures.
 
-The beta discovers every registered device, exposes successful observed properties with stable coordinates, and retains unknown compound data. Exact L9 definitions give observed fields names and explicit enum labels; raw codes remain available. Initial read plans contain 24 washer, 17 dryer and 20 vacuum candidates; only the earlier 15-property vacuum plan has live acceptance. MQTT discovers additional fields, which are then polled. The component also exposes cloud-online/MQTT status and the verified vacuum battery reading. Failed or null replies do not create state entities.
+The beta discovers every registered device, exposes successful observed properties with stable coordinates, and retains unknown compound data. Exact L9 definitions give observed fields names and explicit enum labels; raw codes remain available. Bounded read plans reserve 24 washer, 17 dryer and 22 vacuum candidates, then rotate additional observed addresses within a 240-address limit. Known candidates remain retryable after null, empty or failed replies. Unknown models receive no guessed candidates. MQTT can discover additional fields. Failed or previously unobserved null replies do not create state entities.
+
+The L9 devices have **Program duration**, **Remaining time**, **Cycle progress** and **Elapsed cycle time** sensors. Progress is an estimate from the appliance's reported durations, with fresh-state and invalid-value checks. The vacuum has source-backed cleaning-time and cleaned-area metadata; cleaning/drying progress appears only after an actual usable report. The latest vacuum snapshot contains 145 source-mapped coordinates and 22 neutral coordinates; neither progress property `4.63` nor `4.64` is present. See [cycle sensors](docs/cycle-progress.md).
 
 The exact L9 models have 16 washer and 12 dryer control descriptors, with source-defined options and program restrictions. Start/resume, pause and stop are explicit buttons; laundry stop powers off. The vacuum offers start, pause, stop, return to base and fan speed. Controls require successful recent state, preserve authorization/child-lock/fault guards and never predict state or replay uncertain commands. Ambiguous settings, typed appliance events and vacuum maps remain future work. Unknown observed fields keep neutral coordinate labels. This beta does not yet expose every feature of the official app or upstream vacuum integration.
 
@@ -36,6 +40,8 @@ The exact L9 models have 16 washer and 12 dryer control descriptors, with source
 | [Verification](docs/verification.md) | Offline checks and the limits of what has been tested |
 | [Home Assistant component](custom_components/dreame_home/README.md) | Account setup, telemetry, named controls, diagnostics and lifecycle |
 | [Appliance controls](docs/appliance-controls.md) | Exact control lists, authorization, freshness, program constraints and hardware-validation limits |
+| [Cycle sensors](docs/cycle-progress.md) | Exact time coordinates, progress formulas, source provenance and unknown-state rules |
+| [Latest HA diagnostic review](docs/ha-diagnostics-review-2026-10-06.md) | Post-cycle clarification, retained laundry state and expanded vacuum property coverage |
 | [L9 app research](docs/l9-schema-research.md) | Authenticated iOS/Android plugin lookup, safe extraction and source provenance |
 | [MQTT trust investigation](docs/mqtt-trust-research.md) | Vendor CA recovered from a signature-verified official APK and verified broker connections |
 

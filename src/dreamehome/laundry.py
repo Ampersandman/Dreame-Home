@@ -83,7 +83,6 @@ class LaundrySchema:
             "failed_coordinates": sorted(failed),
             "unobserved_coordinates": sorted(candidates - set(observations)),
             "all_candidate_values_observed": supported == candidates,
-            "controls_enabled": False,
         }
 
 

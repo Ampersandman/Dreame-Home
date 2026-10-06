@@ -29,6 +29,8 @@ VACUUM_INITIAL_READ_PAIRS = (
     # Control context for the confirmed r5023a: suction, task/washing state,
     # packed suction-max flag and cruise state. Successful values remain required.
     (4, 4), (4, 26), (4, 47), (4, 50), (4, 60),
+    # Source-defined progress; null/error replies never manufacture entities.
+    (4, 63), (4, 64),
 )
 
 
