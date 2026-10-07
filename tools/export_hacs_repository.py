@@ -50,7 +50,8 @@ RETIRED_TOOLS = {
 }
 RETIRED_BACKEND_FILES = RESEARCH_MODULES | {f"data/{name}.json" for name in REFERENCE_CATALOGS}
 RETIRED_PATHS = (
-    {f"docs/{name}" for name in RETIRED_DOCS}
+    {"custom_components/dreame_home/brand/icon.svg"}
+    | {f"docs/{name}" for name in RETIRED_DOCS}
     | {f"tools/{name}" for name in RETIRED_TOOLS}
     | {f"tests/{name}" for name in RESEARCH_TESTS}
     | {f"src/dreamehome/{name}" for name in RETIRED_BACKEND_FILES}

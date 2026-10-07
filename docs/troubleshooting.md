@@ -64,6 +64,17 @@ Do not copy the JavaScript file to `www` or add a duplicate dashboard resource. 
 
 If a card shows missing entities, open its visual editor and select the current entities. Entity IDs can differ from examples and can be renamed in Home Assistant. Find the actual IDs under **Settings → Devices & services → Entities** or **Developer tools → States**.
 
+## The integration icon is missing or outdated
+
+The Dreame app icon is bundled with the integration. After updating, restart
+Home Assistant and refresh the browser or reopen its app to clear cached images.
+
+Home Assistant displays bundled brand images on the integration and device
+pages. HACS 2.0.5 still retrieves its catalogue and update icons from a separate
+brand service, so those views may show a placeholder even when Home Assistant
+shows the correct icon. HACS needs its [upstream branding update](https://github.com/hacs/integration/pull/5388)
+to use the bundled image. Reinstalling the integration does not fix that HACS limitation.
+
 ## Report a problem
 
 [Open an issue](https://github.com/Ampersandman/Dreame-Home/issues) with:

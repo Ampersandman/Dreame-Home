@@ -18,5 +18,9 @@ This project is an independent community integration.
 The public broker certificate bundled with the client is used to verify TLS
 connections. It contains no private keys or user account credentials.
 
-The integration icons, appliance illustrations and dashboard card are original
-work distributed under the repository's MIT license.
+The app icon supplied for this project represents Dreame. The Dreame name and
+logo remain the property of their respective owners and are used to identify
+the supported service; they do not imply endorsement of this integration.
+
+The appliance illustrations and dashboard card are original work distributed
+under the repository's MIT license.

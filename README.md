@@ -1,5 +1,7 @@
 # Dreame Home for Home Assistant
 
+<img src="custom_components/dreame_home/brand/icon.png" alt="Dreame Home" width="96" height="96">
+
 Connect your Dreame Home account to Home Assistant and bring your laundry appliances and robot vacuum into one dashboard.
 
 **Dreame Home** provides device status, useful sensors, model-specific controls, and a bundled laundry dashboard card. Devices are discovered automatically from your account. You do not need to find device IDs or configure an MQTT broker.
@@ -23,7 +25,7 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 
 Other devices in the account can appear with available telemetry. Model-specific controls are limited to the models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b1 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b2 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 
