@@ -12,7 +12,8 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 - **Appliance controls:** program selection, supported settings, and separate start/resume, pause, and stop buttons.
 - **App-aligned programs:** 15 standard washer programs and 25 dryer programs, including 16 drying programs and 9 care programs.
 - **Robot vacuum:** a native Home Assistant vacuum entity with start, pause, stop, return to base, and fan-speed controls.
-- **Laundry dashboard card:** an appliance illustration, cycle information, and controls, with English and German text and a visual editor.
+- **Laundry dashboard card:** washer and dryer product images, an animated drum while running, cycle information, and controls with a visual editor.
+- **English interface:** entity names, program choices, and card text stay in English regardless of your Home Assistant language.
 - **Live updates:** cloud reads and optional MQTT updates, with additional telemetry exposed as it becomes available.
 
 ## Supported devices
@@ -25,7 +26,7 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 
 Other devices in the account can appear with available telemetry. Model-specific controls are limited to the models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b2 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b3 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 

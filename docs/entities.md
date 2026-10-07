@@ -2,7 +2,7 @@
 
 Open **Settings → Devices & services → Dreame Home** and select a device to see its entities. Cycle information appears under sensors, program parameters and cycle buttons under controls, and persistent preferences such as child lock under configuration. Additional telemetry is kept in diagnostics. The exact set depends on the model, firmware, and values the appliance reports.
 
-This guide uses English names. Supported laundry entity names and program choices are German when Home Assistant's configured language is German, and English otherwise.
+Integration-provided entity names, program choices, and card text are always in English, independently of your Home Assistant language. Names you assign yourself are preserved.
 
 ## Supported devices
 
@@ -43,7 +43,7 @@ For the washer, 100% can mean that washing has finished while fresh-air care con
 
 ## Washer controls
 
-The program selector offers **15 standard programs**. Program names follow Home Assistant's configured language: German for a German instance, English otherwise. Additional programs reported by the appliance can still be recognized as current state without being offered for selection.
+The program selector offers **15 standard programs**, all named in English. Additional programs reported by the appliance can still be recognized as current state without being offered for selection.
 
 | Control | Purpose |
 | --- | --- |
@@ -65,7 +65,7 @@ Choices are filtered for the selected program and current settings. Some combina
 
 ## Dryer controls
 
-The program selector offers **25 standard programs**: **16 drying programs** and **9 care programs**. Program names follow Home Assistant's configured language in the same way as the washer.
+The program selector offers **25 standard programs**: **16 drying programs** and **9 care programs**, all named in English.
 
 | Control | Purpose |
 | --- | --- |
@@ -87,9 +87,9 @@ The English program names are:
 
 | Appliance | Group | Programs |
 | --- | --- | --- |
-| Washer | Wash | AI Wash, ECO 40-60, Quick Wash, Mixed, Large Items, Cotton, Down, Wool, Towels, Delicates, Baby Care, Allergy Care, Spin Only, Rinse & Spin, Drum Clean |
-| Dryer | Dry | AI Dry, Quick Dry, Large Items, Wool, Down, ECO, Shirts, Towels, Delicates, Synthetics, Sportswear, Outdoor, Small Load, Silk, Sanitize Dry, Pet Hair Removal |
-| Dryer | Care | Hot Air, Cool Air, Quilt Refresh, Wool, Down, Shirts, Silk, Cotton, Hygiene Care |
+| Washer | Wash | AI Wash, ECO 40-60, Quick Wash, Mixed, Large Items, Cotton, Down, Wool, Towels, Underwear, Baby Care, Anti-Allergen, Spin Only, Rinse & Spin, Drum Clean |
+| Dryer | Dry | AI Dry, Quick Dry, Large Items, Wool, Down, ECO, Shirts, Baby Care, Underwear, Synthetics, Sportswear, Outerwear, Small Load, Silk, Sanitize Dry, Pet Hair Removal |
+| Dryer | Care | Hot Air, Cold Air, Quilt Refresh, Wool, Down, Shirts, Silk, Cotton, Hygiene Care |
 
 Names that occur in both dryer groups are distinguished in the Home Assistant selector, for example **Dry: Wool** and **Care: Wool**. The card displays them in separate tabs. Use the exact text in your selector's options when creating an automation.
 

@@ -2,7 +2,7 @@
 
 Use Dreame Home entities with standard Home Assistant actions. These examples use **generic English entity IDs**; replace them with your actual IDs before saving.
 
-Find IDs in **Settings → Devices & services → Entities** or **Developer tools → States**. Select entities also expose an `options` attribute: use the exact option text shown there. Program options are German on a German Home Assistant instance and English otherwise.
+Find IDs in **Settings → Devices & services → Entities** or **Developer tools → States**. Select entities also expose an `options` attribute: use the exact option text shown there. Program options are always in English.
 
 ## Notify when the washer is nearly finished
 
@@ -36,7 +36,7 @@ See [Home Assistant numeric-state triggers](https://www.home-assistant.io/docs/a
 
 ## Select a washer program
 
-Add the following as a script, or use its action in an automation. `Quick Wash` is the English option; on a German instance the corresponding option is `Schnellwäsche`. Check your entity's `options` before using it.
+Add the following as a script, or use its action in an automation. `Quick Wash` is the option regardless of your Home Assistant language. Check your entity's `options` before using it.
 
 ```yaml
 alias: Laundry - choose quick wash

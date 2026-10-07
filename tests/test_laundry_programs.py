@@ -1,4 +1,4 @@
-"""Exact app-main program profiles and bijective localized wire identities."""
+"""Exact app-main program profiles and English presentation of wire identities."""
 
 import unittest
 
@@ -6,7 +6,7 @@ from dreamehome.laundry_controls import ControlValidationError, control_options,
 from dreamehome.laundry_programs import (
     DRYER, WASHER, program_catalog, program_definition, program_language, program_option_pairs,
 )
-from dreamehome.presentation import control_presentation, property_presentation
+from dreamehome.presentation import control_presentation, cycle_presentation, property_presentation
 from test_laundry_controls import observations
 
 
@@ -23,31 +23,39 @@ class LaundryProgramTests(unittest.TestCase):
         self.assertEqual(len(program_catalog(DRYER, include_additional=True)), 31)
         self.assertEqual(program_catalog("dreame.dryer.l9"), [])
 
-    def test_exact_localization_quirks_do_not_change_numeric_identity(self):
-        self.assertEqual(program_definition(DRYER, 7)["labels"], {"en": "Towels", "de": "Baby-pflege"})
+    def test_english_app_names_preserve_original_source_identity(self):
+        self.assertEqual(program_definition(DRYER, 7)["labels"], {"en": "Baby Care"})
+        self.assertEqual(program_definition(DRYER, 7)["source_label"], "Towels")
+        for model in (WASHER, DRYER):
+            self.assertEqual(program_definition(model, 8)["label"], "Underwear")
+            self.assertEqual(program_definition(model, 8)["source_label"], "Delicates")
         self.assertEqual(program_definition(DRYER, 9)["labels"]["en"], "Synthetics")
         self.assertEqual(program_definition(DRYER, 27)["labels"]["en"], "Synthetic")
-        self.assertEqual(program_definition(WASHER, 12)["labels"]["de"], "Nur schleudern")
+        self.assertEqual(program_definition(WASHER, 11)["label"], "Anti-Allergen")
+        self.assertEqual(program_definition(WASHER, 11)["source_label"], "Allergy Care")
+        self.assertEqual(program_definition(WASHER, 12)["labels"], {"en": "Spin Only"})
         self.assertEqual(program_definition(WASHER, 22)["label"], "ECO 40-60")
         self.assertIsNone(program_definition(WASHER, True))
         self.assertIsNone(program_definition(WASHER, "22"))
         self.assertIsNone(program_definition(WASHER, 999))
 
-    def test_localized_options_are_bijective_and_additional_codes_do_not_rename_main_choices(self):
+    def test_english_options_are_locale_independent_bijective_and_stable(self):
         for model in (WASHER, DRYER):
-            for language in ("en", "de-DE"):
+            english = program_option_pairs(model, "en")
+            for language in (None, "en", "de-DE", "de_AT", "fr"):
                 pairs = program_option_pairs(model, language)
+                self.assertEqual(pairs, english)
                 self.assertEqual(len({label for label, _ in pairs}), len(pairs))
                 self.assertEqual(len({code for _, code in pairs}), len(pairs))
                 all_labels = dict((code, label) for label, code in pairs)
                 standard_labels = dict((code, label) for label, code in program_option_pairs(model, language, include_additional=False))
                 self.assertTrue(all(all_labels[code] == label for code, label in standard_labels.items()))
-        de = dict((code, label) for label, code in program_option_pairs(DRYER, "de"))
-        self.assertEqual(de[3], "Trocknen: Wolle")
-        self.assertEqual(de[17], "Pflege: Wolle")
-        self.assertEqual(de[9], "Synthetik")
-        self.assertEqual(de[27], "Cloud-Programme: Synthetik")
-        self.assertEqual(program_language("de_AT"), "de")
+        german_ha = dict((code, label) for label, code in program_option_pairs(DRYER, "de"))
+        self.assertEqual(german_ha[3], "Dry: Wool")
+        self.assertEqual(german_ha[17], "Care: Wool")
+        self.assertEqual(german_ha[9], "Synthetics")
+        self.assertEqual(german_ha[27], "Cloud programs: Synthetic")
+        self.assertEqual(program_language("de_AT"), "en")
         self.assertEqual(program_language("en-GB"), "en")
         self.assertEqual(program_language(None), "en")
 
@@ -57,8 +65,9 @@ class LaundryProgramTests(unittest.TestCase):
         self.assertEqual(program_definition(DRYER, 5)["reference_duration_minutes"], 112)
         self.assertEqual(program_definition(DRYER, 0)["reference_duration_kind"], "source-default")
         edited = program_catalog(WASHER)
-        edited[0]["labels"]["de"] = "Modified"
-        self.assertEqual(program_catalog(WASHER)[0]["labels"]["de"], "KI-Wäsche")
+        edited[0]["labels"]["en"] = "Modified"
+        self.assertEqual(program_catalog(WASHER)[0]["labels"], {"en": "AI Wash"})
+        self.assertEqual(program_catalog(WASHER)[0]["group_labels"], {"en": "Wash"})
 
     def test_only_main_profile_choices_can_be_new_program_writes(self):
         for model, omitted in ((WASHER, (7, 10, 15, 16, 17, 18, 19)), (DRYER, tuple(range(25, 31)))):
@@ -87,6 +96,14 @@ class LaundryProgramTests(unittest.TestCase):
                 self.assertEqual(property_presentation(model, key)["entity_category"], "diagnostic")
             self.assertFalse(property_presentation(model, "2.1", "/arbitrary")["enabled_default"])
         self.assertEqual(control_presentation(WASHER, "night_mode")["entity_category"], "config")
+
+    def test_all_entity_labels_remain_english_for_other_ha_languages(self):
+        for language in ("de-DE", "de_AT", "fr", None):
+            self.assertEqual(control_presentation(WASHER, "program", language)["label"], "Program")
+            self.assertEqual(control_presentation(DRYER, "child_lock", language)["label"], "Child lock")
+            self.assertEqual(property_presentation(WASHER, "2.4", language=language)["label"], "Wash phase")
+            self.assertEqual(property_presentation(DRYER, "2.11", language=language)["label"], "Remaining time")
+            self.assertEqual(cycle_presentation("progress", language)["label"], "Cycle progress")
 
 
 if __name__ == "__main__":

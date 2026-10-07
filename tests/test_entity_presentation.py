@@ -23,7 +23,7 @@ class EntityPresentationTests(unittest.TestCase):
             self.assertTrue(entity._attr_entity_registry_enabled_default)
         account.hass = SimpleNamespace(config=SimpleNamespace(language="de"))
         entity = namespace["DreamePropertySensor"](account, item.device.did, "2.1")
-        self.assertEqual(entity._attr_name, "Betriebsstatus")
+        self.assertEqual(entity._attr_name, "Run status")
         self.assertEqual(entity._attr_unique_id, "fabricated-key:prop:2.1:state")
 
     def test_running_receipt_clock_and_freshness_reject_retained_null_failed_and_expired_state(self):

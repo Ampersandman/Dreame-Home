@@ -62,6 +62,8 @@ class DistributionTests(unittest.TestCase):
             self.assertIn("api/data/l9_dryer.json", names)
             self.assertIn("api/LICENSE", names)
             self.assertIn("frontend/dreame-home-laundry-card.js", names)
+            self.assertIn("frontend/assets/washer.png", names)
+            self.assertIn("frontend/assets/dryer.png", names)
             for name in ("api/cli.py", "api/discovery.py", "api/data/implementations.json",
                          "api/data/constants.json", "api/data/device_info.json"):
                 self.assertNotIn(name, names)

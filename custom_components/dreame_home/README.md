@@ -4,7 +4,9 @@
 
 Dreame Home connects Home Assistant to devices registered in your Dreame Home account. It supports the L9 washing machine, L9 Twin Inverter dryer, and L10s Ultra Gen 3 vacuum, with available telemetry for additional discovered devices.
 
-The integration includes laundry sensors and controls, a native vacuum entity, and the **Dreame Home Laundry** dashboard card. The card loads automatically and has a visual editor; no file copying or dashboard-resource configuration is required.
+The integration includes laundry sensors and controls, a native vacuum entity, and the **Dreame Home Laundry** dashboard card. The card shows washer and dryer product images with a drum animation while running. It loads automatically and has a visual editor; no file copying or dashboard-resource configuration is required.
+
+Entity names, program choices, and card text are provided in English regardless of your Home Assistant language. Names you set yourself remain yours to customize.
 
 ## Install
 
@@ -20,4 +22,4 @@ Requires Home Assistant Core **2026.9.4 or newer**. Add `https://github.com/Ampe
 
 Program selection does not start an appliance. Use the separate start/resume control when you are ready. Controls become available only when the appliance reports recent suitable state.
 
-Current version: **0.4.0b2 — beta**. This community integration is not affiliated with Dreame.
+Current version: **0.4.0b3 — beta**. This community integration is not affiliated with Dreame.

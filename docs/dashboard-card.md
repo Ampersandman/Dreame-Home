@@ -1,6 +1,6 @@
 # Laundry dashboard card
 
-The **Dreame Home Laundry** card is bundled with the integration. It shows an appliance illustration, current status, cycle progress, timing, program selection, and available controls for one L9 washer or dryer.
+The **Dreame Home Laundry** card is bundled with the integration. It shows the washer or dryer product image, current status, cycle progress, timing, program selection, and available controls for one L9 appliance.
 
 The card loads automatically when the integration starts. You do not need to copy JavaScript files or add dashboard resources.
 
@@ -21,7 +21,7 @@ Add a second card for the other appliance. See [Home Assistant's card guide](htt
 
 The editor lets you override detected entities. Use an override when you want a particular entity or an automatic selection needs adjustment. Settings are detected automatically; an optional YAML list lets you choose which settings to display.
 
-The card follows your Home Assistant frontend language: German when it is set to German, English otherwise. There is no separate card-language setting.
+All card labels, status text, settings, and program names are in English regardless of your Home Assistant frontend language. An optional card name is displayed as entered.
 
 ## Using the card
 
@@ -36,7 +36,7 @@ Program tiles can show a **Reference** duration. This is a program's default est
 
 The card reflects entity availability. Settings that are not permitted for the current program or cycle state remain unavailable.
 
-The drum animates only when the appliance reports a recent actual running state. A paused, powered-off, or stale appliance does not display a running animation. The artwork is included in the card; it needs no external image service.
+The drum in the product image spins only when the appliance reports a recent actual running state. A paused, powered-off, or stale appliance does not display a running animation. The product images are bundled with the integration and need no external image service.
 
 Progress is estimated from appliance timing and can change when the appliance revises its duration. Read [cycle sensors](entities.md#cycle-sensors) for the meaning of progress and unknown values.
 

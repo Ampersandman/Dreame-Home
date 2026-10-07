@@ -241,6 +241,30 @@ class FriendlySensorTests(unittest.TestCase):
         store.merge_properties([{"siid": 2, "piid": 13, "value": "unrecognized"}])
         self.assertIsNone(remaining.native_value)
 
+    def test_program_readback_uses_english_app_label_without_changing_observation(self):
+        from dreamehome.catalog import load_catalog
+        scope = self.sensor_scope()
+        for model, raw, expected, source in ((WASHER, 8, "Underwear", "Delicates"),
+                                              (WASHER, 11, "Anti-Allergen", "Allergy Care"),
+                                              (DRYER, 7, "Baby Care", "Towels"),
+                                              (DRYER, 8, "Underwear", "Delicates")):
+            with self.subTest(model=model, raw=raw):
+                store = ObservationStore(model)
+                store.merge_properties([{"siid": 2, "piid": 3, "value": raw}])
+                state = SimpleNamespace(device=SimpleNamespace(model=model), store=store)
+                coordinator = SimpleNamespace(devices={"device": state}, device_key=lambda _: "key",
+                                              hass=SimpleNamespace(config=SimpleNamespace(language="de-DE")))
+                sensor = scope["DreamePropertySensor"](coordinator, "device", "2.3")
+                self.assertEqual(sensor._attr_name, "Program")
+                self.assertEqual(sensor.native_value, expected)
+                self.assertEqual(enum_label(sensor.definition, raw), expected)
+                self.assertEqual(sensor.extra_state_attributes["raw_code"], raw)
+                self.assertEqual(store.properties["2.3"]["value"], raw)
+                self.assertEqual(scope["presentation_language"](coordinator), "en")
+                source_rows = next(row for row in load_catalog("l9_washer" if model == WASHER else "l9_dryer")["properties"]
+                                   if row["siid"] == 2 and row["piid"] == 3)["value_list"]
+                self.assertEqual(next(row["label"] for row in source_rows if row["value"] == raw), source)
+
     def test_numeric_roots_reject_compounds_and_keep_leaf_observations(self):
         scope = self.sensor_scope()
         for model, pair, unit in ((WASHER, (2, 13), "min"),

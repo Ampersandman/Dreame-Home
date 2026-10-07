@@ -21,8 +21,8 @@ from .const import DOMAIN
 
 
 def presentation_language(coordinator):
-    """Use the HA instance language; frontend cards can choose either catalog label."""
-    return getattr(getattr(getattr(coordinator, "hass", None), "config", None), "language", "en")
+    """Keep integration-owned labels English without changing the HA locale."""
+    return "en"
 
 
 @callback

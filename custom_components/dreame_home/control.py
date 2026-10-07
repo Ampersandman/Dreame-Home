@@ -128,15 +128,15 @@ class DreameControlEntity(DreameEntity):
         return tuple((label, code) for label, code in pairs if code in codes)
 
     def display_option_pairs(self):
-        """Localize program names only after verifying their exact source identity."""
+        """Use English app names after verifying their exact source identity."""
         pairs = option_pairs(self.definition.get("options"))
         if self.key != "program" or not pairs:
             return pairs
-        source = {row["value"]: row["label"] for row in program_catalog(self.model, include_additional=True)}
+        source = {row["value"]: row["source_label"] for row in program_catalog(self.model, include_additional=True)}
         options = self.definition["options"]
         if not source or any(source.get(row["value"]) != row["label"] for row in options):
             return pairs
-        return program_option_pairs(self.model, presentation_language(self.coordinator))
+        return program_option_pairs(self.model)
 
     @property
     def extra_state_attributes(self):

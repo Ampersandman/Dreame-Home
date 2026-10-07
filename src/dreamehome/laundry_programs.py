@@ -1,4 +1,4 @@
-"""Exact L9 app program identities and localized display information.
+"""Exact L9 app program identities with consistent English display names.
 
 Standard choices match the model plugins' main program tabs. Cloud-program
 codes remain recognizable, but are not selectable in the default HA profile.
@@ -14,39 +14,26 @@ WASHER = "dreame.washer.l9nacn"
 DRYER = "dreame.dryer.l9nacn"
 _CATALOGS = {WASHER: "l9_washer", DRYER: "l9_dryer"}
 _WASHER_CLOUD = frozenset((7, 10, 15, 16, 17, 18, 19))
-_DE = {
-    WASHER: {
-        0: "KI-Wäsche", 22: "ECO 40-60", 1: "Schnellwäsche", 2: "Gemischt",
-        3: "Große Gegenstände", 4: "Baumwolle", 5: "Daunen", 6: "Wolle",
-        21: "Handtücher", 8: "Unterwäsche", 9: "Baby-pflege", 11: "Anti-Allergen",
-        # Vendor German says 'Nur schleud'; the English Spin Only proves the
-        # complete meaning without relying on the truncated screenshot title.
-        12: "Nur schleudern", 13: "Spülen + Schleudern", 14: "Trommel-Reinigung",
-        15: "Farbpflege", 16: "Hemden", 17: "Tiefenreinigung", 18: "Sportbekleidung",
-        19: "Schuluniform", 7: "Seide", 10: "Oberbekleidung",
-    },
-    DRYER: {
-        0: "KI-Trocknen", 1: "Schnelltrocknen", 2: "Große Gegenstände", 3: "Wolle",
-        4: "Daunen", 5: "ÖKO", 6: "Hemden", 7: "Baby-pflege", 8: "Unterwäsche",
-        9: "Synthetik", 10: "Sportbekleidung", 11: "Oberbekleidung",
-        12: "Kleine Ladung", 13: "Seide", 14: "Trocken desinfizieren", 15: "Tierhaare",
-        18: "Heiße Luft", 19: "Kalte Luft", 16: "Quilt-Aktualisierung", 17: "Wolle",
-        20: "Runter", 21: "Hemden", 22: "Seide", 23: "Baumwolle",
-        24: "Hygienische Pflege", 25: "Farbpflege", 26: "Schuluniform",
-        27: "Synthetik", 28: "Heimtextilien", 29: "Lufttrocknen", 30: "Denim",
-    },
-}
+_KNOWN_CODES = {WASHER: frozenset(range(20)) | {21, 22}, DRYER: frozenset(range(31))}
 _GROUPS = {
-    "wash": {"en": "Wash", "de": "Waschen"},
-    "dry": {"en": "Dry", "de": "Trocknen"},
-    "care": {"en": "Care", "de": "Pflege"},
-    "additional": {"en": "Cloud programs", "de": "Cloud-Programme"},
+    "wash": {"en": "Wash"},
+    "dry": {"en": "Dry"},
+    "care": {"en": "Care"},
+    "additional": {"en": "Cloud programs"},
+}
+# Translate the visible app names where the source's English string describes a
+# different garment or differs from the supplied app program list. The source
+# string remains separate from presentation so write validation never depends
+# on a translated label.
+_DISPLAY_OVERRIDES = {
+    WASHER: {8: "Underwear", 10: "Outerwear", 11: "Anti-Allergen", 16: "Shirts"},
+    DRYER: {7: "Baby Care", 8: "Underwear", 11: "Outerwear", 19: "Cold Air"},
 }
 
 
 def program_language(language=None):
-    """Only explicitly provided German locales select German display strings."""
-    return "de" if isinstance(language, str) and language.lower().replace("_", "-").split("-")[0] == "de" else "en"
+    """Keep the integration's program presentation English for every HA locale."""
+    return "en"
 
 
 @lru_cache(maxsize=2)
@@ -65,16 +52,19 @@ def _programs(model):
         selected = catalog["programs"]["ProgramMode_W"]
         rows, table = selected["values"], selected["provenance"]
         grouping = {"module": "projects_dreame.dryer.l9nacn_views_Home_index", "lines": [10269, 10303, 10310]}
-    if {row["value"] for row in rows} != set(_DE[model]):
-        raise ValueError("Localized program identities differ from source codes")
+    if ({row["value"] for row in rows} != _KNOWN_CODES[model]
+            or len(rows) != len(_KNOWN_CODES[model])
+            or any(type(row["value"]) is not int for row in rows)):
+        raise ValueError("Program identities differ from exact source codes")
     result = []
     for row in rows:
         code = row["value"]
         group = ("additional" if code in _WASHER_CLOUD else "wash") if model == WASHER else (
             "dry" if code < 16 else "care" if code < 25 else "additional")
         minutes = row.get("default_duration_minutes", row.get("default_minutes"))
-        result.append({"value": code, "label": row["label"],
-                       "labels": {"en": row["label"], "de": _DE[model][code]},
+        label = _DISPLAY_OVERRIDES[model].get(code, row["label"])
+        result.append({"value": code, "label": label, "source_label": row["label"],
+                       "labels": {"en": label},
                        "group": group, "group_labels": deepcopy(_GROUPS[group]),
                        "reference_duration_minutes": minutes if type(minutes) is int and minutes > 0 else None,
                        "reference_duration_kind": "source-default",
@@ -100,8 +90,12 @@ def program_definition(model, value):
 
 
 def program_option_pairs(model, language=None, *, include_additional=True):
-    """Bijective localized labels; care choices are distinguished by their group."""
-    language = program_language(language)
+    """Bijective English labels, independent of the HA or frontend locale.
+
+    The optional language argument remains accepted for existing consumers.
+    Duplicate care/dry names are distinguished by their English group name.
+    """
+    language = "en"
     rows = program_catalog(model, include_additional=include_additional)
     names = [row["labels"][language] for row in rows if row["standard"]]
     pairs = []
@@ -111,5 +105,5 @@ def program_option_pairs(model, language=None, *, include_additional=True):
             label = row["group_labels"][language] + ": " + label
         pairs.append((label, row["value"]))
     if len({label for label, _ in pairs}) != len(pairs):
-        raise ValueError("Localized program choices are not unique")
+        raise ValueError("English program choices are not unique")
     return tuple(pairs)

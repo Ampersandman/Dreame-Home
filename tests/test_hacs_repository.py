@@ -48,6 +48,8 @@ def workspace(root):
     write(root, "tests/fixtures/vacuum_reference.json", b"{}\n")
     write(root, "tests/frontend/card.test.mjs")
     write(root, "custom_components/dreame_home/frontend/dreame-home-laundry-card.js")
+    for name in EXPORT.PUBLIC_FRONTEND_PHOTOS:
+        write(root, "custom_components/dreame_home/" + name, b"public-product-photo")
     write(root, "tests/test_portable.py")
     write(root, "tools/build_component.py")
     write(root, "tools/build_brand.py")
@@ -84,6 +86,7 @@ class RepositoryExportTests(unittest.TestCase):
                 "custom_components/dreame_home/ha-diag/diagnostic.json",
                 "custom_components/dreame_home/vendor.js",
                 "custom_components/dreame_home/brand/vendor.js",
+                "custom_components/dreame_home/frontend/assets/private-capture.png",
                 "custom_components/dreame_home/raw.pem", "src/dreamehome/plugin.hbc",
                 "docs/raw-capture.json", "tools/l9_research_mirror.py", ".github/workflows/local.apk",
                 "docs/live-coverage.md", "docs/live-verification.json", "tools/scan_cloud_account.py",
@@ -104,6 +107,8 @@ class RepositoryExportTests(unittest.TestCase):
                 for name in EXPORT.RUNTIME_CATALOGS:
                     self.assertIn(f"{base}/data/{name}.json", plan)
             self.assertIn("custom_components/dreame_home/api/vendor_manifest.json", plan)
+            for name in EXPORT.PUBLIC_FRONTEND_PHOTOS:
+                self.assertIn("custom_components/dreame_home/" + name, plan)
             for name in (".gitattributes", "tools/build_brand.py", "docs/installation.md",
                          "docs/assets/laundry-card.png", "tests/fixtures/signing_reference.json",
                          "tests/fixtures/vacuum_reference.json",

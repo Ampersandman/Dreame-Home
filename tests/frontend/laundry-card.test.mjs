@@ -28,7 +28,7 @@ globalThis.document={createElement:name=>new (registered.get(name))()};
 const cardModule=await import(pathToFileURL(modulePath).href);
 const {DreameHomeLaundryCard:Card,DreameHomeLaundryCardEditor:Editor,
   resolveEntities,programRows,serviceRequest,isRunning,isFreshStatus,isButtonAvailable,
-  numericValue,language,statusCode}=cardModule;
+  numericValue,language,statusCode,appliancePhotoUrl,applianceSvg}=cardModule;
 
 const MODEL="dreame.washer.l9nacn";
 const CONFIG={type:"custom:dreame-home-laundry-card",device_id:"synthetic-device"};
@@ -132,17 +132,64 @@ test("unknown HA buttons are available before first press, unavailable buttons s
   assert.match(html,/data-action="pause"\s+disabled/);
 });
 
-test("frontend labels localize while select calls retain exact reported option strings",()=>{
+test("all card text stays English while select calls retain exact reported option strings",()=>{
   const hass=fixture();hass.locale.language="de-DE";
-  assert.equal(language(hass),"de");
+  assert.equal(language(hass),"en");
+  const state=hass.states["select.test_program"];
+  state.attributes.options=["Baumwolle","Schnellwäsche","Wollpflege"];
+  state.state="Baumwolle";
+  state.attributes.program_catalog.forEach((row,index)=>{row.option=state.attributes.options[index];});
   const rows=programRows(hass.states["select.test_program"],"washer","de");
-  assert.equal(rows[0].label,"Baumwolle");assert.equal(rows[1].label,"Schnellwäsche");
+  assert.equal(rows[0].label,"Cotton");assert.equal(rows[1].label,"Quick wash");
   assert.equal(rows[2].group,"care");
   const request=serviceRequest(hass,CONFIG,"program",rows[1].option);
-  assert.deepEqual(request,{domain:"select",service:"select_option",data:{entity_id:"select.test_program",option:"Quick wash"}});
-  assert.throws(()=>serviceRequest(hass,CONFIG,"program","Schnellwäsche"),/notAvailable/);
+  assert.deepEqual(request,{domain:"select",service:"select_option",data:{entity_id:"select.test_program",option:"Schnellwäsche"}});
+  assert.throws(()=>serviceRequest(hass,CONFIG,"program","Quick wash"),/notAvailable/);
   assert.throws(()=>serviceRequest(hass,CONFIG,"program",4),/notAvailable/);
-  const html=makeCard(hass).shadowRoot.innerHTML;assert.match(html,/Baumwolle/);assert.match(html,/Richtwert/);assert.match(html,/Verbleibend/);
+  const card=makeCard(hass),html=card.shadowRoot.innerHTML;
+  assert.match(html,/>Cotton</);assert.match(html,/>Quick wash</);
+  assert.match(html,/Reference/);assert.match(html,/Remaining/);assert.match(html,/>Start</);
+  assert.doesNotMatch(html,/>Baumwolle</);assert.doesNotMatch(html,/Richtwert|Verbleibend|Starten/);
+  card._group="care";card._render();
+  assert.match(card.shadowRoot.innerHTML,/>Care</);assert.match(card.shadowRoot.innerHTML,/>Wool care</);
+  card._advanced=true;card._render();
+  assert.match(card.shadowRoot.innerHTML,/Advanced settings/);assert.match(card.shadowRoot.innerHTML,/Child lock/);
+});
+
+test("appliance photos inherit only the module cache version and use the right appliance",()=>{
+  const moduleUrl="https://ha.example/dreame_home/dreame-home-laundry-card.js?v=0.4.0b3&other=ignored";
+  for(const appliance of ["washer","dryer"]){
+    assert.equal(appliancePhotoUrl(appliance,moduleUrl),`https://ha.example/dreame_home/${appliance}.png?v=0.4.0b3`);
+  }
+  assert.equal(appliancePhotoUrl("washer","https://ha.example/dreame_home/card.js"),"https://ha.example/dreame_home/washer.png");
+  assert.equal(appliancePhotoUrl("other",moduleUrl),"https://ha.example/dreame_home/washer.png?v=0.4.0b3");
+});
+
+test("photo animation turns an identical image inside a fixed drum window, leaving the cabinet still",()=>{
+  for(const appliance of ["washer","dryer"]){
+    const html=applianceSvg(appliance,true,"Supplied appliance photo");
+    assert.match(html,/class="appliance-art running"/);
+    assert.match(html,/<image class="appliance-photo"[^>]+\/>\s*<g class="drum-window" clip-path="url\(#[^)]+\)"><g class="drum-rotation"><image class="drum-photo"/);
+    const references=[...html.matchAll(/href="([^"]+)"/g)].map(match=>match[1]);
+    assert.equal(references.length,2);assert.equal(references[0],references[1]);
+    assert.match(references[0],new RegExp(`${appliance}\\.png$`));
+    assert.match(html,/<clipPath[^>]+clipPathUnits="userSpaceOnUse"><circle /);
+    assert.doesNotMatch(html,/<g class="drum-rotation"[^>]*clip-path/);
+    assert.match(html,/--drum-center-x:[\d.]+px;--drum-center-y:[\d.]+px/);
+    assert.doesNotMatch(applianceSvg(appliance,false,"Photo"),/class="appliance-art running"/);
+  }
+  const first=applianceSvg("washer",true,"One"),second=applianceSvg("washer",true,"Two");
+  assert.notEqual(first.match(/<clipPath id="([^"]+)"/)[1],second.match(/<clipPath id="([^"]+)"/)[1]);
+  assert.match(source,/\.drum-rotation\{transform-origin:var\(--drum-center-x\) var\(--drum-center-y\);transform-box:view-box\}/);
+  assert.match(source,/\.appliance-art\{[^}]*overflow:hidden/);
+});
+
+test("English default appliance names preserve explicit user customization",()=>{
+  const hass=fixture();hass.devices[CONFIG.device_id].name="Waschmaschine";
+  assert.match(makeCard(hass).shadowRoot.innerHTML,/<h1 class="title">Washing machine<\/h1>/);
+  hass.devices[CONFIG.device_id].name_by_user="My laundry room";
+  assert.match(makeCard(hass).shadowRoot.innerHTML,/<h1 class="title">My laundry room<\/h1>/);
+  assert.match(makeCard(hass,{...CONFIG,name:"My chosen card title"}).shadowRoot.innerHTML,/<h1 class="title">My chosen card title<\/h1>/);
 });
 
 test("unreported metadata options are disabled and duplicate raw-code rows are ignored",()=>{
@@ -199,7 +246,7 @@ test("advanced settings validate exact choices, numeric steps and observed switc
 
 test("dynamic display escapes names/options and never injects metadata markup",()=>{
   const hass=fixture(),payload='<img src=x onerror="alert(1)">';
-  hass.devices[CONFIG.device_id].name=payload;
+  hass.devices[CONFIG.device_id].name_by_user=payload;
   hass.states["select.test_program"].attributes.program_catalog[0].labels.en=payload;
   const html=makeCard(hass).shadowRoot.innerHTML;
   assert.doesNotMatch(html,/<img src=x/);assert.match(html,/&lt;img src=x/);
@@ -223,10 +270,10 @@ test("responsive layout follows card width and respects reduced motion",()=>{
   assert.match(source,/\.running \.drum-rotation\{animation:none\}/);
 });
 
-test("editor uses translated native selectors and emits composed config changes",()=>{
+test("editor uses English native selectors and emits composed config changes",()=>{
   const hass=fixture();hass.locale.language="de";const editor=new Editor();
   editor.setConfig({...CONFIG,start_entity:"button.test_start"});editor.hass=hass;
-  assert.match(editor.shadowRoot.innerHTML,/Anzeigename/);assert.match(editor.shadowRoot.innerHTML,/data-key="device_id"/);
+  assert.match(editor.shadowRoot.innerHTML,/Display name/);assert.match(editor.shadowRoot.innerHTML,/data-key="device_id"/);
   editor._changed({target:{dataset:{key:"name"},value:"Synthetic display name"}});
   assert.equal(editor.events.at(-1).type,"config-changed");assert.equal(editor.events.at(-1).composed,true);
   assert.equal(editor.events.at(-1).detail.config.name,"Synthetic display name");

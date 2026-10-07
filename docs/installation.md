@@ -53,6 +53,8 @@ Next, [add the bundled laundry dashboard card](dashboard-card.md) or create your
 
 Entity identities are preserved across updates. Existing entity IDs, automations, and card selections remain attached to the same entities. A displayed name can change as labels improve; you can rename entities in Home Assistant.
 
+Integration-provided names and selector options are now always in English. If a script or automation uses a previous localized option, update it to the exact English text in the entity's `options` attribute. For example, the washer's quick program is `Quick Wash`.
+
 The repository currently distributes beta versions. Check the installed version before reporting a problem.
 
 ## Sign in again

@@ -293,7 +293,7 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
             await entity.async_turn_off()
         self.assertEqual(self.coordinator.async_execute_control.await_count, 2)
 
-    async def test_german_main_program_catalog_selects_only_reported_option_identity(self):
+    async def test_german_ha_uses_english_program_names_and_preserves_wire_identity(self):
         from dreamehome.laundry_controls import control_available, control_definitions, control_options, prepare_control_write
         self.definitions = control_definitions(MODEL)
         self.scope.update(control_available=control_available, control_definitions=control_definitions,
@@ -301,12 +301,13 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
         self.coordinator.hass = SimpleNamespace(config=SimpleNamespace(language="de-DE"))
         self.rows.update({"2.1": {"value": 1, "last_code": 0}, "2.3": {"value": 0, "last_code": 0}})
         entity = self.entity("program", "DreameLaundrySelect")
-        self.assertEqual(entity._attr_name, "Programm")
+        self.assertEqual(entity._attr_name, "Program")
         self.assertIsNone(entity._attr_entity_category)
-        self.assertEqual(entity.current_option, "KI-Wäsche")
+        self.assertEqual(entity.current_option, "AI Wash")
         self.assertEqual(len(entity.options), 15)
-        self.assertIn("Schnellwäsche", entity.options)
-        self.assertNotIn("Seide", entity.options)
+        self.assertIn("Quick Wash", entity.options)
+        self.assertIn("Underwear", entity.options)
+        self.assertNotIn("Silk", entity.options)
         attributes = entity.extra_state_attributes
         self.assertEqual(attributes["control_key"], "program")
         self.assertEqual(attributes["raw_code"], 0)
@@ -316,12 +317,43 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(row["selectable"])
             self.assertNotIn("provenance", row)
             self.assertNotIn("source", row)
-        await entity.async_select_option("Schnellwäsche")
+            self.assertNotIn("source_label", row)
+            self.assertEqual(set(row["labels"]), {"en"})
+            self.assertEqual(set(row["group_labels"]), {"en"})
+        with self.assertRaises(ValidationError):
+            await entity.async_select_option("Schnellwäsche")
+        await entity.async_select_option("Quick Wash")
         self.coordinator.async_execute_control.assert_awaited_once_with("device", "program", 1)
         self.assertEqual(self.rows["2.3"]["value"], 0)
         self.fresh = False
         self.assertFalse(entity.available)
         self.assertFalse(any(row["selectable"] for row in entity.extra_state_attributes["program_catalog"]))
+
+    async def test_app_name_corrections_submit_exact_original_codes(self):
+        from dreamehome.laundry_controls import control_available, control_definitions, control_options, prepare_control_write
+        self.scope.update(control_available=control_available, control_definitions=control_definitions,
+                          control_options=control_options, prepare_control_write=prepare_control_write)
+        self.coordinator.hass = SimpleNamespace(config=SimpleNamespace(language="de-DE"))
+        for model, current, label, expected in ((MODEL, 0, "Underwear", 8),
+                                               ("dreame.dryer.l9nacn", 7, "Baby Care", 7),
+                                               ("dreame.dryer.l9nacn", 7, "Underwear", 8)):
+            with self.subTest(model=model, label=label):
+                self.state.device.model = model
+                self.definitions = control_definitions(model)
+                self.rows.update({"2.1": {"value": 1, "last_code": 0},
+                                  "2.3": {"value": current, "last_code": 0},
+                                  "3.4": {"value": 0, "last_code": 0}})
+                entity = self.entity("program", "DreameLaundrySelect")
+                self.assertIn(label, entity.options)
+                old_label = "Towels" if expected == 7 else "Delicates"
+                with self.assertRaises(ValidationError):
+                    await entity.async_select_option(old_label)
+                before = copy.deepcopy(self.rows)
+                await entity.async_select_option(label)
+                self.coordinator.async_execute_control.assert_awaited_with("device", "program", expected)
+                self.assertEqual(self.rows, before)
+                raw = prepare_control_write(model, "program", expected, self.rows)
+                self.assertEqual(raw["properties"], [{"siid": 2, "piid": 3, "value": expected}])
 
     async def test_control_categories_keys_and_ids_remain_stable(self):
         from dreamehome.laundry_controls import control_definitions

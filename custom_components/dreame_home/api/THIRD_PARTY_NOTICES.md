@@ -11,16 +11,17 @@ Its copyright notice and license are retained in
 [licenses/ioBroker.dreame.txt](licenses/ioBroker.dreame.txt).
 
 Appliance property coordinates and program definitions are model-specific
-interoperability metadata. Official app code, product photographs and screenshots
-are not included. Dreame product names remain the property of their owners.
+interoperability metadata. Official app code and app screenshots are not included.
 This project is an independent community integration.
 
 The public broker certificate bundled with the client is used to verify TLS
 connections. It contains no private keys or user account credentials.
 
-The app icon supplied for this project represents Dreame. The Dreame name and
-logo remain the property of their respective owners and are used to identify
-the supported service; they do not imply endorsement of this integration.
+The Dreame app icon and washer and dryer product images were supplied for use
+in this project. Dreame product names, logos, and product images remain the
+property of their respective owners. These assets are used to identify the
+supported service and appliances; they do not imply endorsement of this
+integration and are not covered by the repository's MIT license.
 
-The appliance illustrations and dashboard card are original work distributed
-under the repository's MIT license.
+The dashboard card code is original work distributed under the repository's
+MIT license.

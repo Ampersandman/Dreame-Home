@@ -26,6 +26,7 @@ OPTIONAL_ROOT_FILES = (".gitattributes",)
 TOOLS = ("build_component.py", "build_brand.py", "export_hacs_repository.py")
 PUBLIC_DOCS = {"installation.md", "entities.md", "dashboard-card.md", "automations.md", "troubleshooting.md"}
 PUBLIC_TEST_FIXTURES = {"fixtures/signing_reference.json", "fixtures/vacuum_reference.json"}
+PUBLIC_FRONTEND_PHOTOS = {"frontend/assets/washer.png", "frontend/assets/dryer.png"}
 # Keep public source aligned with the component builder's runtime selection.
 RUNTIME_CATALOGS = {"api", "models", "properties", "l9_washer", "l9_dryer"}
 RESEARCH_MODULES = {"__main__.py", "cli.py", "discovery.py", "miot.py"}
@@ -141,7 +142,9 @@ def planned_files(root: Path) -> dict[str, bytes]:
                     continue
             license_file = "licenses" in relative.parts and path.suffix == ".txt"
             brand = base.name == "dreame_home" and relative.parts[0] == "brand" and path.suffix in {".png", ".svg"}
-            frontend = base.name == "dreame_home" and relative.parts[0] == "frontend" and path.suffix in {".js", ".css", ".svg"}
+            frontend = base.name == "dreame_home" and relative.parts[0] == "frontend" and (
+                path.suffix in {".js", ".css", ".svg"}
+                or relative.as_posix() in PUBLIC_FRONTEND_PHOTOS)
             if runtime or license_file or brand or frontend:
                 include(path)
     for base, suffixes in ((root / "licenses", {".txt", ".md"}),

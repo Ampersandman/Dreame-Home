@@ -30,13 +30,16 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
     async def register(self):
         await self.scope["async_register_frontend"](self.hass)
 
-    async def test_concurrent_accounts_register_one_public_file_and_module(self):
+    async def test_concurrent_accounts_register_only_the_module_and_two_photos(self):
         await asyncio.gather(self.register(), self.register())
         self.hass.http.async_register_static_paths.assert_awaited_once()
         paths = self.hass.http.async_register_static_paths.call_args.args[0]
-        self.assertEqual(len(paths), 1)
-        self.assertEqual(Path(paths[0].path), COMPONENT / "frontend/dreame-home-laundry-card.js")
-        self.assertEqual(paths[0].url_path, "/dreame_home/dreame-home-laundry-card.js")
+        self.assertEqual({path.url_path: Path(path.path) for path in paths}, {
+            "/dreame_home/dreame-home-laundry-card.js": COMPONENT / "frontend/dreame-home-laundry-card.js",
+            "/dreame_home/washer.png": COMPONENT / "frontend/assets/washer.png",
+            "/dreame_home/dryer.png": COMPONENT / "frontend/assets/dryer.png",
+        })
+        self.assertTrue(all(Path(path.path).is_file() and path.cache_headers for path in paths))
         self.assertEqual(self.added, ["/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1"])
         self.assertFalse(self.removed)
 

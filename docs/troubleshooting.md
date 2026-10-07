@@ -64,6 +64,8 @@ Do not copy the JavaScript file to `www` or add a duplicate dashboard resource. 
 
 If a card shows missing entities, open its visual editor and select the current entities. Entity IDs can differ from examples and can be renamed in Home Assistant. Find the actual IDs under **Settings → Devices & services → Entities** or **Developer tools → States**.
 
+Card text and integration-provided program choices are always in English. User-assigned device, entity, and card names keep the text you chose. If an older automation fails to select a program, replace its previous localized option with the current English option from the entity's `options` attribute.
+
 ## The integration icon is missing or outdated
 
 The Dreame app icon is bundled with the integration. After updating, restart

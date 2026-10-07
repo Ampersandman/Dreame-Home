@@ -11,6 +11,7 @@ from functools import lru_cache
 from typing import Any, Mapping
 
 from .catalog import load_catalog
+from .laundry_programs import program_catalog
 
 LAUNDRY_CATALOGS = {
     "dreame.washer.l9nacn": "l9_washer",
@@ -95,6 +96,7 @@ def laundry_schema(model: str) -> LaundrySchema | None:
     data = load_catalog(catalog_name)
     if data.get("model") != model:
         raise ValueError("Laundry catalog does not match its exact model")
+    programs = {row["value"]: row for row in program_catalog(model, include_additional=True)}
     properties = {}
     candidates, direct = [], []
     for original in data.get("properties", ()):
@@ -111,6 +113,14 @@ def laundry_schema(model: str) -> LaundrySchema | None:
                                  or row.get("read_observed") is True)
         row.setdefault("read_observed", False)
         row.setdefault("live_verified", False)
+        if key == "2.3" and row.get("value_list_inferred") is not True:
+            for option in row.get("value_list") or ():
+                if not isinstance(option, dict) or type(option.get("value")) is not int:
+                    continue
+                program = programs.get(option["value"])
+                if program and option.get("label") == program["source_label"]:
+                    option["source_label"] = option["label"]
+                    option["label"] = program["label"]
         properties[key] = row
         if row["read_candidate"]:
             candidates.append((siid, piid))
