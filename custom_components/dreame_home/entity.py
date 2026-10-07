@@ -2,19 +2,75 @@
 
 import math
 import json
+from datetime import datetime, timedelta, timezone
 from time import monotonic
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.helpers import entity_registry as er
 
 from .api.observations import compound_fields, entity_fields
 from .api.laundry import enum_label, laundry_definition
 from .api.privacy import SENSITIVE, redactor
 from .api.telemetry import telemetry_metadata
+from .api.presentation import control_presentation, property_presentation
 from .const import DOMAIN
+
+
+def presentation_language(coordinator):
+    """Use the HA instance language; frontend cards can choose either catalog label."""
+    return getattr(getattr(getattr(coordinator, "hass", None), "config", None), "language", "en")
+
+
+@callback
+def async_migrate_entity_presentation(hass, entry):
+    """Update categories without renaming entities or changing enabled states.
+
+    Legacy uncustomized duplicate/raw rows are integration-hidden. User-hidden,
+    user-disabled and customized rows remain untouched. New diagnostic defaults
+    are handled on entity creation; existing automations keep their entities.
+    """
+    coordinator = entry.runtime_data
+    registry = er.async_get(hass)
+    prefixes = {coordinator.device_key(state) + ":": state.device.model
+                for state in coordinator.devices.values()}
+    for row in er.async_entries_for_config_entry(registry, entry.entry_id):
+        if row.platform != DOMAIN:
+            continue
+        prefix = next((key for key in prefixes if row.unique_id.startswith(key)), None)
+        if prefix is None:
+            continue
+        suffix, model = row.unique_id[len(prefix):], prefixes[prefix]
+        presentation = None
+        if suffix.startswith("control:"):
+            parts = suffix.split(":", 2)
+            if len(parts) == 3:
+                presentation = control_presentation(model, unquote(parts[2]))
+        elif suffix.startswith("prop:") and ":state" in suffix:
+            coordinate, _, tail = suffix[5:].partition(":state")
+            presentation = property_presentation(model, unquote(coordinate), tail or None)
+        elif suffix.startswith("cycle:"):
+            presentation = {"entity_category": None}
+        if not presentation:
+            continue
+        category = presentation.get("entity_category")
+        category = EntityCategory.CONFIG if category == "config" else EntityCategory.DIAGNOSTIC if category == "diagnostic" else None
+        changes = {}
+        if row.entity_category != category:
+            changes["entity_category"] = category
+        customized = bool(row.name or row.icon or row.options
+                          or getattr(row, "labels", ()) or getattr(row, "aliases", ())
+                          or getattr(row, "area_id", None) or getattr(row, "categories", {})
+                          or row.disabled_by == er.RegistryEntryDisabler.USER)
+        if presentation.get("hide_legacy") and row.hidden_by is None and not customized:
+            changes["hidden_by"] = er.RegistryEntryHider.INTEGRATION
+        elif not presentation.get("hide_legacy") and row.hidden_by == er.RegistryEntryHider.INTEGRATION:
+            changes["hidden_by"] = None
+        if changes:
+            registry.async_update_entity(row.entity_id, **changes)
 
 
 def property_definition(model, key, pointer=None):
@@ -159,14 +215,17 @@ class DreamePropertyEntity(DreameEntity):
         definition = property_definition(coordinator.devices[did].device.model, key, pointer)
         if definition:
             label = definition.get("label") or definition.get("name") or label
+        presentation = property_presentation(coordinator.devices[did].device.model, key, pointer,
+                                             presentation_language(coordinator))
+        label = presentation.get("label", label)
         suffix = f"prop:{quote(key, safe='.')}:state"
         suffix += f":json:{quote(pointer, safe='')}" if pointer is not None else ""
         super().__init__(coordinator, did, suffix, label)
-        self._attr_entity_category = EntityCategory.DIAGNOSTIC
+        self._attr_entity_category = None if presentation["entity_category"] is None else EntityCategory.DIAGNOSTIC
         # The root preserves complete structured data in attributes. Leaf entities
         # are enabled; disable the large duplicate root by default in the registry.
-        self._attr_entity_registry_enabled_default = not (
-            pointer is None and "compound" in self.observation)
+        self._attr_entity_registry_enabled_default = (presentation["enabled_default"]
+            and not (pointer is None and "compound" in self.observation))
 
     @property
     def observation(self):
@@ -223,6 +282,14 @@ class DreamePropertyEntity(DreameEntity):
             attributes["schema_live_verified"] = definition.get("live_verified") is True
             if enum_label(definition, self.value) is not None:
                 attributes["raw_code"] = self.value
+        if self.key == "2.1" and self.pointer is None:
+            attributes["raw_code"] = self.value if type(self.value) is int else None
+            fresh = self.key in fresh_observations(self.device_state)
+            attributes["observation_fresh"] = fresh
+            received = getattr(self.device_state, "timestamps", {}).get(self.key)
+            age = monotonic() - received if received is not None else None
+            attributes["observed_at"] = ((datetime.now(timezone.utc) - timedelta(seconds=age)).isoformat()
+                                         if age is not None and age >= 0 else None)
         return attributes
 
 

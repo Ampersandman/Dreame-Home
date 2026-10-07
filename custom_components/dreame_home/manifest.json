@@ -3,10 +3,11 @@
   "name": "Dreame Home",
   "codeowners": ["@Ampersandman"],
   "config_flow": true,
+  "dependencies": ["frontend", "http"],
   "documentation": "https://github.com/Ampersandman/Dreame-Home",
   "integration_type": "hub",
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/Ampersandman/Dreame-Home/issues",
   "requirements": ["pycryptodome==3.24.0", "paho-mqtt>=2.1.0,<3"],
-  "version": "0.3.0b2"
+  "version": "0.4.0b1"
 }

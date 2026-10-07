@@ -1,15 +1,22 @@
-# Third-party provenance
+# Third-party notices
 
-The client/signing implementation and extracted vacuum data derive from **Tasshack/dreame-vacuum**, MIT licensed, copyright (c) 2022 Tasshack. The complete original license is retained as [LICENSE](LICENSE). Pinned revision: `9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb` (v2.0.1). The static extraction includes full source locations and hashes. Research checkouts mentioned below are local inputs excluded from this repository.
+The Dreame Home cloud client and vacuum metadata include adaptations of
+[Tasshack/dreame-vacuum](https://github.com/Tasshack/dreame-vacuum),
+copyright (c) 2022 Tasshack, licensed under MIT. The original license is retained
+in [LICENSE](LICENSE). The signing test reference retains its source attribution.
 
-Additional pagination and public-schema lookup evidence comes from **TA2k/ioBroker.dreame**, MIT licensed, copyright (c) 2024–2026 TA2k. Pinned revision: `cdfe78ce448d14a5181cfff4c962160fd4d92075`. The original repository is retained in `references/iobroker-dreame/`; its license is also retained separately in [licenses/ioBroker.dreame.txt](licenses/ioBroker.dreame.txt). Its vacuum fallback behavior has not been carried into this client's washer/dryer schema handling.
+Pagination support includes adaptations of
+[TA2k/ioBroker.dreame](https://github.com/TA2k/ioBroker.dreame), licensed under MIT.
+Its copyright notice and license are retained in
+[licenses/ioBroker.dreame.txt](licenses/ioBroker.dreame.txt).
 
-The candidate washer definitions are responses from the public **MIoT specification service**, not content extracted from Tasshack's repository. Original responses, source URLs, registry status and SHA-256 digests are preserved in `references/miot/`. No license for those server responses is asserted here, and their public availability is not a claim of release status or L9 compatibility.
+Appliance property coordinates and program definitions are model-specific
+interoperability metadata. Official app code, product photographs and screenshots
+are not included. Dreame product names remain the property of their owners.
+This project is an independent community integration.
 
-Dreame's official product pages are cited for appliance names and advertised app/sensing features. Model-specific app-plugin lookup evidence comes from [consolesplayingconsoles/dreamehome-client](https://github.com/consolesplayingconsoles/dreamehome-client/blob/562a7cb7a8a38336ff1387d02e7e1b4adae7c582/re/probe_plugin.py), pinned at `562a7cb7a8a38336ff1387d02e7e1b4adae7c582`. The additional GET request contract is implemented independently; its origin is separate from the Tasshack extraction.
+The public broker certificate bundled with the client is used to verify TLS
+connections. It contains no private keys or user account credentials.
 
-Exact washer, dryer and vacuum plugins were downloaded through authenticated model lookup. Their proprietary JavaScript, bytecode and resources remain under ignored `private/plugins/` and are excluded from the standalone distribution and component archive. The independently implemented L9 extraction tools parse selected literal definitions without executing the vendor code; catalogs record coordinates, enum facts and source hashes. No ownership or redistribution license for the downloaded plugins is asserted. Account passwords and session tokens are never written to captures.
-
-Additional broker certificate research is documented in [MQTT trust research](https://github.com/Ampersandman/Dreame-Home/blob/main/docs/mqtt-trust-research.md). The public vendor CA embedded in `mqtt_tls.py` was recovered from an APK whose v2/v3 signatures matched Dreame's HTTPS-published app signing identity. The reviewed community leaf fingerprint is corroborating evidence and is not used as a trust fallback. Downloaded APKs, official web assets and their provenance remain under ignored `references/l9-public/` as local research material; APKs and plugin bundles are excluded from releases.
-
-The geometric home/appliance brand icon is original artwork created for this integration and distributed under the repository's MIT license. It does not include vendor logos or third-party artwork.
+The integration icons, appliance illustrations and dashboard card are original
+work distributed under the repository's MIT license.

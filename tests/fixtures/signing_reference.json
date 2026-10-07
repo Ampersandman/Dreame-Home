@@ -1,0 +1,71 @@
+{
+  "source_revision": "9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb",
+  "methods": [
+    {
+      "name": "_s",
+      "decorators": [],
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/protocol.py",
+        "line": 778,
+        "end_line": 779,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/protocol.py#L778"
+      },
+      "implementation": "def _s(self, base, tag) -> str:\n        return hashlib.md5(f\"{base}{tag}\".encode(\"utf-8\")).hexdigest()",
+      "property_references": []
+    },
+    {
+      "name": "_base_headers",
+      "decorators": [],
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/protocol.py",
+        "line": 781,
+        "end_line": 803,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/protocol.py#L781"
+      },
+      "implementation": "def _base_headers(self, content_type) -> Dict[str, str]:\n        s = self._strings\n        kr = self._country == \"kr\" and self._account_type == \"dreame\"\n        headers = {s[42].lower(): self._ua}\n        if not kr:\n            meta = f\"{s[59]}{self._vid}\"\n            if self._mt:\n                meta += (\n                    f\"{s[71]}{self._s(self._username, 'c')[:8]}\"\n                    f\"{s[72]}{self._s(self._username, 'w')[:8]}\"\n                    f\"{s[73]}{self._vs}\"\n                )\n            headers[s[58]] = meta\n        headers[s[88]] = \"gzip\"\n        if self._region and self._lang and self._ccode and not kr:\n            data = pad(f\"{self._region}|{self._lang}|{self._ccode}\".encode(\"utf-8\"), 16)\n            headers[s[60]] = base64.b64encode(AES.new(self._cid, AES.MODE_ECB).encrypt(data)).decode()\n        headers[s[44]] = self._ti if self._ti else s[5]\n        headers[s[43]] = \"Basic \" + self._au\n        if self._account_type == \"mova\":\n            headers[s[61]] = s[62]\n        headers[s[45]] = content_type\n        return headers",
+      "property_references": []
+    },
+    {
+      "name": "_spliced",
+      "decorators": [],
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/protocol.py",
+        "line": 824,
+        "end_line": 842,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/protocol.py#L824"
+      },
+      "implementation": "def _spliced(self, obj, top) -> str:\n        parts = []\n        for k in sorted(obj.keys()):\n            v = obj[k]\n            if isinstance(v, dict):\n                inner = self._spliced(v, False)\n                parts.append(f\"{k}=[{inner}]\" if inner else f\"{k}=]\")\n            elif isinstance(v, list):\n                if top:\n                    parts.append(f\"{k}={json.dumps(v, sort_keys=True, separators=(',', ':'), ensure_ascii=False)}\")\n            elif isinstance(v, bool):\n                parts.append(f\"{k}={'true' if v else 'false'}\")\n            elif v is None:\n                parts.append(f\"{k}=null\")\n            elif top:\n                parts.append(f\"{k}={v}\")\n            else:\n                parts.append(f\"{k}={json.dumps(v, ensure_ascii=False)}\")\n        return \"&\".join(parts)",
+      "property_references": []
+    },
+    {
+      "name": "_signed",
+      "decorators": [],
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/protocol.py",
+        "line": 844,
+        "end_line": 850,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/protocol.py#L844"
+      },
+      "implementation": "def _signed(self, params) -> Dict[str, Any]:\n        ms = int(time.time() * 1000)\n        base = self._spliced(params, True) + str(ms) + self._cid.decode(\"utf-8\")\n        result = dict(params)\n        result[self._strings[63]] = hashlib.md5(base.encode(\"utf-8\")).hexdigest()\n        result[self._strings[64]] = ms\n        return result",
+      "property_references": []
+    }
+  ],
+  "strings": {
+    "5": "000000",
+    "42": "User-Agent",
+    "43": "authorization",
+    "44": "tenant-id",
+    "45": "content-type",
+    "58": "dreame-meta",
+    "59": "cv=a_",
+    "60": "dreame-rlc",
+    "61": "dreame-psd",
+    "62": "new",
+    "63": "sign",
+    "64": "timestamp",
+    "71": ";canvasHash=",
+    "72": ";webglHash=",
+    "73": ";visitorIdHash=",
+    "88": "accept-encoding"
+  }
+}

@@ -26,8 +26,10 @@ class VacuumTelemetryTests(unittest.TestCase):
         return telemetry.vacuum_telemetry_available(telemetry.VACUUM_MODEL, coordinate, rows)
 
     def test_constants_match_pinned_source_enums(self):
-        enums = json.loads((Path(__file__).parents[1] / "src/dreamehome/data/enums.json")
-                           .read_text(encoding="utf-8"))
+        reference = json.loads((Path(__file__).parent / "fixtures/vacuum_reference.json")
+                               .read_text(encoding="utf-8"))
+        self.assertEqual(reference["attribution"]["revision"], telemetry.SOURCE_REVISION)
+        enums = reference["enums"]
         for name, actual, extra in (
             ("DreameVacuumState", telemetry._STATE_CODES, {0}),
             ("DreameVacuumStatus", telemetry._STATUS_CODES, set()),
@@ -37,6 +39,7 @@ class VacuumTelemetryTests(unittest.TestCase):
             with self.subTest(enum=name):
                 expected = set(enums[name]["members"].values()) - {-1}
                 self.assertEqual(actual, expected | extra)
+                self.assertIn(telemetry.SOURCE_REVISION, enums[name]["source"]["url"])
 
     def test_idle_preserves_history_but_does_not_manufacture_progress(self):
         for state, status in ((13, 6), (2, 0), (6, 14), (0, 6)):

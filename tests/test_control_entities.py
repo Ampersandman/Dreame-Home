@@ -10,6 +10,9 @@ import unittest
 from unittest.mock import AsyncMock
 from urllib.parse import quote
 
+from dreamehome.laundry_programs import program_catalog, program_option_pairs
+from dreamehome.presentation import control_presentation
+
 COMPONENT = Path(__file__).resolve().parents[1] / "custom_components" / "dreame_home"
 MODEL = "dreame.washer.l9nacn"
 
@@ -91,6 +94,9 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
             "SwitchEntity": StubPlatformEntity, "SelectEntity": StubPlatformEntity,
             "NumberEntity": StubPlatformEntity, "ButtonEntity": StubPlatformEntity,
             "NumberMode": SimpleNamespace(BOX="box"),
+            "program_catalog": program_catalog, "program_option_pairs": program_option_pairs,
+            "control_presentation": control_presentation,
+            "presentation_language": lambda coordinator: getattr(getattr(getattr(coordinator, "hass", None), "config", None), "language", "en"),
         }
         load_scope("entity.py", self.scope, only_class="DreameEntity")
         load_scope("control.py", self.scope)
@@ -286,6 +292,51 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValidationError):
             await entity.async_turn_off()
         self.assertEqual(self.coordinator.async_execute_control.await_count, 2)
+
+    async def test_german_main_program_catalog_selects_only_reported_option_identity(self):
+        from dreamehome.laundry_controls import control_available, control_definitions, control_options, prepare_control_write
+        self.definitions = control_definitions(MODEL)
+        self.scope.update(control_available=control_available, control_definitions=control_definitions,
+                          control_options=control_options, prepare_control_write=prepare_control_write)
+        self.coordinator.hass = SimpleNamespace(config=SimpleNamespace(language="de-DE"))
+        self.rows.update({"2.1": {"value": 1, "last_code": 0}, "2.3": {"value": 0, "last_code": 0}})
+        entity = self.entity("program", "DreameLaundrySelect")
+        self.assertEqual(entity._attr_name, "Programm")
+        self.assertIsNone(entity._attr_entity_category)
+        self.assertEqual(entity.current_option, "KI-Wäsche")
+        self.assertEqual(len(entity.options), 15)
+        self.assertIn("Schnellwäsche", entity.options)
+        self.assertNotIn("Seide", entity.options)
+        attributes = entity.extra_state_attributes
+        self.assertEqual(attributes["control_key"], "program")
+        self.assertEqual(attributes["raw_code"], 0)
+        self.assertEqual(len(attributes["program_catalog"]), 15)
+        for row in attributes["program_catalog"]:
+            self.assertIn(row["option"], entity.options)
+            self.assertTrue(row["selectable"])
+            self.assertNotIn("provenance", row)
+            self.assertNotIn("source", row)
+        await entity.async_select_option("Schnellwäsche")
+        self.coordinator.async_execute_control.assert_awaited_once_with("device", "program", 1)
+        self.assertEqual(self.rows["2.3"]["value"], 0)
+        self.fresh = False
+        self.assertFalse(entity.available)
+        self.assertFalse(any(row["selectable"] for row in entity.extra_state_attributes["program_catalog"]))
+
+    async def test_control_categories_keys_and_ids_remain_stable(self):
+        from dreamehome.laundry_controls import control_definitions
+        self.definitions = control_definitions(MODEL)
+        for key, class_name, category in (("program", "DreameLaundrySelect", None),
+                                         ("temperature", "DreameLaundrySelect", None),
+                                         ("fresh_air_circulation", "DreameLaundrySwitch", None),
+                                         ("child_lock", "DreameLaundrySwitch", "config"),
+                                         ("night_mode", "DreameLaundrySwitch", "config"),
+                                         ("start", "DreameLaundryButton", None)):
+            entity = self.entity(key, class_name)
+            self.assertEqual(entity._attr_entity_category, category)
+            self.assertEqual(entity.extra_state_attributes["control_key"], key)
+            self.assertIn(f":control:{self.get_definition(key)['kind']}:{key}", entity._attr_unique_id)
+        self.coordinator.async_execute_control.assert_not_called()
 
     async def test_bounded_number_rejects_invalid_values_without_coercing_boolean(self):
         entity = self.entity("delay", "DreameLaundryNumber")

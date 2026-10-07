@@ -31,11 +31,14 @@ def observations(**values):
 
 class SourceEncoderTests(unittest.TestCase):
     def test_exact_model_uses_common_source_mappings_and_new_state_capability(self):
+        reference = json.loads((Path(__file__).parent / "fixtures/vacuum_reference.json")
+                               .read_text(encoding="utf-8"))
+        self.assertEqual(reference["attribution"]["revision"], SOURCE_REVISION)
         model = next(row for row in load_catalog("models") if row["model"] == VACUUM_MODEL)
         self.assertEqual(model["device_info_row"], [0, 0, 104, 5])
         capabilities = dict(model["capability_data"])
-        self.assertEqual(capabilities[load_catalog("enums")["DeviceCapability"]["members"]["NEW_STATE"]], 1)
-        source_actions = {row["name"]: row for row in load_catalog("actions")}
+        self.assertEqual(capabilities[reference["enums"]["DeviceCapability"]["members"]["NEW_STATE"]], 1)
+        source_actions = {row["name"]: row for row in reference["actions"]}
         for command, name in (("start", "START"), ("pause", "PAUSE"),
                               ("stop", "STOP"), ("return_to_base", "CHARGE")):
             plan = prepare_vacuum_command(VACUUM_MODEL, command, observations=observations())
@@ -46,7 +49,7 @@ class SourceEncoderTests(unittest.TestCase):
             self.assertNotIn("did", plan["action"])
         source_fan = next(row for row in load_catalog("properties") if row["name"] == "SUCTION_LEVEL")
         self.assertEqual(source_fan["mapping"], {"siid": 4, "piid": 4})
-        source_enums = load_catalog("enums")["DreameVacuumSuctionLevel"]["members"]
+        source_enums = reference["enums"]["DreameVacuumSuctionLevel"]["members"]
         self.assertEqual(FAN_SPEEDS, {"silent": source_enums["QUIET"], "standard": source_enums["STANDARD"],
                                      "strong": source_enums["STRONG"], "turbo": source_enums["TURBO"]})
 

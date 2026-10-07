@@ -1,0 +1,290 @@
+{
+  "attribution": {
+    "project": "Tasshack/dreame-vacuum",
+    "repository": "https://github.com/Tasshack/dreame-vacuum",
+    "revision": "9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb",
+    "license": "MIT",
+    "license_url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/LICENSE",
+    "purpose": "Independent test-only excerpts extracted from pinned upstream reference catalogs; not generated from runtime helper constants."
+  },
+  "enums": {
+    "DreameVacuumState": {
+      "members": {
+        "UNKNOWN": -1,
+        "SWEEPING": 1,
+        "IDLE": 2,
+        "PAUSED": 3,
+        "ERROR": 4,
+        "RETURNING": 5,
+        "CHARGING": 6,
+        "MOPPING": 7,
+        "DRYING": 8,
+        "WASHING": 9,
+        "RETURNING_TO_WASH": 10,
+        "BUILDING": 11,
+        "SWEEPING_AND_MOPPING": 12,
+        "CHARGING_COMPLETED": 13,
+        "UPGRADING": 14,
+        "CLEAN_SUMMON": 15,
+        "STATION_RESET": 16,
+        "RETURNING_INSTALL_MOP": 17,
+        "RETURNING_REMOVE_MOP": 18,
+        "WATER_CHECK": 19,
+        "CLEAN_ADD_WATER": 20,
+        "WASHING_PAUSED": 21,
+        "AUTO_EMPTYING": 22,
+        "REMOTE_CONTROL": 23,
+        "SMART_CHARGING": 24,
+        "SECOND_CLEANING": 25,
+        "HUMAN_FOLLOWING": 26,
+        "SPOT_CLEANING": 27,
+        "RETURNING_AUTO_EMPTY": 28,
+        "WAITING_FOR_TASK": 29,
+        "STATION_CLEANING": 30,
+        "RETURNING_TO_DRAIN": 31,
+        "DRAINING": 32,
+        "AUTO_WATER_DRAINING": 33,
+        "EMPTYING": 34,
+        "DUST_BAG_DRYING": 35,
+        "DUST_BAG_DRYING_PAUSED": 36,
+        "HEADING_TO_EXTRA_CLEANING": 37,
+        "EXTRA_CLEANING": 38,
+        "FINDING_PET_PAUSED": 95,
+        "FINDING_PET": 96,
+        "SHORTCUT": 97,
+        "MONITORING": 98,
+        "MONITORING_PAUSED": 99,
+        "INITIAL_DEEP_CLEANING": 101,
+        "INITIAL_DEEP_CLEANING_PAUSED": 102,
+        "SANITIZING": 103,
+        "SANITIZING_WITH_DRY": 104,
+        "CHANGING_MOP": 105,
+        "CHANGING_MOP_PAUSED": 106,
+        "FLOOR_MAINTAINING": 107,
+        "FLOOR_MAINTAINING_PAUSED": 108,
+        "REMOTE_PICKUP": 109,
+        "ARRANGING_ITEMS": 113,
+        "PET_GUARDING": 114,
+        "PET_GUARDING_PAUSED": 115,
+        "INSTALLING_MOP": 116,
+        "UNINSTALLING_MOP": 117,
+        "INTELLIGENT_RECHARGING": 118,
+        "ASSISTED_CLEANING": 120,
+        "ENTERING_DOCK": 121,
+        "LEAVING_DOCK": 122,
+        "NAVIGATING_TO_CLIMBER": 140,
+        "DOCKING_TO_CLIMBER": 141,
+        "CLIMBER_DOCKED": 142,
+        "CLIMBER_NAVIGATING": 143,
+        "CLIMBING_STAIRS": 144,
+        "CLIMBING_STAIRS_COMPLETED": 145,
+        "CLIMBER_AT_DOCK": 146,
+        "CLIMBER_LEAVING_DOCK": 147
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 376,
+        "end_line": 448,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L376"
+      }
+    },
+    "DreameVacuumStatus": {
+      "members": {
+        "UNKNOWN": -1,
+        "IDLE": 0,
+        "PAUSED": 1,
+        "CLEANING": 2,
+        "BACK_HOME": 3,
+        "PARTIAL_CLEANING": 4,
+        "FOLLOW_WALL": 5,
+        "CHARGING": 6,
+        "OTA": 7,
+        "FCT": 8,
+        "WIFI_SET": 9,
+        "POWER_OFF": 10,
+        "FACTORY": 11,
+        "ERROR": 12,
+        "REMOTE_CONTROL": 13,
+        "SLEEPING": 14,
+        "SELF_REPAIR": 15,
+        "FACTORY_FUNCION_TEST": 16,
+        "STANDBY": 17,
+        "SEGMENT_CLEANING": 18,
+        "ZONE_CLEANING": 19,
+        "SPOT_CLEANING": 20,
+        "FAST_MAPPING": 21,
+        "CRUISING_PATH": 22,
+        "CRUISING_POINT": 23,
+        "SUMMON_CLEAN": 24,
+        "SHORTCUT": 25,
+        "PERSON_FOLLOW": 26,
+        "PET_GUARDING": 27,
+        "AUTO_ARRANGEMENT": 28,
+        "SMART_ARRANGEMENT": 29,
+        "ZONED_ARRANGEMENT": 30,
+        "WATER_CHECK": 1501
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 612,
+        "end_line": 647,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L612"
+      }
+    },
+    "DreameVacuumTaskStatus": {
+      "members": {
+        "UNKNOWN": -1,
+        "COMPLETED": 0,
+        "AUTO_CLEANING": 1,
+        "ZONE_CLEANING": 2,
+        "SEGMENT_CLEANING": 3,
+        "SPOT_CLEANING": 4,
+        "FAST_MAPPING": 5,
+        "AUTO_CLEANING_PAUSED": 6,
+        "ZONE_CLEANING_PAUSED": 7,
+        "SEGMENT_CLEANING_PAUSED": 8,
+        "SPOT_CLEANING_PAUSED": 9,
+        "MAP_CLEANING_PAUSED": 10,
+        "DOCKING_PAUSED": 11,
+        "MOPPING_PAUSED": 12,
+        "SEGMENT_MOPPING_PAUSED": 13,
+        "ZONE_MOPPING_PAUSED": 14,
+        "AUTO_MOPPING_PAUSED": 15,
+        "AUTO_DOCKING_PAUSED": 16,
+        "SEGMENT_DOCKING_PAUSED": 17,
+        "ZONE_DOCKING_PAUSED": 18,
+        "CRUISING_PATH": 20,
+        "CRUISING_PATH_PAUSED": 21,
+        "CRUISING_POINT": 22,
+        "CRUISING_POINT_PAUSED": 23,
+        "SUMMON_CLEAN_PAUSED": 24,
+        "RETURNING_INSTALL_MOP": 25,
+        "RETURNING_REMOVE_MOP": 26,
+        "STATION_CLEANING": 27,
+        "PET_FINDING": 30,
+        "AUTO_CLEANING_WASHING_PAUSED": 31,
+        "AREA_CLEANING_WASHING_PAUSED": 32,
+        "CUSTOM_CLEANING_WASHING_PAUSED": 33,
+        "PICKING_UP_ITEM": 34,
+        "PICKING_UP_ITEM_PAUSED": 35,
+        "PICKING_UP_ITEM_SUCCESS": 36,
+        "REMOTE_PICKUP_INITIALIZING": 37,
+        "REMOTE_PICKUP_IDENTIFING": 38,
+        "MANUAL_REMOTE_PICKUP": 39,
+        "AUTOMATIC_REMOTE_PICKUP": 40,
+        "REMOTE_PICKUP_IN_PROGRESS": 41,
+        "REMOTE_PICKUP_PAUSED": 42,
+        "PLACING_ITEM": 43,
+        "PLACING_ITEM_PAUSED": 44
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 564,
+        "end_line": 609,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L564"
+      }
+    },
+    "DreameVacuumSelfWashBaseStatus": {
+      "members": {
+        "UNKNOWN": -1,
+        "IDLE": 0,
+        "WASHING": 1,
+        "DRYING": 2,
+        "RETURNING": 3,
+        "PAUSED": 4,
+        "CLEAN_ADD_WATER": 5,
+        "ADDING_WATER": 6,
+        "RETURNING_FOR_DRY_MOP": 7
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 669,
+        "end_line": 680,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L669"
+      }
+    },
+    "DeviceCapability": {
+      "members": {
+        "NEW_STATE": 45
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 2753,
+        "end_line": 2903,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L2753"
+      }
+    },
+    "DreameVacuumSuctionLevel": {
+      "members": {
+        "QUIET": 0,
+        "STANDARD": 1,
+        "STRONG": 2,
+        "TURBO": 3
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 483,
+        "end_line": 490,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L483"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "START",
+      "enum_id": 1,
+      "mapping": {
+        "siid": 2,
+        "aiid": 1
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 1962,
+        "end_line": 1962,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1962"
+      }
+    },
+    {
+      "name": "PAUSE",
+      "enum_id": 2,
+      "mapping": {
+        "siid": 2,
+        "aiid": 2
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 1963,
+        "end_line": 1963,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1963"
+      }
+    },
+    {
+      "name": "STOP",
+      "enum_id": 5,
+      "mapping": {
+        "siid": 4,
+        "aiid": 2
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 1966,
+        "end_line": 1966,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1966"
+      }
+    },
+    {
+      "name": "CHARGE",
+      "enum_id": 3,
+      "mapping": {
+        "siid": 3,
+        "aiid": 1
+      },
+      "source": {
+        "file": "custom_components/dreame_vacuum/dreame/types.py",
+        "line": 1964,
+        "end_line": 1964,
+        "url": "https://github.com/Tasshack/dreame-vacuum/blob/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb/custom_components/dreame_vacuum/dreame/types.py#L1964"
+      }
+    }
+  ]
+}

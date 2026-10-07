@@ -12,6 +12,7 @@ from dreamehome.laundry_progress import laundry_cycle_metrics, progress_definiti
 from dreamehome.observations import ObservationStore
 from dreamehome.vacuum_controls import vacuum_command_available, vacuum_control_supported
 from dreamehome.vacuum_telemetry import vacuum_telemetry_available
+from dreamehome.presentation import cycle_presentation
 from test_entity_lifecycle import entity_scope
 
 COMPONENT = Path(__file__).resolve().parents[1] / "custom_components" / "dreame_home"
@@ -29,7 +30,8 @@ def scope():
                      SensorStateClass=SimpleNamespace(MEASUREMENT="measurement"), math=math,
                      enum_label=enum_label, laundry_cycle_metrics=laundry_cycle_metrics,
                      vacuum_telemetry_available=vacuum_telemetry_available,
-                     progress_definitions=progress_definitions, PERCENTAGE="%", monotonic=lambda: 1200)
+                     progress_definitions=progress_definitions, cycle_presentation=cycle_presentation,
+                     PERCENTAGE="%", monotonic=lambda: 1200)
     tree = ast.parse((COMPONENT / "sensor.py").read_text(encoding="utf-8"))
     tree.body = [node for node in tree.body if not isinstance(node, (ast.Import, ast.ImportFrom))]
     exec(compile(tree, "sensor.py", "exec"), namespace)

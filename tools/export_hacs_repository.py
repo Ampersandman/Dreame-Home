@@ -1,8 +1,9 @@
 """Export an allowlisted standalone HACS repository without research/private data.
 
-The destination must stay under the workspace. Re-exporting updates known files
-but never deletes files or Git metadata; unexpected destination content fails
-before any writes. Ordinary ignored test/build artifacts are left untouched.
+The destination must stay under the workspace. Re-exporting updates known files;
+optional housekeeping removes only explicitly retired publication paths. Git
+metadata and ignored test/build artifacts remain untouched, and unexpected
+destination content fails before mutation.
 """
 
 from __future__ import annotations
@@ -22,13 +23,38 @@ ROOT_FILES = (
     "requirements-tested.txt", "hacs.json", ".gitignore",
 )
 OPTIONAL_ROOT_FILES = (".gitattributes",)
-TOOLS = (
-    "build_component.py", "build_brand.py", "export_hacs_repository.py",
-    "check_ha_dependencies.py", "extract_upstream.py", "extract_miot.py",
-    "extract_l9_dryer.py", "extract_l9_washer.py", "fetch_miot_reference.py",
-    "capture_device_api.py", "capture_device_api.ps1", "fetch_device_plugins.py",
-    "fetch_device_plugins.ps1", "scan_cloud_account.py", "scan_cloud_account.ps1",
+TOOLS = ("build_component.py", "build_brand.py", "export_hacs_repository.py")
+PUBLIC_DOCS = {"installation.md", "entities.md", "dashboard-card.md", "automations.md", "troubleshooting.md"}
+PUBLIC_TEST_FIXTURES = {"fixtures/signing_reference.json", "fixtures/vacuum_reference.json"}
+# Keep public source aligned with the component builder's runtime selection.
+RUNTIME_CATALOGS = {"api", "models", "properties", "l9_washer", "l9_dryer"}
+RESEARCH_MODULES = {"__main__.py", "cli.py", "discovery.py", "miot.py"}
+REFERENCE_CATALOGS = {
+    "actions", "availability", "constants", "device_info", "entities", "entity_defaults",
+    "enums", "implementations", "property_groups", "protocol_strings", "provenance",
+    "translations_en", "washer_candidates",
+}
+RESEARCH_TESTS = {"test_account_scan.py", "test_cli_schema.py", "test_device_capture.py",
+                  "test_dryer_extraction.py", "test_plugins.py"}
+RETIRED_DOCS = {
+    "appliance-controls.md", "cycle-progress.md", "dreamehome-api.md", "ha-diagnostics-review-2026-10-06.md",
+    "ha-diagnostics-review.md", "ha-os-installation.md", "hacs-design.md", "hacs-publishing.md",
+    "home-assistant-roadmap.md", "l9-investigation.md", "l9-schema-research.md", "live-coverage.md",
+    "live-verification.json", "mqtt-trust-research.md", "vacuum-model-review.md", "verification.md",
+}
+RETIRED_TOOLS = {
+    "check_ha_dependencies.py", "extract_upstream.py", "extract_miot.py", "extract_l9_dryer.py",
+    "extract_l9_washer.py", "fetch_miot_reference.py", "capture_device_api.py", "capture_device_api.ps1",
+    "fetch_device_plugins.py", "fetch_device_plugins.ps1", "scan_cloud_account.py", "scan_cloud_account.ps1",
     "summarize_live_verification.py",
+}
+RETIRED_BACKEND_FILES = RESEARCH_MODULES | {f"data/{name}.json" for name in REFERENCE_CATALOGS}
+RETIRED_PATHS = (
+    {f"docs/{name}" for name in RETIRED_DOCS}
+    | {f"tools/{name}" for name in RETIRED_TOOLS}
+    | {f"tests/{name}" for name in RESEARCH_TESTS}
+    | {f"src/dreamehome/{name}" for name in RETIRED_BACKEND_FILES}
+    | {f"custom_components/dreame_home/api/{name}" for name in RETIRED_BACKEND_FILES}
 )
 RESERVED_OUTPUT_ROOTS = {
     "custom_components", "src", "tools", "tests", "docs", "licenses", ".github",
@@ -100,18 +126,36 @@ def planned_files(root: Path) -> dict[str, bytes]:
         for path in files_under(base, root):
             relative = path.relative_to(base)
             runtime = path.suffix in {".py", ".json", ".md"} or path.name in {"LICENSE", "py.typed"}
+            if base.name == "dreamehome":
+                if relative.as_posix() in RESEARCH_MODULES:
+                    continue
+                if path.suffix == ".json" and path.stem not in RUNTIME_CATALOGS:
+                    continue
+            elif len(relative.parts) > 1 and relative.parts[0] == "api":
+                backend_path = Path(*relative.parts[1:])
+                if backend_path.as_posix() in RESEARCH_MODULES:
+                    continue
+                if (backend_path.parts[0] == "data" and path.suffix == ".json"
+                        and path.stem not in RUNTIME_CATALOGS):
+                    continue
             license_file = "licenses" in relative.parts and path.suffix == ".txt"
             brand = base.name == "dreame_home" and relative.parts[0] == "brand" and path.suffix in {".png", ".svg"}
-            if runtime or license_file or brand:
+            frontend = base.name == "dreame_home" and relative.parts[0] == "frontend" and path.suffix in {".js", ".css", ".svg"}
+            if runtime or license_file or brand or frontend:
                 include(path)
     for base, suffixes in ((root / "licenses", {".txt", ".md"}),
                            (root / "tests", {".py"}),
                            (root / ".github/workflows", {".yml", ".yaml"})):
         for path in files_under(base, root):
-            if path.suffix in suffixes:
+            if path.name in RESEARCH_TESTS:
+                continue
+            frontend_test = base.name == "tests" and path.relative_to(base).parts[0] == "frontend" and path.suffix in {".js", ".mjs"}
+            reference_fixture = base.name == "tests" and path.relative_to(base).as_posix() in PUBLIC_TEST_FIXTURES
+            if path.suffix in suffixes or frontend_test or reference_fixture:
                 include(path)
     for path in files_under(root / "docs", root):
-        if path.suffix == ".md" or path.relative_to(root / "docs").as_posix() == "live-verification.json":
+        relative = path.relative_to(root / "docs").as_posix()
+        if relative in PUBLIC_DOCS or relative == "assets/laundry-card.png":
             include(path)
     for name in TOOLS:
         if (root / "tools" / name).exists():
@@ -137,7 +181,7 @@ def ignored_file(name: str) -> bool:
     return name == ".git" or name == ".coverage" or name.startswith(".coverage.") or name.endswith((".pyc", ".pyo"))
 
 
-def validate_destination(destination: Path, plan: dict[str, bytes]) -> None:
+def validate_destination(destination: Path, plan: dict[str, bytes], *, retired=()) -> None:
     """Fail before mutation if anything outside the declared export is present."""
     if not destination.exists():
         return
@@ -162,7 +206,7 @@ def validate_destination(destination: Path, plan: dict[str, bytes]) -> None:
                     unexpected.append(relative + "/")
                 else:
                     inspect(path)
-            elif not path.is_file() or relative not in plan:
+            elif not path.is_file() or relative not in plan and relative not in retired:
                 unexpected.append(relative)
 
     inspect(destination)
@@ -176,22 +220,32 @@ class ExportResult:
     destination: Path
     file_count: int
     changed: tuple[str, ...]
+    retired: tuple[str, ...] = ()
 
 
-def export_repository(root: Path, destination: Path, *, check: bool = False, dry_run: bool = False) -> ExportResult:
+def export_repository(root: Path, destination: Path, *, check: bool = False, dry_run: bool = False,
+                      prune: bool = False) -> ExportResult:
     root = root.resolve()
     output = destination_path(root, destination)
     plan = planned_files(root)
-    validate_destination(output, plan)
+    retired = tuple(sorted(name for name in RETIRED_PATHS if name not in plan and (output / name).exists())) if prune else ()
+    validate_destination(output, plan, retired=retired)
     changed = tuple(name for name, data in plan.items()
                     if not (output / name).is_file() or (output / name).read_bytes() != data)
     if not check and not dry_run:
+        # Only explicitly retired publication files can be removed. Their local
+        # source/research copies remain outside the clean Git checkout.
+        for name in retired:
+            target = checked_path(output / name, output)
+            if not target.is_file():
+                raise ValueError("Retired publication paths must be ordinary files")
+            target.unlink()
         for name in changed:
             target = checked_path(output / name, root)
             target.parent.mkdir(parents=True, exist_ok=True)
             checked_path(target, output)
             target.write_bytes(plan[name])
-    return ExportResult(output, len(plan), changed)
+    return ExportResult(output, len(plan), changed, retired)
 
 
 def archive_repository(root: Path, destination: Path, archive: Path) -> tuple[Path, str]:
@@ -222,15 +276,18 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=Path("hacs-repository"))
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--prune", action="store_true", help="Remove only the explicit retired publication files")
     parser.add_argument("--archive", type=Path, nargs="?", const=Path("dist/dreame-home-repository.zip"))
     args = parser.parse_args()
     if args.archive and (args.check or args.dry_run):
         parser.error("--archive cannot be combined with --check or --dry-run")
     try:
-        result = export_repository(ROOT, args.output, check=args.check, dry_run=args.dry_run)
+        result = export_repository(ROOT, args.output, check=args.check, dry_run=args.dry_run, prune=args.prune)
         verb = "Checked" if args.check else "Planned" if args.dry_run else "Exported"
         print(f"{verb} {result.file_count} repository files; {len(result.changed)} differ: {result.destination}")
-        if args.check and result.changed:
+        if result.retired:
+            print(f"Retired publication files: {len(result.retired)}")
+        if args.check and (result.changed or result.retired):
             return 1
         if args.archive:
             output, digest = archive_repository(ROOT, args.output, args.archive)

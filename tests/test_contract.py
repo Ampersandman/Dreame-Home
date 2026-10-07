@@ -22,10 +22,7 @@ from Crypto.Util.Padding import pad
 
 from dreamehome import Device, DreameHomeClient, decode_push
 from dreamehome.catalog import load_catalog, vacuum_property_pairs
-from dreamehome.cli import pair, parser
-from dreamehome.discovery import capture_inventory
 from dreamehome.exceptions import ApiError, AuthenticationError, IncompleteDiscoveryError, RateLimitError, SchemaRequiredError, TransportError
-from dreamehome.miot import schema_for_model
 from dreamehome.mqtt import DeviceSubscription, connect_packet, device_topics
 from dreamehome.privacy import redactor
 from dreamehome.signing import region_header, sign, splice
@@ -72,6 +69,8 @@ def api(fake, **options):
 class SigningContractTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        reference = json.loads((ROOT / "tests/fixtures/signing_reference.json").read_text(encoding="utf-8"))
+        cls.strings = {int(key): value for key, value in reference["strings"].items()}
         # Extract only pure signing/header methods from the pinned source, to
         # validate nonstandard canonicalization against upstream itself.
         upstream = ROOT / "upstream/custom_components/dreame_vacuum/dreame/protocol.py"
@@ -81,9 +80,9 @@ class SigningContractTests(unittest.TestCase):
             cloud = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "DreameVacuumDreameHomeCloudProtocol")
             functions = [n for n in cloud.body if isinstance(n, ast.FunctionDef) and n.name in names]
         else:
-            # Clean publication excludes research checkouts. The factual catalog
-            # preserves these exact source methods and their pinned provenance.
-            methods = load_catalog("implementations")["DreameVacuumDreameHomeCloudProtocol"]
+            # Keep the independent pure signing reference with the tests, rather
+            # than shipping a full upstream implementation dump to HA.
+            methods = reference["methods"]
             functions = []
             for method in methods:
                 if method["name"] in names:
@@ -104,7 +103,7 @@ class SigningContractTests(unittest.TestCase):
     def test_nonstandard_nested_signatures_match_source(self):
         original = self.original()
         original._cid = b"EETjszu*XI5znHsI"
-        original._strings = load_catalog("protocol_strings")
+        original._strings = self.strings
         cases = [
             {"did": "123", "keys": "2.1"},
             {"did": "x", "data": {"method": "get_properties", "params": [{"siid": 2, "piid": 1}], "did": "x", "id": 101}, "id": 101},
@@ -125,7 +124,7 @@ class SigningContractTests(unittest.TestCase):
                 with self.subTest(brand=brand, region=region):
                     client = DreameHomeClient("user", "password", account_type=brand, region=region, visitor_id="v" * 32)
                     original = self.original()
-                    original._strings = load_catalog("protocol_strings")
+                    original._strings = self.strings
                     p = client.profile
                     original._country, original._account_type = region, brand
                     original._ua, original._vid = p["user_agent"], p["app_version"]
@@ -287,15 +286,6 @@ class ClientContractTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn("authorization", fake.calls[-1]["headers"])
         self.assertNotIn("dreame-auth", fake.calls[-1]["headers"])
 
-    async def test_capture_no_schema_reads_or_write_commands_by_default(self):
-        record = device_record("d", "dreame.dryer.unknown")
-        fake = FakeTransport(login_response(), page([record]), response({"data": record}), response({"data": {}}))
-        report = await capture_inventory(api(fake))
-        self.assertTrue(report["discovery_complete"])
-        self.assertEqual(report["devices"][0]["record"]["model"], "dreame.dryer.unknown")
-        self.assertEqual(len(fake.calls), 4)
-        self.assertFalse(any("sendCommand" in call["url"] for call in fake.calls))
-
     async def test_expired_session_is_refreshed_before_api_request(self):
         fake = FakeTransport(login_response(expires=100), login_response("renewed"), page([]))
         client = api(fake)
@@ -345,23 +335,16 @@ class ClientContractTests(unittest.IsolatedAsyncioTestCase):
 
 
 class CatalogAndSecurityTests(unittest.TestCase):
-    def test_no_washer_vacuum_fallback_and_debug_schema_gate(self):
+    def test_no_laundry_vacuum_schema_fallback(self):
         with self.assertRaises(SchemaRequiredError):
             vacuum_property_pairs("dreame.washer.r1111")
         with self.assertRaises(SchemaRequiredError):
-            schema_for_model("dreame.washer.r1111")
-        schema = schema_for_model("dreame.washer.r1111", allow_debug=True)
-        self.assertEqual(len(schema["properties"]), 92)
-        self.assertFalse(schema["live_verified"])
-        self.assertIsNone(schema["marketing_name"])
-        with self.assertRaises(SchemaRequiredError):
-            schema_for_model("dreame.dryer.unknown", allow_debug=True)
+            vacuum_property_pairs("dreame.dryer.unknown")
 
     def test_catalog_cardinality_and_mapping_uniqueness(self):
         properties = load_catalog("properties")
         self.assertEqual(len(properties), 370)
         self.assertEqual(len({p["name"] for p in properties}), 370)
-        self.assertEqual(len(load_catalog("actions")), 45)
         self.assertEqual(len(load_catalog("models")), 762)
         self.assertTrue(all(p["source"]["url"].startswith("https://github.com/Tasshack/dreame-vacuum/blob/9857362") for p in properties))
 
@@ -400,13 +383,6 @@ class CatalogAndSecurityTests(unittest.TestCase):
         self.assertEqual(altered[9], 0xCA)
         self.assertEqual(packet[9], 0xC2)
         self.assertEqual(connect_packet(b"\x30\x01\x00"), b"\x30\x01\x00")
-
-    def test_cli_property_validation_and_read_only_commands(self):
-        self.assertEqual(pair("2.1"), (2, 1))
-        for value in ("0.1", "2.1.3", "hello"):
-            with self.assertRaises(Exception):
-                pair(value)
-        self.assertEqual(parser().parse_args(["catalog"]).command, "catalog")
 
 
 if __name__ == "__main__":

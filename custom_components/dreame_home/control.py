@@ -13,7 +13,9 @@ from .api.laundry_controls import (
     control_options,
     prepare_control_write,
 )
-from .entity import DreameEntity
+from .api.laundry_programs import program_catalog, program_option_pairs
+from .api.presentation import control_presentation
+from .entity import DreameEntity, presentation_language
 
 
 def option_pairs(options):
@@ -62,14 +64,17 @@ def add_control_entities(coordinator, entry, async_add_entities, factory, *, kin
 class DreameControlEntity(DreameEntity):
     """A control whose displayed state changes only after an observation."""
 
-    _attr_entity_category = EntityCategory.CONFIG
+    _attr_entity_category = None
 
     def __init__(self, coordinator, did, definition):
         self.definition = definition
         self.key = definition["key"]
         self.model = coordinator.devices[did].device.model
         suffix = f"control:{definition['kind']}:{quote(self.key, safe='')}"
-        super().__init__(coordinator, did, suffix, definition["label"])
+        presentation = control_presentation(self.model, self.key, presentation_language(coordinator))
+        category = presentation.get("entity_category", definition.get("entity_category"))
+        self._attr_entity_category = EntityCategory.CONFIG if category == "config" else None
+        super().__init__(coordinator, did, suffix, presentation.get("label", definition["label"]))
 
     @property
     def observation(self):
@@ -107,7 +112,7 @@ class DreameControlEntity(DreameEntity):
 
     def selectable_pairs(self):
         """Keep duplicate-label suffixes stable when program filters narrow choices."""
-        pairs = option_pairs(self.definition.get("options"))
+        pairs = self.display_option_pairs()
         if not pairs:
             return ()
         allowed = control_options(self.model, self.key, self.control_observations)
@@ -121,3 +126,30 @@ class DreameControlEntity(DreameEntity):
                 return ()
             codes.add(option["value"])
         return tuple((label, code) for label, code in pairs if code in codes)
+
+    def display_option_pairs(self):
+        """Localize program names only after verifying their exact source identity."""
+        pairs = option_pairs(self.definition.get("options"))
+        if self.key != "program" or not pairs:
+            return pairs
+        source = {row["value"]: row["label"] for row in program_catalog(self.model, include_additional=True)}
+        options = self.definition["options"]
+        if not source or any(source.get(row["value"]) != row["label"] for row in options):
+            return pairs
+        return program_option_pairs(self.model, presentation_language(self.coordinator))
+
+    @property
+    def extra_state_attributes(self):
+        value = self.observed_value
+        attributes = {"control_key": self.key, "raw_code": value if type(value) is int else None}
+        if self.definition.get("coordinate"):
+            attributes["coordinate"] = self.definition["coordinate"]
+        if self.key == "program":
+            options = dict((code, label) for label, code in self.display_option_pairs())
+            allowed = {code for _, code in self.selectable_pairs()}
+            fields = ("value", "label", "labels", "group", "group_labels", "reference_duration_minutes", "reference_duration_kind")
+            attributes["program_catalog"] = [{**{key: row[key] for key in fields},
+                                               "option": options.get(row["value"]),
+                                               "selectable": row["value"] in allowed}
+                                              for row in program_catalog(self.model)]
+        return attributes

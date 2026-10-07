@@ -21,7 +21,7 @@ class DreameLaundrySelect(DreameControlEntity, SelectEntity):
         value = self.observed_value
         if type(value) is not int:
             return None
-        return next((label for label, code in option_pairs(self.definition.get("options"))
+        return next((label for label, code in self.display_option_pairs()
                      if code == value), None)
 
     @property

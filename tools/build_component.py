@@ -12,12 +12,26 @@ SOURCE = ROOT / "src" / "dreamehome"
 COMPONENT = ROOT / "custom_components" / "dreame_home"
 TARGET = COMPONENT / "api"
 
+# The HA runtime needs model/property metadata and the exact laundry schemas.
+# Reference catalogs and inventory tooling remain in the development workspace.
+RUNTIME_CATALOGS = {"api", "models", "properties", "l9_washer", "l9_dryer"}
+REFERENCE_MODULES = {"__main__.py", "cli.py", "discovery.py", "miot.py"}
+REFERENCE_CATALOGS = {
+    "actions", "availability", "constants", "device_info", "entities", "entity_defaults",
+    "enums", "implementations", "property_groups", "protocol_strings", "provenance",
+    "translations_en", "washer_candidates",
+}
+RETIRED_VENDOR_FILES = REFERENCE_MODULES | {f"data/{name}.json" for name in REFERENCE_CATALOGS}
+
 
 def expected_files():
     files = {}
     for path in SOURCE.rglob("*"):
         if path.is_file() and (path.suffix == ".py" or path.suffix == ".json" or path.name == "py.typed"):
-            files[path.relative_to(SOURCE).as_posix()] = path.read_bytes().replace(b"\r\n", b"\n")
+            name = path.relative_to(SOURCE).as_posix()
+            if name in REFERENCE_MODULES or (path.suffix == ".json" and path.stem not in RUNTIME_CATALOGS):
+                continue
+            files[name] = path.read_bytes().replace(b"\r\n", b"\n")
     files["LICENSE"] = (ROOT / "LICENSE").read_bytes().replace(b"\r\n", b"\n")
     files["THIRD_PARTY_NOTICES.md"] = (ROOT / "THIRD_PARTY_NOTICES.md").read_bytes().replace(b"\r\n", b"\n")
     files["licenses/ioBroker.dreame.txt"] = (ROOT / "licenses/ioBroker.dreame.txt").read_bytes().replace(b"\r\n", b"\n")
@@ -33,6 +47,12 @@ def vendor(*, check=False):
     if TARGET.resolve().parent != COMPONENT.resolve():
         raise ValueError("Unexpected vendoring target")
     expected = expected_files()
+    extras = [path.relative_to(TARGET).as_posix() for path in TARGET.rglob("*")
+              if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
+              and path.relative_to(TARGET).as_posix() not in expected]
+    unexpected = set(extras) - RETIRED_VENDOR_FILES
+    if unexpected:
+        raise ValueError(f"Unexpected vendored files require review: {sorted(unexpected)}")
     different = []
     for name, data in expected.items():
         target = TARGET / name
@@ -43,14 +63,16 @@ def vendor(*, check=False):
         if not check:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(data)
-    extras = [path.relative_to(TARGET).as_posix() for path in TARGET.rglob("*")
-              if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc"
-              and path.relative_to(TARGET).as_posix() not in expected]
-    if extras:
-        raise ValueError(f"Unexpected vendored files require review: {extras}")
-    if check and different:
-        print("Vendored backend differs: " + ", ".join(different))
+    if check and (different or extras):
+        print("Vendored backend differs: " + ", ".join(different + extras))
         return False
+    if not check:
+        for name in extras:
+            target = TARGET / name
+            target.resolve().relative_to(TARGET.resolve())
+            if target.is_symlink():
+                raise ValueError("Vendored cleanup must not follow links")
+            target.unlink()
     print(f"{'Verified' if check else 'Vendored'} {len(expected)} backend files")
     return True
 

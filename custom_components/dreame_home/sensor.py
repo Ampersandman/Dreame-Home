@@ -9,7 +9,8 @@ from homeassistant.core import callback
 from .api.laundry import enum_label
 from .api.laundry_progress import laundry_cycle_metrics, progress_definitions
 from .api.vacuum_telemetry import vacuum_telemetry_available
-from .entity import DreameEntity, DreamePropertyEntity, add_observed_entities, fresh_observations, scalar_state
+from .api.presentation import cycle_presentation
+from .entity import DreameEntity, DreamePropertyEntity, add_observed_entities, fresh_observations, presentation_language, scalar_state
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
@@ -53,7 +54,8 @@ class DreameCycleSensor(DreameEntity, SensorEntity):
         self.definition = definition
         self.key = definition["key"]
         self.model = coordinator.devices[did].device.model
-        super().__init__(coordinator, did, f"cycle:{self.key}", definition["name"])
+        label = cycle_presentation(self.key, presentation_language(coordinator)).get("label", definition["name"])
+        super().__init__(coordinator, did, f"cycle:{self.key}", label)
         self._attr_native_unit_of_measurement = definition["unit"]
         self._attr_suggested_display_precision = 1 if self.key == "progress" else 0
         if self.key == "elapsed_time":
@@ -71,7 +73,7 @@ class DreameCycleSensor(DreameEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self):
-        return {"derived": True, "required_coordinates": self.definition["required_coordinates"],
+        return {"derived": True, "cycle_metric": self.key, "required_coordinates": self.definition["required_coordinates"],
                 "duration_coordinates": self.definition["duration_coordinates"]}
 
 

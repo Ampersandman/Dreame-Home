@@ -10,7 +10,14 @@ from .api.laundry_controls import control_definitions
 from .api.laundry_progress import progress_definitions
 from .const import CONF_ACCOUNT_UID, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, PLATFORMS
 from .coordinator import DreameCoordinator
+from .entity import async_migrate_entity_presentation
+from .frontend import async_register_frontend
 from .transport import AiohttpTransport
+
+
+async def async_setup(hass, config):
+    await async_register_frontend(hass)
+    return True
 
 
 async def async_setup_entry(hass, entry):
@@ -44,6 +51,7 @@ async def async_setup_entry(hass, entry):
     try:
         await coordinator.async_config_entry_first_refresh()
         await coordinator.async_start_subscriptions()
+        async_migrate_entity_presentation(hass, entry)
         await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     except BaseException:
         await coordinator.async_stop()

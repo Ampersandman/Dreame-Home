@@ -4,6 +4,7 @@ import ast
 import asyncio
 import json
 import math
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import threading
 from time import monotonic
@@ -11,7 +12,7 @@ from types import SimpleNamespace
 from typing import Any
 import unittest
 from unittest.mock import AsyncMock, patch
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from dreamehome.exceptions import AuthenticationError, DreameError, RateLimitError
 from dreamehome.laundry import enum_label, laundry_definition
@@ -20,6 +21,7 @@ from dreamehome.mqtt import DeviceSubscription
 from dreamehome.observations import ObservationStore, compound_fields, entity_fields
 from dreamehome.privacy import SENSITIVE, redactor
 from dreamehome.telemetry import telemetry_metadata
+from dreamehome.presentation import control_presentation, property_presentation
 
 COMPONENT = Path(__file__).resolve().parents[1] / "custom_components" / "dreame_home"
 
@@ -33,12 +35,14 @@ def entity_scope():
     source = ast.parse((COMPONENT / "entity.py").read_text(encoding="utf-8"))
     source.body = [node for node in source.body if not isinstance(node, (ast.Import, ast.ImportFrom))]
     scope = {
-        "math": math, "json": json, "Any": Any, "quote": quote, "callback": lambda f: f,
-        "DeviceInfo": lambda **kwargs: kwargs, "EntityCategory": SimpleNamespace(DIAGNOSTIC="diagnostic"),
+        "math": math, "json": json, "Any": Any, "quote": quote, "unquote": unquote, "callback": lambda f: f,
+        "DeviceInfo": lambda **kwargs: kwargs, "EntityCategory": SimpleNamespace(DIAGNOSTIC="diagnostic", CONFIG="config"),
         "CoordinatorEntity": StubCoordinatorEntity, "compound_fields": compound_fields,
         "entity_fields": entity_fields, "SENSITIVE": SENSITIVE, "redactor": redactor, "DOMAIN": "dreame_home",
         "enum_label": enum_label, "laundry_definition": laundry_definition,
         "telemetry_metadata": telemetry_metadata, "monotonic": monotonic,
+        "control_presentation": control_presentation, "property_presentation": property_presentation,
+        "datetime": datetime, "timedelta": timedelta, "timezone": timezone,
     }
     exec(compile(source, "entity.py", "exec"), scope)
     return scope
@@ -294,6 +298,7 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
             "CONF_VISITOR_ID": "visitor_id", "CONF_ACCOUNT_UID": "account_uid",
             "EVENT_HOMEASSISTANT_STOP": "stop", "PLATFORMS": ("sensor", "binary_sensor"),
             "ConfigEntryAuthFailed": AuthenticationError,
+            "async_migrate_entity_presentation": lambda hass, entry: operations.append("presentation"),
         }
         exec(compile(ast.Module(body=[function], type_ignores=[]), "__init__.py", "exec"), namespace)
         return namespace[function.name], hass, entry, coordinator, operations
@@ -319,7 +324,7 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
     async def test_successful_start_precedes_platform_setup(self):
         setup, hass, entry, coordinator, operations = self.setup_scope()
         self.assertTrue(await setup(hass, entry))
-        self.assertEqual(operations, ["refresh", "mqtt", "forward"])
+        self.assertEqual(operations, ["refresh", "mqtt", "presentation", "forward"])
         self.assertIs(entry.runtime_data, coordinator)
         coordinator.async_stop.assert_not_awaited()
 

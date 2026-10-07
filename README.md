@@ -1,113 +1,70 @@
 # Dreame Home for Home Assistant
 
-HACS custom integration for devices registered to a Dreame Home account. This repository includes a self-contained Home Assistant component and a standalone Python API extracted from [Tasshack/dreame-vacuum at commit `9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb`](https://github.com/Tasshack/dreame-vacuum/tree/9857362d37fa6a1788a0ce2eb6e1290b3ec7d6fb), extended with exact L9 washer and dryer definitions.
+Connect your Dreame Home account to Home Assistant and bring your laundry appliances and robot vacuum into one dashboard.
 
-The priority devices are the **L9 washing machine**, **L9 Twin Inverter dryer**, and **L10s Ultra Gen 3 vacuum**. Their confirmed cloud models are `dreame.washer.l9nacn`, `dreame.dryer.l9nacn`, and `dreame.vacuum.r5023a`. Exact L9 app plugins have been extracted: 27 washer property definitions and 22 dryer definitions, including programs, enums and action payloads. Live EU reads and MQTT supplied values for 27 washer coordinates, 22 dryer coordinates, and 15 vacuum coordinates; all three authenticated MQTT connections succeeded with verified TLS. See [live coverage](docs/live-coverage.md) for firmware, null replies and remaining limits.
+**Dreame Home** provides device status, useful sensors, model-specific controls, and a bundled laundry dashboard card. Devices are discovered automatically from your account. You do not need to find device IDs or configure an MQTT broker.
 
-## Install through HACS
+## Features
 
-Requires **Home Assistant Core 2026.9.4 or newer** and HACS. Version `0.3.0b2` adds readable cycle progress and elapsed time for the exact L9 models, corrects dryer duration labels/units, and retries known property candidates after null or failed replies. It retains the named laundry controls and native L10s Ultra Gen 3 vacuum entity introduced in `0.3.0b1`.
+- **Laundry at a glance:** current program and phase, remaining time, program duration, estimated cycle progress, and elapsed cycle time.
+- **Appliance controls:** program selection, supported settings, and separate start/resume, pause, and stop buttons.
+- **App-aligned programs:** 15 standard washer programs and 25 dryer programs, including 16 drying programs and 9 care programs.
+- **Robot vacuum:** a native Home Assistant vacuum entity with start, pause, stop, return to base, and fan-speed controls.
+- **Laundry dashboard card:** an appliance illustration, cycle information, and controls, with English and German text and a visual editor.
+- **Live updates:** cloud reads and optional MQTT updates, with additional telemetry exposed as it becomes available.
 
-The earlier `0.2.0b3` telemetry beta has user-confirmed installation and updating values on Core 2026.9.4; its [diagnostic review](docs/ha-diagnostics-review.md) confirms fresh telemetry and MQTT connectivity. A later `0.3.0b1` diagnostic was downloaded **after the laundry cycles ended**: both appliances reported power off, with retained old values, while the vacuum supplied 167 property rows. This does not establish a running-cycle failure or accepted control writes. See the [latest diagnostic review](docs/ha-diagnostics-review-2026-10-06.md), [cycle sensors](docs/cycle-progress.md) and [control guide](docs/appliance-controls.md) for the evidence and remaining checks.
+## Supported devices
 
-1. Open **HACS > menu > Custom repositories**.
-2. Add `https://github.com/Ampersandman/Dreame-Home`, category **Integration**.
+| Device | Cloud model | Features |
+| --- | --- | --- |
+| Dreame Washing Machine L9 | `dreame.washer.l9nacn` | Laundry sensors, program selection, settings, and cycle controls |
+| Dreame Twin Inverter Dryer L9 | `dreame.dryer.l9nacn` | Laundry sensors, drying/care programs, settings, and cycle controls |
+| Dreame L10s Ultra Gen 3 | `dreame.vacuum.r5023a` | Vacuum entity and available telemetry |
+
+Other devices in the account can appear with available telemetry. Model-specific controls are limited to the models listed above. Features and reported sensors can vary with firmware.
+
+Current version: **0.4.0b1 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+
+## Install with HACS
+
+1. In **HACS**, open the menu and select **Custom repositories**.
+2. Add `https://github.com/Ampersandman/Dreame-Home` with type **Integration**.
 3. Download **Dreame Home** and restart Home Assistant.
-4. Open **Settings > Devices & services > Add integration > Dreame Home**.
-5. Choose your Dreame Home server region and enter the account credentials. Use `eu` for a European account and leave MQTT enabled to receive additional telemetry.
+4. Open **Settings → Devices & services → Add integration → Dreame Home**.
+5. Enter your Dreame Home account credentials and select the server region used in the app. Leave live MQTT updates enabled for the most complete telemetry.
 
-HACS installs the component and its bundled API. Device IDs are discovered automatically. A GitHub release is optional: HACS can install the default branch. See the [Home Assistant OS guide](docs/ha-os-installation.md) for the first-run checks and [publishing guide](docs/hacs-publishing.md) for CI and releases.
+Your devices will appear under the integration. The password is used to sign in; Home Assistant stores a refresh token for subsequent connections.
 
-The component stores a refresh token in Home Assistant's configuration entry and supports reauthentication. It does not persist the password or access token. Repository files contain no account credentials, actual device IDs or private captures.
+[Full installation and update guide](docs/installation.md)
 
-The beta discovers every registered device, exposes successful observed properties with stable coordinates, and retains unknown compound data. Exact L9 definitions give observed fields names and explicit enum labels; raw codes remain available. Bounded read plans reserve 24 washer, 17 dryer and 22 vacuum candidates, then rotate additional observed addresses within a 240-address limit. Known candidates remain retryable after null, empty or failed replies. Unknown models receive no guessed candidates. MQTT can discover additional fields. Failed or previously unobserved null replies do not create state entities.
+## Add the laundry card
 
-The L9 devices have **Program duration**, **Remaining time**, **Cycle progress** and **Elapsed cycle time** sensors. Progress is an estimate from the appliance's reported durations, with fresh-state and invalid-value checks. The vacuum has source-backed cleaning-time and cleaned-area metadata; cleaning/drying progress appears only after an actual usable report. The latest vacuum snapshot contains 145 source-mapped coordinates and 22 neutral coordinates; neither progress property `4.63` nor `4.64` is present. See [cycle sensors](docs/cycle-progress.md).
+![Dreame Home laundry cards for a washer and dryer](docs/assets/laundry-card.png)
 
-The exact L9 models have 16 washer and 12 dryer control descriptors, with source-defined options and program restrictions. Start/resume, pause and stop are explicit buttons; laundry stop powers off. The vacuum offers start, pause, stop, return to base and fan speed. Controls require successful recent state, preserve authorization/child-lock/fault guards and never predict state or replay uncertain commands. Ambiguous settings, typed appliance events and vacuum maps remain future work. Unknown observed fields keep neutral coordinate labels. This beta does not yet expose every feature of the official app or upstream vacuum integration.
+*Preview with sample values.*
 
-## Extracted artifacts
+The card is included with the integration and loads automatically. Edit a dashboard, choose **Add card**, and select **Dreame Home Laundry**. Use the visual editor to select your washer or dryer and its entities.
 
-| Artifact | Contents |
+Program selection and **Start** are separate actions. Choosing a program does not start the appliance.
+
+[Dashboard card setup and examples](docs/dashboard-card.md)
+
+## User guides
+
+| Guide | What it covers |
 | --- | --- |
-| [API reference](docs/dreamehome-api.md) | Login, refresh, signing, headers, regional servers, all 12 routes, RPC, MQTT, files and history |
-| [Python client](src/dreamehome/client.py) | Account-wide discovery with pagination, property reads/writes, actions, cloud data, history and downloads |
-| [Machine-readable catalogs](src/dreamehome/data/provenance.json) | 370 vacuum properties, 45 actions, 79 enums, 762 known vacuum model identifiers, 245 entity description templates, source locations and hashes |
-| [Source implementations](src/dreamehome/data/implementations.json) | Cloud/TLS source, computed states, model capabilities, command encoders and map decoding preserved as reference text |
-| [Exact L9 catalogs](src/dreamehome/data/l9_washer.json) | Washer definitions, 22 programs and 4 actions; [dryer catalog](src/dreamehome/data/l9_dryer.json) contains 31 programs and 4 actions |
-| [L9 investigation](docs/l9-investigation.md) | Confirmed identities, exact-model evidence and remaining cycle validation |
-| [HACS implementation handoff](docs/home-assistant-roadmap.md) | Account setup, device discovery, schema-driven entities, events and validation requirements |
-| [Verification](docs/verification.md) | Offline checks and the limits of what has been tested |
-| [Home Assistant component](custom_components/dreame_home/README.md) | Account setup, telemetry, named controls, diagnostics and lifecycle |
-| [Appliance controls](docs/appliance-controls.md) | Exact control lists, authorization, freshness, program constraints and hardware-validation limits |
-| [Cycle sensors](docs/cycle-progress.md) | Exact time coordinates, progress formulas, source provenance and unknown-state rules |
-| [Latest HA diagnostic review](docs/ha-diagnostics-review-2026-10-06.md) | Post-cycle clarification, retained laundry state and expanded vacuum property coverage |
-| [L9 app research](docs/l9-schema-research.md) | Authenticated iOS/Android plugin lookup, safe extraction and source provenance |
-| [MQTT trust investigation](docs/mqtt-trust-research.md) | Vendor CA recovered from a signature-verified official APK and verified broker connections |
+| [Installation](docs/installation.md) | HACS setup, account connection, and updates |
+| [Entities and controls](docs/entities.md) | Sensors, programs, settings, and control availability |
+| [Dashboard card](docs/dashboard-card.md) | Visual editor, card options, and YAML examples |
+| [Automations](docs/automations.md) | Notifications and examples using Home Assistant actions |
+| [Troubleshooting](docs/troubleshooting.md) | Sign-in, unavailable devices, card loading, and privacy |
 
-The generated vacuum catalogs describe the upstream integration. A device only exposes the subset supported by its model and firmware. Entity counts describe templates, including per-room/per-map templates, rather than the number of entities on a particular device.
+Controls require the device to be online and to report recent usable state. Some settings are available only for particular programs or cycle phases. Home Assistant shows confirmed appliance state after updates; it does not assume that a submitted command succeeded.
 
-## Use the extraction
+Vacuum maps, room selection, and appliance scheduling are not provided by this integration.
 
-The optional standalone API requires Python 3.11 or newer. For a fresh development checkout:
+## Support
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e ".[mqtt]"
-```
+For help, check the [troubleshooting guide](docs/troubleshooting.md) or [open an issue](https://github.com/Ampersandman/Dreame-Home/issues). Include the integration version, Home Assistant version, device model, and a description of the problem. Review diagnostics and logs before sharing them, and keep account credentials private.
 
-View the extraction without making network requests:
-
-```powershell
-.\.venv\Scripts\python.exe -m dreamehome catalog
-```
-
-List cloud devices, including unfamiliar model categories and shared devices:
-
-```powershell
-.\.venv\Scripts\python.exe -m dreamehome inventory --region eu
-```
-
-The command prompts locally for your account and a hidden password. `eu` is the app server region; select the region used by your Dreame account. `DREAME_USERNAME`, `DREAME_PASSWORD` or `DREAME_REFRESH_TOKEN` can also be supplied through your local environment. Credentials are not saved by the CLI.
-
-To obtain exact device IDs without dumping unrelated cloud fields, run the dedicated interactive scanner in a local terminal:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\scan_cloud_account.ps1
-```
-
-Both account ID and password are entered without echo. The scanner checks verified TLS before requesting credentials, lists all device categories, and reads device metadata. It saves an allowlisted report with exact device IDs/model codes in the ignored `private/` directory. No access/refresh tokens, account UID, MAC address, signed URLs, or raw property blobs are included. This report can identify the washer, dryer and vacuum before their property mappings are selected.
-
-Collect device listing pages, device metadata and OTC information:
-
-```powershell
-.\.venv\Scripts\python.exe -m dreamehome capture --region eu --label initial --output captures\initial.json
-```
-
-Capture files redact common account identifiers, credentials and URLs by default. `--private` retains raw device data for local investigation. New output files are created exclusively so earlier evidence is preserved. Redaction is a best effort for known fields; review captures before sharing.
-
-Inspect the exact L9 source definitions without connecting to the cloud:
-
-```powershell
-.\.venv\Scripts\python.exe -m dreamehome schema --model dreame.washer.l9nacn
-.\.venv\Scripts\python.exe -m dreamehome schema --model dreame.dryer.l9nacn
-```
-
-Observe the identified washer during ordinary app use:
-
-```powershell
-.\.venv\Scripts\python.exe -m dreamehome watch --region eu --model dreame.washer.l9nacn --seconds 300 --label idle --output captures\washer-idle.jsonl
-```
-
-The CLI performs device discovery and read-only capture. The Python API provides explicit writes/actions, and the component uses named model-specific encoders for its controls. Capture never automatically polls the vacuum catalog on a washing machine or dryer, and capture/discovery never starts appliances or writes settings.
-
-## Reproduce and verify
-
-```powershell
-.\.venv\Scripts\python.exe tools\build_component.py --check --archive
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-The offline suite uses committed source catalogs and synthetic responses; it needs no account credentials or research downloads. GitHub CI runs it on Python 3.12 and 3.14 and also runs official HACS and hassfest validation. These checks do not replace execution in Home Assistant.
-
-Source extraction reproduction additionally requires the pinned upstream checkout, public schema responses or proprietary L9 plugin bundles, according to the relevant tool. Those local research inputs are deliberately excluded from this repository. See [third-party notices](THIRD_PARTY_NOTICES.md) for licenses and provenance. Capture and identification tools save local output under ignored `private/` or `captures/` directories; review it before sharing.
+This is a community integration and is not affiliated with Dreame. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) for licensing and attribution.

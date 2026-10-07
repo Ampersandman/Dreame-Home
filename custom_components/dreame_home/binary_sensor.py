@@ -49,6 +49,7 @@ class DreameOnline(DreameEntity, BinarySensorEntity):
 class DreameMqttConnected(DreameEntity, BinarySensorEntity):
     _attr_device_class = BinarySensorDeviceClass.CONNECTIVITY
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_entity_registry_enabled_default = False
 
     def __init__(self, coordinator, did):
         super().__init__(coordinator, did, "mqtt_connected", "MQTT connected")

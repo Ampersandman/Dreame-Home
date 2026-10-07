@@ -61,6 +61,10 @@ class DistributionTests(unittest.TestCase):
             self.assertIn("api/data/l9_washer.json", names)
             self.assertIn("api/data/l9_dryer.json", names)
             self.assertIn("api/LICENSE", names)
+            self.assertIn("frontend/dreame-home-laundry-card.js", names)
+            for name in ("api/cli.py", "api/discovery.py", "api/data/implementations.json",
+                         "api/data/constants.json", "api/data/device_info.json"):
+                self.assertNotIn(name, names)
             manifest = json.loads(archive.read("manifest.json"))
             self.assertEqual(manifest["domain"], "dreame_home")
             for name in names:

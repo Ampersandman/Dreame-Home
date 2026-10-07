@@ -22,6 +22,8 @@ from functools import lru_cache
 from typing import Any, Mapping
 
 from .catalog import load_catalog
+from .laundry_programs import program_catalog
+from .presentation import control_presentation
 
 WASHER = "dreame.washer.l9nacn"
 DRYER = "dreame.dryer.l9nacn"
@@ -161,6 +163,7 @@ def _definitions(model: str) -> tuple[dict[str, Any], ...]:
             "provenance": {"source": deepcopy(_catalog(model)["source"]),
                            "property": deepcopy(row.get("control_sources") or row["provenance"])},
             "live_write_verified": False,
+            **control_presentation(model, key),
         })
     # Literal native action inputs are identical on both exact plugins. Stop is
     # explicitly power-off, never an invented stop action or a pause alias.
@@ -185,6 +188,7 @@ def _definitions(model: str) -> tuple[dict[str, Any], ...]:
             "provenance": {"source": deepcopy(_catalog(model)["source"]),
                            "action": deepcopy(evidence["provenance"])},
             "live_write_verified": False,
+            **control_presentation(model, key),
         })
     return tuple(definitions)
 
@@ -310,6 +314,9 @@ def _validate_state(model: str, definition: Mapping[str, Any], observations: Map
 def _allowed_options(model: str, definition: Mapping[str, Any], observations: Mapping[str, Any]) -> list[dict[str, Any]]:
     _validate_state(model, definition, observations)
     options = deepcopy(definition["options"])
+    if definition["key"] == "program":
+        standard_codes = {row["value"] for row in program_catalog(model)}
+        options = [row for row in options if row["value"] in standard_codes]
     field = definition["constraints"].get("program_field")
     program = None
     if field:
