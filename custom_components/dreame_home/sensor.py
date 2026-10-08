@@ -1,13 +1,15 @@
 """Read-only scalar telemetry, with exact-plugin labels where available."""
 
 import math
+from datetime import datetime, timedelta, timezone
+from time import monotonic
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorStateClass
 from homeassistant.const import PERCENTAGE
 from homeassistant.core import callback
 
 from .api.laundry import enum_label
-from .api.laundry_progress import laundry_cycle_metrics, progress_definitions
+from .api.laundry_progress import laundry_cycle_metrics, laundry_finish_remaining, progress_definitions
 from .api.laundry_summary import laundry_appliance_summary
 from .api.vacuum_telemetry import vacuum_telemetry_available
 from .api.presentation import cycle_presentation
@@ -55,16 +57,47 @@ class DreameCycleSensor(DreameEntity, SensorEntity):
         self.definition = definition
         self.key = definition["key"]
         self.model = coordinator.devices[did].device.model
-        label = cycle_presentation(self.key, presentation_language(coordinator)).get("label", definition["name"])
+        presentation = cycle_presentation(self.key, presentation_language(coordinator))
+        label = presentation.get("label", definition["name"])
         super().__init__(coordinator, did, f"cycle:{self.key}", label)
+        self._attr_icon = presentation.get("icon")
         self._attr_native_unit_of_measurement = definition["unit"]
         self._attr_suggested_display_precision = 1 if self.key == "progress" else 0
+        self._finish_anchor = None
         if self.key == "elapsed_time":
             self._attr_device_class = SensorDeviceClass.DURATION
+        elif self.key == "finish_time":
+            self._attr_device_class = SensorDeviceClass.TIMESTAMP
+            self._attr_state_class = None
+            self._attr_suggested_display_precision = None
 
     @property
     def native_value(self):
+        if self.key == "finish_time":
+            return self._estimated_finish()
         return laundry_cycle_metrics(self.model, fresh_observations(self.device_state)).get(self.key)
+
+    def _estimated_finish(self):
+        state = self.device_state
+        if (state.online is False or not state.present or self.coordinator.stopped
+                or self.coordinator.entity_discovery_suspended):
+            self._finish_anchor = None
+            return None
+        remaining = laundry_finish_remaining(self.model, fresh_observations(state))
+        received = state.timestamps.get(self.definition["remaining_coordinate"])
+        if remaining is None or type(received) not in (int, float) or not math.isfinite(received):
+            self._finish_anchor = None
+            return None
+        try:
+            if self._finish_anchor is None or self._finish_anchor[0] != received:
+                # Cache the observation's UTC time so repeated property access
+                # cannot turn the remaining-time value into a moving deadline.
+                observed = datetime.now(timezone.utc) - timedelta(seconds=monotonic() - received)
+                self._finish_anchor = received, observed.replace(microsecond=0)
+            return self._finish_anchor[1] + timedelta(minutes=remaining)
+        except (OverflowError, ValueError):
+            self._finish_anchor = None
+            return None
 
     @property
     def available(self):
@@ -74,8 +107,12 @@ class DreameCycleSensor(DreameEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self):
-        return {"derived": True, "cycle_metric": self.key, "required_coordinates": self.definition["required_coordinates"],
-                "duration_coordinates": self.definition["duration_coordinates"]}
+        attributes = {"derived": True, "cycle_metric": self.key,
+                      "required_coordinates": self.definition["required_coordinates"],
+                      "duration_coordinates": self.definition["duration_coordinates"]}
+        if self.key == "finish_time":
+            attributes["estimated"] = True
+        return attributes
 
 
 class DreamePropertySensor(DreamePropertyEntity, SensorEntity):
@@ -127,6 +164,19 @@ class DreamePropertySensor(DreamePropertyEntity, SensorEntity):
     def available(self):
         if not super().available or self.numeric and self._numeric_value() is None:
             return False
+        if self._laundry_readback and self.native_value is None:
+            state = self.device_state
+            if (self.key != "2.3" or self.coordinator.stopped
+                    or self.coordinator.entity_discovery_suspended):
+                return False
+            current = fresh_observations(state)
+            status = current.get("2.1", {}).get("value")
+            # A confirmed idle appliance simply has no active program. Keep
+            # the sensor available with an unknown state rather than implying
+            # a connection failure; old/missing context still stays unavailable.
+            if (type(status) is not int or status not in (0, 1)
+                    or enum_label(self.definition, current.get("2.3", {}).get("value")) is None):
+                return False
         if (self.device_state.device.model == "dreame.vacuum.r5023a" and self.pointer is None
                 and self.key in ("4.2", "4.3", "4.63", "4.64")):
             context = fresh_observations(self.device_state)
@@ -136,6 +186,20 @@ class DreamePropertySensor(DreamePropertyEntity, SensorEntity):
 
     @property
     def native_value(self):
+        if self._laundry_readback:
+            state = self.device_state
+            if (state.online is False or not state.present or self.coordinator.stopped
+                    or self.coordinator.entity_discovery_suspended):
+                return None
+            current = fresh_observations(state)
+            value = current.get(self.key, {}).get("value")
+            if self.key == "2.3":
+                status = current.get("2.1", {}).get("value")
+                if type(status) is not int or status not in (2, 3):
+                    return None
+            elif type(value) is not int or value not in (0, 1):
+                return None
+            return enum_label(self.definition, value)
         # HA requires numeric native values whenever a unit or numeric device
         # class is present. Keep structured observations on attributes/leaves.
         if self.numeric:
@@ -144,6 +208,11 @@ class DreamePropertySensor(DreamePropertyEntity, SensorEntity):
             return "structured"
         label = enum_label(self.definition, self.value)
         return label if label is not None else scalar_state(self.value)
+
+    @property
+    def _laundry_readback(self):
+        return (self.pointer is None and self.key in ("2.3", "3.14")
+                and self.device_state.device.model in ("dreame.washer.l9nacn", "dreame.dryer.l9nacn"))
 
     @property
     def extra_state_attributes(self):

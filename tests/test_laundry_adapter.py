@@ -223,7 +223,7 @@ class FriendlySensorTests(unittest.TestCase):
                      laundry_appliance_summary=laundry_appliance_summary,
                      cycle_presentation=cycle_presentation,
                      vacuum_telemetry_available=vacuum_telemetry_available,
-                     PERCENTAGE="%", enum_label=enum_label, math=math)
+                     PERCENTAGE="%", enum_label=enum_label, math=math, monotonic=lambda: 1200)
         exec(compile(source, "sensor.py", "exec"), scope)
         return scope
 
@@ -234,7 +234,7 @@ class FriendlySensorTests(unittest.TestCase):
         state = SimpleNamespace(device=SimpleNamespace(model=WASHER), store=store)
         coordinator = SimpleNamespace(devices={"device": state}, device_key=lambda _: "key")
         status = scope["DreamePropertySensor"](coordinator, "device", "2.1")
-        self.assertEqual(status._attr_name, "Run status")
+        self.assertEqual(status._attr_name, "Operation state")
         self.assertEqual(status.native_value, "Running")
         self.assertEqual(status.extra_state_attributes["raw_code"], 3)
         remaining = scope["DreamePropertySensor"](coordinator, "device", "2.13")
@@ -252,12 +252,15 @@ class FriendlySensorTests(unittest.TestCase):
                                               (DRYER, 8, "Underwear", "Delicates")):
             with self.subTest(model=model, raw=raw):
                 store = ObservationStore(model)
-                store.merge_properties([{"siid": 2, "piid": 3, "value": raw}])
-                state = SimpleNamespace(device=SimpleNamespace(model=model), store=store)
+                store.merge_properties([{"siid": 2, "piid": 3, "value": raw},
+                                         {"siid": 2, "piid": 1, "value": 3}])
+                state = SimpleNamespace(device=SimpleNamespace(model=model), store=store,
+                                        present=True, online=True, timestamps={"2.1": 1200, "2.3": 1200})
                 coordinator = SimpleNamespace(devices={"device": state}, device_key=lambda _: "key",
+                                              stopped=False, entity_discovery_suspended=False,
                                               hass=SimpleNamespace(config=SimpleNamespace(language="de-DE")))
                 sensor = scope["DreamePropertySensor"](coordinator, "device", "2.3")
-                self.assertEqual(sensor._attr_name, "Program")
+                self.assertEqual(sensor._attr_name, "Active program")
                 self.assertEqual(sensor.native_value, expected)
                 self.assertEqual(enum_label(sensor.definition, raw), expected)
                 self.assertEqual(sensor.extra_state_attributes["raw_code"], raw)

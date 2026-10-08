@@ -19,6 +19,15 @@ _METADATA = {
     "dreame.washer.l9nacn": {
         "2.12": _duration("Program duration", _WASHER_TIMELINE, [20042, 20073]),
         "2.13": _duration("Remaining time", _WASHER_TIMELINE, [20048, 20085]),
+        "3.14": {
+            "label": "Remote start", "value_list_inferred": False,
+            "value_list": [{"value": 0, "label": "Off"}, {"value": 1, "label": "On"}],
+            "telemetry_provenance": {
+                "module": "projects_dreame.washer.l9nacn_views_SubscribePage_index",
+                "lines": [469, 470, 596, 600],
+                "meaning": "Integer 0 opens the not-authorized prompt; integer 1 permits remote start.",
+            },
+        },
     },
     "dreame.dryer.l9nacn": {
         "2.1": {"label": "Run status"},
@@ -26,7 +35,15 @@ _METADATA = {
         "2.4": {"label": "Dry phase"},
         "2.9": _duration("Program duration", _DRYER_TIMELINE, [17428, 17449]),
         "2.11": _duration("Remaining time", _DRYER_TIMELINE, [17413, 17421]),
-        "3.14": {"label": "Network authorized"},
+        "3.14": {
+            "label": "Remote start", "value_list_inferred": False,
+            "value_list": [{"value": 0, "label": "Off"}, {"value": 1, "label": "On"}],
+            "telemetry_provenance": {
+                "module": "projects_dreame.dryer.l9nacn_views_SubscribePage_index",
+                "lines": [515, 517, 614, 618],
+                "meaning": "Integer 0 opens the not-authorized prompt; integer 1 permits remote start.",
+            },
+        },
     },
     "dreame.vacuum.r5023a": {
         "4.2": {"label": "Cleaning time", "unit": "min", "device_class": "duration",

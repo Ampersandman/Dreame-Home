@@ -39,7 +39,7 @@ class DistributionTests(unittest.TestCase):
             vacuum = importlib.import_module(spec.name + ".vacuum_controls")
             self.assertTrue(vacuum.vacuum_control_supported("dreame.vacuum.r5023a"))
             progress = importlib.import_module(spec.name + ".laundry_progress")
-            self.assertEqual(len(progress.progress_definitions("dreame.washer.l9nacn")), 2)
+            self.assertEqual(len(progress.progress_definitions("dreame.washer.l9nacn")), 3)
             telemetry = importlib.import_module(spec.name + ".telemetry")
             self.assertEqual(telemetry.telemetry_metadata("dreame.dryer.l9nacn", "2.11")["unit"], "min")
             vacuum_telemetry = importlib.import_module(spec.name + ".vacuum_telemetry")

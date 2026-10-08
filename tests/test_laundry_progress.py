@@ -26,7 +26,7 @@ class LaundryProgressTests(unittest.TestCase):
         for model, durations in ((WASHER, ["2.12", "2.13"]), (DRYER, ["2.9", "2.11"])):
             definitions = progress_definitions(model)
             self.assertEqual([(r["key"], r["unit"]) for r in definitions],
-                             [("progress", "%"), ("elapsed_time", "min")])
+                             [("progress", "%"), ("elapsed_time", "min"), ("finish_time", None)])
             self.assertEqual(definitions[0]["duration_coordinates"], durations)
             self.assertTrue(definitions[0]["provenance"]["source"]["bundle_sha256"])
             definitions[0]["required_coordinates"].clear()

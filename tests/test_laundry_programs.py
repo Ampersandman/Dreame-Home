@@ -84,26 +84,26 @@ class LaundryProgramTests(unittest.TestCase):
             self.assertEqual(prepare_control_write(model, "program", 1, prior)["properties"],
                              [{"siid": 2, "piid": 3, "value": 1}])
 
-    def test_cycle_settings_primary_persistent_settings_configuration(self):
+    def test_cycle_settings_controls_and_operational_readbacks_sensors(self):
         for model in (WASHER, DRYER):
-            self.assertEqual(control_presentation(model, "child_lock")["entity_category"], "config")
+            self.assertIsNone(control_presentation(model, "child_lock")["entity_category"])
             for key in ("program", "start", "pause", "stop", "extra_time", "speed_mode"):
                 self.assertIsNone(control_presentation(model, key)["entity_category"])
-            for key in ("2.1", "2.2", "2.4"):
+            for key in ("2.1", "2.3", "2.4", "3.14"):
                 self.assertTrue(property_presentation(model, key)["enabled_default"])
-            for key in ("2.3", "99.1", "cached:unknown"):
+            for key in ("2.2", "99.1", "cached:unknown"):
                 self.assertFalse(property_presentation(model, key)["enabled_default"])
                 self.assertEqual(property_presentation(model, key)["entity_category"], "diagnostic")
             self.assertFalse(property_presentation(model, "2.1", "/arbitrary")["enabled_default"])
-        self.assertEqual(control_presentation(WASHER, "night_mode")["entity_category"], "config")
+        self.assertIsNone(control_presentation(WASHER, "night_mode")["entity_category"])
 
     def test_all_entity_labels_remain_english_for_other_ha_languages(self):
         for language in ("de-DE", "de_AT", "fr", None):
-            self.assertEqual(control_presentation(WASHER, "program", language)["label"], "Program")
+            self.assertEqual(control_presentation(WASHER, "program", language)["label"], "Selected program")
             self.assertEqual(control_presentation(DRYER, "child_lock", language)["label"], "Child lock")
             self.assertEqual(property_presentation(WASHER, "2.4", language=language)["label"], "Wash phase")
             self.assertEqual(property_presentation(DRYER, "2.11", language=language)["label"], "Remaining time")
-            self.assertEqual(cycle_presentation("progress", language)["label"], "Cycle progress")
+            self.assertEqual(cycle_presentation("progress", language)["label"], "Program progress")
 
 
 if __name__ == "__main__":

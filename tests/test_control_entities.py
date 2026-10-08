@@ -301,7 +301,7 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
         self.coordinator.hass = SimpleNamespace(config=SimpleNamespace(language="de-DE"))
         self.rows.update({"2.1": {"value": 1, "last_code": 0}, "2.3": {"value": 0, "last_code": 0}})
         entity = self.entity("program", "DreameLaundrySelect")
-        self.assertEqual(entity._attr_name, "Program")
+        self.assertEqual(entity._attr_name, "Selected program")
         self.assertIsNone(entity._attr_entity_category)
         self.assertEqual(entity.current_option, "AI Wash")
         self.assertEqual(len(entity.options), 15)
@@ -361,8 +361,8 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
         for key, class_name, category in (("program", "DreameLaundrySelect", None),
                                          ("temperature", "DreameLaundrySelect", None),
                                          ("fresh_air_circulation", "DreameLaundrySwitch", None),
-                                         ("child_lock", "DreameLaundrySwitch", "config"),
-                                         ("night_mode", "DreameLaundrySwitch", "config"),
+                                         ("child_lock", "DreameLaundrySwitch", None),
+                                         ("night_mode", "DreameLaundrySwitch", None),
                                          ("start", "DreameLaundryButton", None)):
             entity = self.entity(key, class_name)
             self.assertEqual(entity._attr_entity_category, category)
@@ -395,7 +395,7 @@ class ControlBoundaryTests(unittest.IsolatedAsyncioTestCase):
         register(self.coordinator, self.entry, self.added.extend, factory, kind="switch")
         self.assertEqual(len(self.added), 1)
         self.assertEqual(self.added[0]._attr_unique_id, "device-key:control:switch:child_lock")
-        self.assertEqual(self.added[0]._attr_entity_category, "config")
+        self.assertIsNone(self.added[0]._attr_entity_category)
         self.listeners[0]()
         self.assertEqual(len(self.added), 1)
         second = copy.deepcopy(self.state)

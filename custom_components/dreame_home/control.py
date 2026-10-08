@@ -75,6 +75,9 @@ class DreameControlEntity(DreameEntity):
         category = presentation.get("entity_category", definition.get("entity_category"))
         self._attr_entity_category = EntityCategory.CONFIG if category == "config" else None
         super().__init__(coordinator, did, suffix, presentation.get("label", definition["label"]))
+        if presentation.get("icon"):
+            self._attr_icon = presentation["icon"]
+        self._attr_entity_registry_enabled_default = presentation.get("enabled_default", True)
 
     @property
     def observation(self):

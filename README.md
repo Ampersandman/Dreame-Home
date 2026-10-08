@@ -8,9 +8,10 @@ Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assist
 
 ## Features
 
-- **Primary laundry entity:** each appliance's Run status sensor includes its current program, phase, timing, estimated progress, and settings as attributes.
-- **Cycle sensors:** individual remaining-time, program-duration, estimated-progress, and elapsed-time sensors for dashboards and automations.
+- **Primary laundry entity:** each appliance's Operation state sensor includes its current program, phase, timing, estimated progress, and settings as attributes.
+- **Cycle sensors:** active program, remaining time, program duration, estimated finish time, program progress, and elapsed time for dashboards and automations.
 - **Appliance controls:** program selection, supported settings, and separate start/resume, pause, and stop buttons.
+- **Organized device pages:** everyday settings under Controls, cycle information under Sensors, and connection details under Diagnostic.
 - **App-aligned programs:** 15 standard washer programs and 25 dryer programs, including 16 drying programs and 9 care programs.
 - **Laundry dashboard card:** washer and dryer product images, an animated drum while running, cycle information, and controls with a visual editor.
 - **English interface:** entity names, program choices, and card text stay in English regardless of your Home Assistant language.
@@ -25,7 +26,7 @@ Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assist
 
 The integration supports the two L9 models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b6 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b7 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 

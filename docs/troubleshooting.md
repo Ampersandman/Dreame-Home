@@ -29,6 +29,16 @@ The **Cloud reported online** status comes from Dreame and may lag physical powe
 
 If the appliance is on, check whether the app itself shows current values. Leave live MQTT updates enabled for the most complete telemetry and allow time for fresh state to arrive.
 
+**Active program** is unknown when no running or paused cycle is reported; use **Selected program** to see the prepared program. **Program finish time** is unavailable unless the appliance reports a running cycle, an active washing or drying phase, and recent valid remaining time. It is also unavailable while paused or during aftercare. These states are expected and do not indicate a connection failure by themselves.
+
+## An entity moved or has a different label
+
+Cycle settings, child lock, and night mode appear under **Controls**. Cycle information appears under **Sensors**, and connection details and additional telemetry under **Diagnostic**. Home Assistant controls the visual layout and order within those sections.
+
+**Operation state**, **Selected program**, and **Program progress** replace the previous display labels Run status, Program, and Cycle progress. Existing entity IDs and automations remain attached to the same entities. User-defined names and explicit disabled settings are preserved. Raw duplicate settings, fault codes, and delay-related telemetry are disabled by default; enable them in the entity settings if needed.
+
+If **Active program** or **Remote start** is missing, check whether you previously disabled the entity yourself. The integration preserves that choice. **Remote start** reports appliance authorization; it is read-only and cannot enable remote authorization from Home Assistant.
+
 ## Appliances go offline after a cycle
 
 The L9 appliances automatically power off after use. [Dreame Support confirms](https://de.forum.dreametech.com/forum.php?mod=viewthread&tid=7579) that the L9 washer powers off and becomes offline after a wash program. The [L9 dryer manual](https://d.otto.de/files/e3d3a3a1-eb49-5f81-a1e9-91d66687a19a.pdf), printed page 15, states that the dryer powers off if there is no operation for one minute after the program ends.

@@ -77,7 +77,12 @@ def progress_definitions(model: str) -> list[dict[str, Any]]:
             {"key": "elapsed_time", "name": "Elapsed cycle time", "unit": "min",
              "required_coordinates": context + durations,
              "duration_coordinates": deepcopy(durations), "derived": True,
-             "provenance": deepcopy(provenance)}]
+             "provenance": deepcopy(provenance)},
+            {"key": "finish_time", "name": "Program finish time", "unit": None,
+             "required_coordinates": context + durations,
+             "duration_coordinates": deepcopy(durations),
+             "remaining_coordinate": _MODELS[model]["remaining"],
+             "derived": True, "estimated": True}]
 
 
 def _integer(observations: Mapping[str, Any], coordinate: str) -> int | None:
@@ -134,3 +139,20 @@ def laundry_cycle_metrics(model: str, observations: Mapping[str, Any]) -> dict[s
     if not terminal:
         result["progress"] = round(elapsed / total * 100, 1)
     return result
+
+
+def laundry_finish_remaining(model: str, observations: Mapping[str, Any]) -> int | None:
+    """Minutes for an integration finish estimate during ordinary running only.
+
+    A pause, schedule, add-clothes interruption or aftercare has no defensible
+    advancing wall-clock end. The caller anchors this estimate to receipt of
+    the remaining-time observation, never to a program's default duration.
+    """
+    phases = {WASHER: (1, 2, 3, 4), DRYER: (3,)}
+    if (model not in _MODELS or not isinstance(observations, Mapping)
+            or _integer(observations, "2.1") != 3
+            or _integer(observations, "2.4") not in phases[model]
+            or laundry_cycle_metrics(model, observations)["elapsed_time"] is None):
+        return None
+    remaining = _integer(observations, _MODELS[model]["remaining"])
+    return remaining if remaining is not None and remaining > 0 else None

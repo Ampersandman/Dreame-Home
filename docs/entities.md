@@ -1,6 +1,6 @@
 # Entities and controls
 
-Open **Settings → Devices & services → Dreame Home Laundry** and select a device to see its entities. Cycle information appears under sensors, program parameters and cycle buttons under controls, and persistent preferences such as child lock under configuration. Additional telemetry is kept in diagnostics. The exact set depends on the model, firmware, and values the appliance reports.
+Open **Settings → Devices & services → Dreame Home Laundry** and select a device to see its entities. Program selection, cycle settings, and buttons appear under **Controls**; operating state and cycle information appear under **Sensors**; connection status and additional telemetry appear under **Diagnostic**. Home Assistant determines the section layout and ordering. The exact entity set depends on the model, firmware, and values the appliance reports.
 
 Integration-provided entity names, program choices, and card text are always in English, independently of your Home Assistant language. Names you assign yourself are preserved.
 
@@ -15,7 +15,7 @@ This guide covers the two L9 models listed above. Feature availability can vary 
 
 ## Primary laundry entity
 
-Each L9 washer and dryer has a **Run status** sensor that combines its operating state with cycle information and settings in one entity. Open the sensor's details or view it in **Developer tools → States** to inspect its attributes.
+Each L9 washer and dryer has an **Operation state** sensor that combines its operating state with cycle information and settings in one entity. Open the sensor's details or view it in **Developer tools → States** to inspect its attributes.
 
 | Attribute | Meaning |
 | --- | --- |
@@ -40,15 +40,17 @@ The L9 washer and dryer provide the following useful cycle information when repo
 
 | Entity | Purpose |
 | --- | --- |
-| **Run status** | Whether the appliance is off, waiting, running, paused, or in another reported operating state. |
+| **Operation state** | Whether the appliance is off, waiting, running, paused, or in another reported operating state. |
 | **Wash phase / Dry phase** | The current stage of washing or drying. |
-| **Program** | The current program. The program selector also provides a control for choosing a supported program. |
+| **Active program** | The reported program during a running or paused cycle. It is unknown in confirmed standby and unavailable when recent suitable state is missing. |
+| **Remote start** | The appliance's reported network-control authorization, shown as On or Off. This is read-only and does not authorize a start by itself. |
 | **Program duration** | The appliance's estimated total duration, in minutes. |
 | **Remaining time** | The appliance's estimated time left, in minutes. |
-| **Cycle progress** | Estimated progress as a percentage. |
+| **Program finish time** | Estimated finish timestamp from the latest valid remaining-time observation. |
+| **Program progress** | Estimated progress as a percentage. |
 | **Elapsed cycle time** | The difference between reported program duration and remaining time, in minutes. |
 
-Cycle progress is calculated from reported timing:
+Program progress is calculated from reported timing:
 
 ```text
 progress = (program duration − remaining time) / program duration × 100
@@ -61,13 +63,17 @@ Progress and elapsed time need recent successful state and suitable cycle contex
 
 For the washer, 100% can mean that washing has finished while fresh-air care continues. It does not always indicate appliance shutdown.
 
+**Program finish time** is calculated as the observation time plus the reported remaining minutes. It is available only with recent online state, a running appliance, an active washing or drying phase, and a positive valid remaining-time estimate. It becomes unavailable while paused, in standby, during delayed start or aftercare, or when the appliance is offline or the data is stale. The timestamp changes when the appliance revises its estimate; it is not a confirmed completion time.
+
+**Active program** and **Selected program** serve different purposes: the sensor describes a running or paused cycle, while the selector shows and changes the prepared program. No dedicated door-state entity is provided because the available L9 data does not establish whether the door is open or closed.
+
 ## Washer controls
 
 The program selector offers **15 standard programs**, all named in English. Additional programs reported by the appliance can still be recognized as current state without being offered for selection.
 
 | Control | Purpose |
 | --- | --- |
-| **Program** | Choose a standard washing program. |
+| **Selected program** | Choose a standard washing program. |
 | **Temperature** | Choose a supported wash temperature. |
 | **Extra time** | Adjust the supported additional washing time. |
 | **Water level** | Choose the supported water setting. |
@@ -83,13 +89,15 @@ The program selector offers **15 standard programs**, all named in English. Addi
 
 Choices are filtered for the selected program and current settings. Some combinations are incompatible; for example, a program may limit spin speed or temperature. The integration offers only the options it can validate for the current state.
 
+All supported cycle parameters and switches, including **Child lock** and **Night mode**, appear under Controls.
+
 ## Dryer controls
 
 The program selector offers **25 standard programs**: **16 drying programs** and **9 care programs**, all named in English.
 
 | Control | Purpose |
 | --- | --- |
-| **Program** | Choose a standard drying or care program. |
+| **Selected program** | Choose a standard drying or care program. |
 | **Dryness level** | Choose a supported target dryness. |
 | **Airflow** | Choose a supported airflow setting. |
 | **Extra time** | Adjust the supported additional drying time. |
@@ -133,12 +141,14 @@ State changes are shown after the appliance reports them. A submitted command do
 
 **Cloud reported online** describes Dreame's account-discovery status. **MQTT connected** describes the connection to Dreame's messaging service. These are separate signals: a broker connection can remain active while an appliance is powered off.
 
-Additional reported properties may appear as diagnostic entities. Properties without a confirmed meaning keep a neutral label. Some raw or duplicate diagnostic entities are hidden or disabled by default to keep the device page focused; you can inspect their entity settings in Home Assistant if needed.
+Additional reported properties may appear as diagnostic entities. **Fault code**, delay-related telemetry, and raw duplicates of cycle settings are diagnostic entities disabled by default. Properties without a confirmed meaning keep a neutral label. You can enable diagnostic entities in their Home Assistant entity settings when needed. A reported delay value does not provide a scheduling control.
 
 ## Entity IDs and updates
 
 Home Assistant assigns entity IDs, and you can rename them. The example IDs in the [automation guide](automations.md) are placeholders; replace them with the IDs from **Settings → Devices & services → Entities** or **Developer tools → States**.
 
 Entity identities remain stable when labels and grouping improve. Existing IDs and automations are retained. User-assigned names and entity visibility settings are respected.
+
+An existing **Run status** entity is now labeled **Operation state**, **Program** controls are labeled **Selected program**, and **Cycle progress** is labeled **Program progress**. Their entity IDs stay unchanged. Existing diagnostic entities used for **Active program** and **Remote start** are promoted to Sensors; previously disabled defaults are enabled where appropriate, while entities you explicitly disabled remain disabled.
 
 [Dashboard card](dashboard-card.md) · [Troubleshooting](troubleshooting.md) · [Back to README](../README.md)

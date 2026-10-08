@@ -6,14 +6,14 @@ Find IDs in **Settings → Devices & services → Entities** or **Developer tool
 
 ## Read the primary laundry entity
 
-The appliance's **Run status** sensor also carries its consolidated cycle information as attributes. You can read these attributes in a template without selecting a separate sensor for each value:
+The appliance's **Operation state** sensor also carries its consolidated cycle information as attributes. You can read these attributes in a template without selecting a separate sensor for each value:
 
 ```jinja
-{{ state_attr('sensor.washer_run_status', 'program') }}
-{{ state_attr('sensor.washer_run_status', 'phase') }}
+{{ state_attr('sensor.washer_operation_state', 'program') }}
+{{ state_attr('sensor.washer_operation_state', 'phase') }}
 ```
 
-Replace the entity ID with your washer's Run status sensor, or use the dryer's sensor for dryer information. Check for `none` before using an attribute in a calculation or action. See [primary laundry entity attributes](entities.md#primary-laundry-entity) for the available fields and freshness rules.
+Replace the entity ID with your washer's Operation state sensor, or use the dryer's sensor for dryer information. Existing installations can retain IDs such as `sensor.washer_run_status` after the displayed label changes. Check for `none` before using an attribute in a calculation or action. See [primary laundry entity attributes](entities.md#primary-laundry-entity) for the available fields and freshness rules.
 
 ## Notify when the washer is nearly finished
 
@@ -28,7 +28,7 @@ triggers:
     below: 6
 conditions:
   - condition: numeric_state
-    entity_id: sensor.washer_cycle_progress
+    entity_id: sensor.washer_program_progress
     above: 0
     below: 100
 actions:
@@ -45,6 +45,21 @@ The appliance may change its estimate. A notification can occur again if remaini
 
 See [Home Assistant numeric-state triggers](https://www.home-assistant.io/docs/automation/trigger/#numeric-state-trigger) and [persistent notifications](https://www.home-assistant.io/integrations/persistent_notification/).
 
+## Show the estimated finish time
+
+The **Program finish time** sensor provides a timestamp that Home Assistant can display directly. This template formats the current estimate for a notification or dashboard:
+
+```jinja
+{% set finish = states('sensor.dryer_program_finish_time') %}
+{% if finish not in ['unknown', 'unavailable'] %}
+  Estimated finish: {{ as_timestamp(finish) | timestamp_custom('%H:%M') }}
+{% else %}
+  No current finish estimate
+{% endif %}
+```
+
+This estimate is available only during a running cycle with suitable recent timing. It can change during drying or washing and becomes unavailable while paused, during aftercare, or when the appliance goes offline. Use operating state or phase to confirm completion instead of triggering a completion message solely at the estimated timestamp.
+
 ## Select a washer program
 
 Add the following as a script, or use its action in an automation. `Quick Wash` is the option regardless of your Home Assistant language. Check your entity's `options` before using it.
@@ -54,13 +69,15 @@ alias: Laundry - choose quick wash
 sequence:
   - action: select.select_option
     target:
-      entity_id: select.washer_program
+      entity_id: select.washer_selected_program
     data:
       option: Quick Wash
 mode: single
 ```
 
 This changes the selected program only. It does not start a cycle or automatically apply other settings. The appliance must report a suitable current state for program selection.
+
+An existing installation may still use `select.washer_program`: renaming the displayed control to **Selected program** does not change its entity ID.
 
 ## Start a prepared cycle explicitly
 
@@ -81,7 +98,7 @@ Use the actual dryer start/resume entity to create the equivalent dryer script. 
 
 ## Choose useful triggers
 
-Cycle progress is estimated, and washer 100% can precede the end of fresh-air care. Do not treat the percentage alone as proof that an appliance is powered off. Use the reported phase or status for automations that need a particular physical state.
+Program progress is estimated, and washer 100% can precede the end of fresh-air care. Do not treat the percentage alone as proof that an appliance is powered off. Use the reported phase or status for automations that need a particular physical state. Existing installations can retain IDs such as `sensor.washer_cycle_progress`.
 
 Unknown or unavailable state is not zero. Numeric-state triggers naturally ignore non-numeric values; avoid templates that turn unknown timing into zero for completion detection.
 

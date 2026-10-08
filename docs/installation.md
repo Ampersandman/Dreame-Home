@@ -39,6 +39,8 @@ With MQTT disabled, device discovery and periodic cloud reads still work. Some t
 
 Open **Dreame Home Laundry** under **Settings → Devices & services**, then open a device. Power on a laundry appliance to see current cycle information and available settings. Controls can remain unavailable until the appliance supplies suitable recent state.
 
+The device page groups program selection, settings, and buttons under **Controls**; current operating state and timing under **Sensors**; and connection information under **Diagnostic**. Raw duplicate settings and less useful diagnostic values are disabled by default. You can enable them from the entity settings if needed. See [entities and controls](entities.md) for the full list.
+
 The Dreame cloud's online status can lag a power change. Discovery refreshes approximately every ten minutes; telemetry reads normally run about once a minute. Offline L9 appliances are checked about once a minute to detect their return online. Live updates can arrive between reads. Automatic power-off after use is expected; see [offline appliances](troubleshooting.md#appliances-go-offline-after-a-cycle).
 
 For remote laundry start, enable the appliance's network/remote-control authorization using its own controls or app where required. Child lock, current program, and cycle phase can also limit commands. See [entities and controls](entities.md).
@@ -52,6 +54,8 @@ Next, [add the bundled laundry dashboard card](dashboard-card.md) or create your
 3. Reload the browser or Home Assistant app dashboard so it loads the updated card.
 
 Entity identities are preserved across updates. Existing entity IDs, automations, and card selections remain attached to the same entities. A displayed name can change as labels improve; you can rename entities in Home Assistant.
+
+The laundry status sensor is now labeled **Operation state**, the program selector **Selected program**, and estimated percentage **Program progress**. Existing entity IDs keep their previous names. User-assigned labels and explicitly disabled entities are preserved.
 
 Integration-provided names and selector options are now always in English. If a script or automation uses a previous localized option, update it to the exact English text in the entity's `options` attribute. For example, the washer's quick program is `Quick Wash`.
 

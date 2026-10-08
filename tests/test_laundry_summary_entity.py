@@ -23,7 +23,7 @@ class LaundrySummaryEntityTests(unittest.TestCase):
                 before = deepcopy(item.store.properties)
                 attributes = entity.extra_state_attributes
                 self.assertEqual(entity._attr_unique_id, "fabricated-key:prop:2.1:state")
-                self.assertEqual(entity._attr_name, "Run status")
+                self.assertEqual(entity._attr_name, "Operation state")
                 self.assertEqual(entity.native_value, "Running")
                 self.assertEqual((attributes["siid"], attributes["piid"]), (2, 1))
                 self.assertEqual(attributes["raw_code"], 3)

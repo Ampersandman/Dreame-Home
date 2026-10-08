@@ -27,11 +27,13 @@ def presentation_language(coordinator):
 
 @callback
 def async_migrate_entity_presentation(hass, entry):
-    """Update categories without renaming entities or changing enabled states.
+    """Update categories and defaults without replacing user customizations.
 
     Legacy uncustomized duplicate/raw rows are integration-hidden. User-hidden,
     user-disabled and customized rows remain untouched. New diagnostic defaults
     are handled on entity creation; existing automations keep their entities.
+    Newly promoted program/remote-start readbacks override only their former
+    integration-disabled default, never a user's disabled setting.
     """
     coordinator = entry.runtime_data
     registry = er.async_get(hass)
@@ -69,6 +71,9 @@ def async_migrate_entity_presentation(hass, entry):
             changes["hidden_by"] = er.RegistryEntryHider.INTEGRATION
         elif not presentation.get("hide_legacy") and row.hidden_by == er.RegistryEntryHider.INTEGRATION:
             changes["hidden_by"] = None
+        if (presentation.get("promote_default")
+                and row.disabled_by == er.RegistryEntryDisabler.INTEGRATION):
+            changes["disabled_by"] = None
         if changes:
             registry.async_update_entity(row.entity_id, **changes)
 
@@ -221,6 +226,8 @@ class DreamePropertyEntity(DreameEntity):
         suffix = f"prop:{quote(key, safe='.')}:state"
         suffix += f":json:{quote(pointer, safe='')}" if pointer is not None else ""
         super().__init__(coordinator, did, suffix, label)
+        if presentation.get("icon"):
+            self._attr_icon = presentation["icon"]
         self._attr_entity_category = None if presentation["entity_category"] is None else EntityCategory.DIAGNOSTIC
         # The root preserves complete structured data in attributes. Leaf entities
         # are enabled; disable the large duplicate root by default in the registry.

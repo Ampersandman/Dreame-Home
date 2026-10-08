@@ -8,7 +8,7 @@ import unittest
 
 from dreamehome.laundry import enum_label
 from dreamehome.laundry_controls import control_available, control_definitions
-from dreamehome.laundry_progress import laundry_cycle_metrics, progress_definitions
+from dreamehome.laundry_progress import laundry_cycle_metrics, laundry_finish_remaining, progress_definitions
 from dreamehome.laundry_summary import laundry_appliance_summary
 from dreamehome.observations import ObservationStore
 from dreamehome.vacuum_controls import vacuum_command_available, vacuum_control_supported
@@ -27,9 +27,10 @@ def scope():
         def device_class(self):
             return getattr(self, "_attr_device_class", None)
     import math
-    namespace.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery", DURATION="duration", AREA="area"),
+    namespace.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery", DURATION="duration", AREA="area", TIMESTAMP="timestamp"),
                      SensorStateClass=SimpleNamespace(MEASUREMENT="measurement"), math=math,
                      enum_label=enum_label, laundry_cycle_metrics=laundry_cycle_metrics,
+                     laundry_finish_remaining=laundry_finish_remaining,
                      laundry_appliance_summary=laundry_appliance_summary,
                      vacuum_telemetry_available=vacuum_telemetry_available,
                      progress_definitions=progress_definitions, cycle_presentation=cycle_presentation,
@@ -106,21 +107,21 @@ class ProgressEntityTests(unittest.TestCase):
         added, removals = [], []
         entry = SimpleNamespace(async_on_unload=removals.append)
         namespace["add_progress_entities"](account, entry, added.extend)
-        self.assertEqual(len(added), 2)
+        self.assertEqual(len(added), 3)
         account.listeners[0]()
-        self.assertEqual(len(added), 2)
+        self.assertEqual(len(added), 3)
         dryer = state(DRYER)
         account.devices["dryer"] = dryer
         account.entity_discovery_suspended = True
         account.listeners[0]()
-        self.assertEqual(len(added), 2)
+        self.assertEqual(len(added), 3)
         account.entity_discovery_suspended = False
         account.listeners[0]()
-        self.assertEqual(len(added), 4)
+        self.assertEqual(len(added), 6)
         account.stopped = True
         account.devices["unknown"] = state("dreame.washer.unverified")
         account.listeners[0]()
-        self.assertEqual(len(added), 4)
+        self.assertEqual(len(added), 6)
         removals[0]()
         self.assertFalse(account.listeners)
 
