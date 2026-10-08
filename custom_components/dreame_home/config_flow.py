@@ -8,7 +8,7 @@ from homeassistant.helpers.selector import SelectSelector, SelectSelectorConfig,
 from .api.catalog import load_catalog
 from .api.client import DreameHomeClient
 from .api.exceptions import AuthenticationError, DreameError, RateLimitError
-from .const import CONF_ACCOUNT_UID, CONF_MQTT, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, DOMAIN, REGIONS
+from .const import CONF_ACCOUNT_UID, CONF_MQTT, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, DOMAIN, INTEGRATION_NAME, REGIONS
 from .transport import AiohttpTransport
 
 # Match the schema implementation used by the running HA flow framework.
@@ -64,7 +64,7 @@ class DreameHomeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     self._abort_if_unique_id_mismatch()
                     return self.async_update_reload_and_abort(existing, data_updates=data)
                 self._abort_if_unique_id_configured()
-                return self.async_create_entry(title=f"Dreame Home ({data[CONF_REGION].upper()})", data=data)
+                return self.async_create_entry(title=f"{INTEGRATION_NAME} ({data[CONF_REGION].upper()})", data=data)
         fields = {
             schema_api.Required(CONF_USERNAME, default=defaults.get(CONF_USERNAME, "")): str,
             schema_api.Required(CONF_PASSWORD): TextSelector(TextSelectorConfig(type=TextSelectorType.PASSWORD)),

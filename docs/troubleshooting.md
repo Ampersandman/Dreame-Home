@@ -12,7 +12,7 @@ If an existing integration requests reauthentication, use its sign-in prompt wit
 
 Confirm that the device appears in the Dreame Home app under the same account and server region. Account discovery refreshes approximately every ten minutes. A newly added device may appear after the next refresh or an integration reload.
 
-Model-specific controls are available for the [supported models](entities.md#supported-devices). Other discovered devices may have fewer sensors and no controls.
+Check that the appliance matches one of the [supported L9 models](entities.md#supported-devices).
 
 ## Sensors show unknown or unavailable
 
@@ -81,7 +81,7 @@ to use the bundled image. Reinstalling the integration does not fix that HACS li
 
 [Open an issue](https://github.com/Ampersandman/Dreame-Home/issues) with:
 
-- Your Dreame Home integration version and Home Assistant Core version.
+- Your Dreame Home Laundry integration version and Home Assistant Core version.
 - The device model and the affected feature.
 - What you expected and what happened, including whether the appliance was powered on and which cycle phase it was in.
 - Relevant error text or reviewed diagnostics, if useful.

@@ -1,6 +1,6 @@
 # Automations and action examples
 
-Use Dreame Home entities with standard Home Assistant actions. These examples use **generic English entity IDs**; replace them with your actual IDs before saving.
+Use Dreame Home Laundry entities with standard Home Assistant actions. These examples use **generic English entity IDs**; replace them with your actual IDs before saving.
 
 Find IDs in **Settings → Devices & services → Entities** or **Developer tools → States**. Select entities also expose an `options` attribute: use the exact option text shown there. Program options are always in English.
 
@@ -78,21 +78,6 @@ mode: single
 Start requires the appliance's remote-control authorization, no blocking fault or child lock, and suitable recent state. A program-selection action does not implicitly invoke this script.
 
 Use the actual dryer start/resume entity to create the equivalent dryer script. Pause and stop buttons use the same `button.press` action; **laundry stop ends the operation and powers the appliance off**.
-
-## Return the vacuum to its base
-
-The supported vacuum uses Home Assistant's standard vacuum actions:
-
-```yaml
-alias: Vacuum - return to base
-sequence:
-  - action: vacuum.return_to_base
-    target:
-      entity_id: vacuum.l10s_ultra_gen_3
-mode: single
-```
-
-Other supported actions include `vacuum.start`, `vacuum.pause`, `vacuum.stop`, and `vacuum.set_fan_speed`. Use the vacuum entity's available fan-speed options and current capabilities. See [Home Assistant vacuum actions](https://www.home-assistant.io/integrations/vacuum/#actions).
 
 ## Choose useful triggers
 

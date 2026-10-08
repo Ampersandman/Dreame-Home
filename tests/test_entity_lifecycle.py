@@ -11,7 +11,7 @@ from time import monotonic
 from types import SimpleNamespace
 from typing import Any
 import unittest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, Mock, patch
 from urllib.parse import quote, unquote
 
 from dreamehome.exceptions import AuthenticationError, DreameError, RateLimitError
@@ -282,11 +282,14 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
         hass = SimpleNamespace(
             async_add_executor_job=AsyncMock(),
             bus=SimpleNamespace(async_listen_once=lambda event, callback: lambda: None),
-            config_entries=SimpleNamespace(async_forward_entry_setups=AsyncMock(side_effect=forward)),
+            config_entries=SimpleNamespace(async_forward_entry_setups=AsyncMock(side_effect=forward),
+                                           async_update_entry=Mock()),
         )
         source = ast.parse((COMPONENT / "__init__.py").read_text(encoding="utf-8"))
         function = next(node for node in source.body
                         if isinstance(node, ast.AsyncFunctionDef) and node.name == "async_setup_entry")
+        title_update = next(node for node in source.body
+                            if isinstance(node, ast.FunctionDef) and node.name == "async_update_entry_title")
         namespace = {
             "load_catalog": lambda name: None,
             "control_definitions": lambda model: [],
@@ -296,11 +299,12 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
             "async_get_clientsession": lambda hass: object(), "AiohttpTransport": lambda session: session,
             "CONF_USERNAME": "username", "CONF_REGION": "region", "CONF_REFRESH_TOKEN": "refresh_token",
             "CONF_VISITOR_ID": "visitor_id", "CONF_ACCOUNT_UID": "account_uid",
+            "INTEGRATION_NAME": "Dreame Home Laundry",
             "EVENT_HOMEASSISTANT_STOP": "stop", "PLATFORMS": ("sensor", "binary_sensor"),
             "ConfigEntryAuthFailed": AuthenticationError,
             "async_migrate_entity_presentation": lambda hass, entry: operations.append("presentation"),
         }
-        exec(compile(ast.Module(body=[function], type_ignores=[]), "__init__.py", "exec"), namespace)
+        exec(compile(ast.Module(body=[title_update, function], type_ignores=[]), "__init__.py", "exec"), namespace)
         return namespace[function.name], hass, entry, coordinator, operations
 
     async def test_auth_failure_during_mqtt_start_stops_before_platform_setup(self):
@@ -327,6 +331,23 @@ class EntrySetupOrderingTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(operations, ["refresh", "mqtt", "presentation", "forward"])
         self.assertIs(entry.runtime_data, coordinator)
         coordinator.async_stop.assert_not_awaited()
+
+    async def test_former_default_account_title_is_renamed_without_changing_account_data(self):
+        setup, hass, entry, _, _ = self.setup_scope()
+        entry.title = "Dreame Home (EU)"
+        original_data = dict(entry.data)
+        await setup(hass, entry)
+        hass.config_entries.async_update_entry.assert_called_once_with(
+            entry, title="Dreame Home Laundry (EU)")
+        self.assertEqual(entry.data, original_data)
+
+    async def test_custom_and_current_account_titles_are_preserved(self):
+        for title in ("Laundry room", "Dreame Home Laundry (EU)", "Dreame Home (US)"):
+            with self.subTest(title=title):
+                setup, hass, entry, _, _ = self.setup_scope()
+                entry.title = title
+                await setup(hass, entry)
+                hass.config_entries.async_update_entry.assert_not_called()
 
 
 class EntryUnloadSuspensionTests(unittest.IsolatedAsyncioTestCase):

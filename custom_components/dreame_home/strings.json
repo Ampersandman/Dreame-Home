@@ -1,10 +1,10 @@
 {
-  "title": "Dreame Home",
+  "title": "Dreame Home Laundry",
   "config": {
     "step": {
       "user": {
-        "title": "Connect to Dreame Home",
-        "description": "Read devices and telemetry from your Dreame Home account. Choose the server region used by the app. Your password is used for login; Home Assistant stores the refresh token.",
+        "title": "Connect Dreame Home Laundry",
+        "description": "Connect your Dreame Home account to access your L9 washing machine and Twin Inverter L9 dryer. Choose the server region used by the Dreame Home app. Your password is used for login; Home Assistant stores the refresh token.",
         "data": {"username": "Username", "password": "Password", "region": "Server region", "mqtt_enabled": "Enable live MQTT updates"}
       },
       "reauth_confirm": {

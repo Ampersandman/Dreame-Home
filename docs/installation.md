@@ -9,7 +9,7 @@ You need:
 - A Dreame Home account with your appliances already registered in the Dreame Home app.
 - An internet connection from Home Assistant to the Dreame cloud.
 
-The L9 washer, L9 Twin Inverter dryer, and L10s Ultra Gen 3 have model-specific support. See [supported devices and entities](entities.md).
+Dreame Home Laundry supports the L9 washing machine (`dreame.washer.l9nacn`) and L9 Twin Inverter dryer (`dreame.dryer.l9nacn`). See [supported devices and entities](entities.md).
 
 ## Install from HACS
 
@@ -17,7 +17,7 @@ The L9 washer, L9 Twin Inverter dryer, and L10s Ultra Gen 3 have model-specific 
 2. Open the menu in the upper-right corner and choose **Custom repositories**.
 3. Enter `https://github.com/Ampersandman/Dreame-Home`.
 4. Select type **Integration**, then choose **Add**.
-5. Find **Dreame Home**, open it, and download it.
+5. Find **Dreame Home Laundry**, open it, and download it.
 6. Restart Home Assistant.
 
 For more information about adding repositories, see [HACS custom repositories](https://www.hacs.xyz/docs/faq/custom_repositories/).
@@ -25,7 +25,7 @@ For more information about adding repositories, see [HACS custom repositories](h
 ## Connect your account
 
 1. Open **Settings → Devices & services**.
-2. Choose **Add integration** and search for **Dreame Home**.
+2. Choose **Add integration** and search for **Dreame Home Laundry**.
 3. Enter the credentials you use to sign in to Dreame Home.
 4. Select the **Server region** used by your account in the app. A European account normally uses `eu`; choose the region that matches your app rather than your Home Assistant location.
 5. Leave **Enable live MQTT updates** selected to receive additional and more timely telemetry.
@@ -37,7 +37,7 @@ With MQTT disabled, device discovery and periodic cloud reads still work. Some t
 
 ## Check your devices
 
-Open **Dreame Home** under **Settings → Devices & services**, then open a device. Power on a laundry appliance to see current cycle information and available settings. Controls can remain unavailable until the appliance supplies suitable recent state.
+Open **Dreame Home Laundry** under **Settings → Devices & services**, then open a device. Power on a laundry appliance to see current cycle information and available settings. Controls can remain unavailable until the appliance supplies suitable recent state.
 
 The Dreame cloud's online status can lag a power change. Discovery refreshes approximately every ten minutes; telemetry reads normally run about once a minute. Live updates can arrive between reads.
 
@@ -47,7 +47,7 @@ Next, [add the bundled laundry dashboard card](dashboard-card.md) or create your
 
 ## Update
 
-1. Open **Dreame Home** in HACS and install the available update. If you need to fetch the repository again, use HACS's redownload option.
+1. Open **Dreame Home Laundry** in HACS and install the available update. If you need to fetch the repository again, use HACS's redownload option.
 2. Restart Home Assistant.
 3. Reload the browser or Home Assistant app dashboard so it loads the updated card.
 

@@ -1,6 +1,6 @@
 # Entities and controls
 
-Open **Settings → Devices & services → Dreame Home** and select a device to see its entities. Cycle information appears under sensors, program parameters and cycle buttons under controls, and persistent preferences such as child lock under configuration. Additional telemetry is kept in diagnostics. The exact set depends on the model, firmware, and values the appliance reports.
+Open **Settings → Devices & services → Dreame Home Laundry** and select a device to see its entities. Cycle information appears under sensors, program parameters and cycle buttons under controls, and persistent preferences such as child lock under configuration. Additional telemetry is kept in diagnostics. The exact set depends on the model, firmware, and values the appliance reports.
 
 Integration-provided entity names, program choices, and card text are always in English, independently of your Home Assistant language. Names you assign yourself are preserved.
 
@@ -10,9 +10,8 @@ Integration-provided entity names, program choices, and card text are always in 
 | --- | --- |
 | Dreame Washing Machine L9 | `dreame.washer.l9nacn` |
 | Dreame Twin Inverter Dryer L9 | `dreame.dryer.l9nacn` |
-| Dreame L10s Ultra Gen 3 vacuum | `dreame.vacuum.r5023a` |
 
-Other registered devices can expose available telemetry. The controls described below are specific to these supported models.
+This guide covers the two L9 models listed above. Feature availability can vary with firmware and the values reported by the appliance.
 
 ## Primary laundry entity
 
@@ -129,19 +128,6 @@ Both laundry appliances have separate buttons:
 Most program settings are available before a cycle starts. Controls require an online device and successful required state received within the last three minutes. Child lock, faults, network-control authorization, and the current phase can disable individual commands.
 
 State changes are shown after the appliance reports them. A submitted command does not immediately replace the displayed state with an assumed result.
-
-## Vacuum
-
-The L10s Ultra Gen 3 has a native Home Assistant vacuum entity with:
-
-- Start, pause, and stop.
-- Return to base.
-- Supported fan-speed selection.
-- Activity and battery information.
-
-Additional sensors can include cleaning time, cleaned area, errors, consumables, and other reported settings. Cleaning or mop-drying progress is displayed only if the device actually reports a usable value with suitable current context. The integration does not synthesize vacuum progress from elapsed time.
-
-Vacuum maps, room selection, and app scheduling are not available.
 
 ## Diagnostics and additional telemetry
 

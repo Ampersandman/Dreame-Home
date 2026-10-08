@@ -18,7 +18,7 @@ from .api.mqtt import DeviceSubscription
 from .api.observations import ObservationStore, VACUUM_INITIAL_READ_PAIRS, property_coordinate
 from .api.privacy import redactor
 from .api.vacuum_controls import prepare_vacuum_command
-from .const import CONF_MQTT, DOMAIN
+from .const import CONF_MQTT, DOMAIN, INTEGRATION_NAME
 from .diagnostics import diagnostic_value
 
 _LOGGER = logging.getLogger(__name__)
@@ -73,7 +73,7 @@ class DeviceState:
 
 class DreameCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, entry, api):
-        super().__init__(hass, _LOGGER, name="Dreame Home", config_entry=entry,
+        super().__init__(hass, _LOGGER, name=INTEGRATION_NAME, config_entry=entry,
                          update_interval=timedelta(seconds=60))
         self.entry, self.api = entry, api
         self.devices = {}

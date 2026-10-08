@@ -10,7 +10,7 @@ The card loads automatically when the integration starts. You do not need to cop
 
 ## Add a card with the visual editor
 
-1. Install Dreame Home, connect your account, and restart Home Assistant if you have just installed or updated it.
+1. Install Dreame Home Laundry, connect your account, and restart Home Assistant if you have just installed or updated it.
 2. Open the dashboard and choose **Edit dashboard**.
 3. Choose **Add card**, then select **Dreame Home Laundry**.
 4. Select the washer or dryer device.

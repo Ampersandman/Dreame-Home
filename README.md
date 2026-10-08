@@ -1,10 +1,10 @@
-# Dreame Home for Home Assistant
+# Dreame Home Laundry for Home Assistant
 
-<img src="custom_components/dreame_home/brand/icon.png" alt="Dreame Home" width="96" height="96">
+<img src="custom_components/dreame_home/brand/icon.png" alt="Dreame Home Laundry" width="96" height="96">
 
-Connect your Dreame Home account to Home Assistant and bring your laundry appliances and robot vacuum into one dashboard.
+Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assistant through your Dreame Home account.
 
-**Dreame Home** provides device status, useful sensors, model-specific controls, and a bundled laundry dashboard card. Devices are discovered automatically from your account. You do not need to find device IDs or configure an MQTT broker.
+**Dreame Home Laundry** provides appliance status, useful cycle sensors, program selection, controls, and a bundled laundry dashboard card. Appliances are discovered automatically from your account. You do not need to find device IDs or configure an MQTT broker.
 
 ## Features
 
@@ -12,7 +12,6 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 - **Cycle sensors:** individual remaining-time, program-duration, estimated-progress, and elapsed-time sensors for dashboards and automations.
 - **Appliance controls:** program selection, supported settings, and separate start/resume, pause, and stop buttons.
 - **App-aligned programs:** 15 standard washer programs and 25 dryer programs, including 16 drying programs and 9 care programs.
-- **Robot vacuum:** a native Home Assistant vacuum entity with start, pause, stop, return to base, and fan-speed controls.
 - **Laundry dashboard card:** washer and dryer product images, an animated drum while running, cycle information, and controls with a visual editor.
 - **English interface:** entity names, program choices, and card text stay in English regardless of your Home Assistant language.
 - **Live updates:** cloud reads and optional MQTT updates, with additional telemetry exposed as it becomes available.
@@ -23,18 +22,17 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 | --- | --- | --- |
 | Dreame Washing Machine L9 | `dreame.washer.l9nacn` | Laundry sensors, program selection, settings, and cycle controls |
 | Dreame Twin Inverter Dryer L9 | `dreame.dryer.l9nacn` | Laundry sensors, drying/care programs, settings, and cycle controls |
-| Dreame L10s Ultra Gen 3 | `dreame.vacuum.r5023a` | Vacuum entity and available telemetry |
 
-Other devices in the account can appear with available telemetry. Model-specific controls are limited to the models listed above. Features and reported sensors can vary with firmware.
+The integration supports the two L9 models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b4 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b5 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 
 1. In **HACS**, open the menu and select **Custom repositories**.
 2. Add `https://github.com/Ampersandman/Dreame-Home` with type **Integration**.
-3. Download **Dreame Home** and restart Home Assistant.
-4. Open **Settings → Devices & services → Add integration → Dreame Home**.
+3. Download **Dreame Home Laundry** and restart Home Assistant.
+4. Open **Settings → Devices & services → Add integration → Dreame Home Laundry**.
 5. Enter your Dreame Home account credentials and select the server region used in the app. Leave live MQTT updates enabled for the most complete telemetry.
 
 Your devices will appear under the integration. The password is used to sign in; Home Assistant stores a refresh token for subsequent connections.
@@ -43,7 +41,7 @@ Your devices will appear under the integration. The password is used to sign in;
 
 ## Add the laundry card
 
-![Dreame Home laundry cards for a washer and dryer](docs/assets/laundry-card.png)
+![Dreame Home Laundry cards for a washer and dryer](docs/assets/laundry-card.png)
 
 *Preview with sample values.*
 
@@ -65,7 +63,7 @@ Program selection and **Start** are separate actions. Choosing a program does no
 
 Controls require the device to be online and to report recent usable state. Some settings are available only for particular programs or cycle phases. Home Assistant shows confirmed appliance state after updates; it does not assume that a submitted command succeeded.
 
-Vacuum maps, room selection, and appliance scheduling are not provided by this integration.
+Appliance scheduling is not provided by this integration.
 
 ## Support
 

@@ -1,4 +1,4 @@
-"""Extracted DreameHome API foundation."""
+"""Dreame Home cloud client used by Dreame Home Laundry."""
 
 from .client import DreameHomeClient
 from .models import Device, Session, decode_push

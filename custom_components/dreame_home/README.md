@@ -1,10 +1,10 @@
-# Dreame Home
+# Dreame Home Laundry
 
-<img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home/main/custom_components/dreame_home/brand/icon.png" alt="Dreame Home" width="96" height="96">
+<img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home/main/custom_components/dreame_home/brand/icon.png" alt="Dreame Home Laundry" width="96" height="96">
 
-Dreame Home connects Home Assistant to devices registered in your Dreame Home account. It supports the L9 washing machine, L9 Twin Inverter dryer, and L10s Ultra Gen 3 vacuum, with available telemetry for additional discovered devices.
+Dreame Home Laundry connects Home Assistant to the Dreame Washing Machine L9 and Twin Inverter Dryer L9 registered in your Dreame Home account. Supported cloud models are `dreame.washer.l9nacn` and `dreame.dryer.l9nacn`.
 
-The integration includes laundry sensors and controls, a native vacuum entity, and the **Dreame Home Laundry** dashboard card. Each laundry appliance's **Run status** sensor provides a consolidated overview through its attributes, including program, phase, timing, progress, and settings. Separate program selectors and buttons provide controls.
+The integration includes laundry sensors and controls and the **Dreame Home Laundry** dashboard card. Each appliance's **Run status** sensor provides a consolidated overview through its attributes, including program, phase, timing, progress, and settings. Separate program selectors and buttons provide controls.
 
 The card shows washer and dryer product images with a drum animation while running. It loads automatically and has a visual editor; no file copying or dashboard-resource configuration is required.
 
@@ -12,7 +12,7 @@ Entity names, program choices, and card text are provided in English regardless 
 
 ## Install
 
-Requires Home Assistant Core **2026.9.4 or newer**. Add `https://github.com/Ampersandman/Dreame-Home` to HACS as a custom repository of type **Integration**, download **Dreame Home**, and restart Home Assistant. Then add **Dreame Home** under **Settings → Devices & services** and sign in using the server region selected in the Dreame Home app.
+Requires Home Assistant Core **2026.9.4 or newer**. Add `https://github.com/Ampersandman/Dreame-Home` to HACS as a custom repository of type **Integration**, download **Dreame Home Laundry**, and restart Home Assistant. Then add **Dreame Home Laundry** under **Settings → Devices & services** and sign in using the server region selected in the Dreame Home app.
 
 ## Guides
 
@@ -24,4 +24,4 @@ Requires Home Assistant Core **2026.9.4 or newer**. Add `https://github.com/Ampe
 
 Program selection does not start an appliance. Use the separate start/resume control when you are ready. Controls become available only when the appliance reports recent suitable state.
 
-Current version: **0.4.0b4 — beta**. This community integration is not affiliated with Dreame.
+Current version: **0.4.0b5 — beta**. This community integration is not affiliated with Dreame.

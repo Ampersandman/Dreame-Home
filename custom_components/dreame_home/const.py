@@ -3,6 +3,7 @@
 from homeassistant.const import Platform
 
 DOMAIN = "dreame_home"
+INTEGRATION_NAME = "Dreame Home Laundry"
 PLATFORMS = (Platform.SENSOR, Platform.BINARY_SENSOR, Platform.SWITCH, Platform.SELECT,
              Platform.NUMBER, Platform.BUTTON, Platform.VACUUM)
 CONF_REGION = "region"

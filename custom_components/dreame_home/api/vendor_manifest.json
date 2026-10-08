@@ -2,7 +2,7 @@
   "files": {
     "LICENSE": "2c4ff9b52f07b3c00da2789ddd503845d07b2138af176b2a3855bcb989379ca7",
     "THIRD_PARTY_NOTICES.md": "6f3817c6c7d32adcd0cec3b9a9fc8c958b55e9fd8238f73145ed5296229009bc",
-    "__init__.py": "a86bc44666e4492dbde68fe7fd8d4696eed66b3d0c85ab49dfbbab3aa365d797",
+    "__init__.py": "83a0a8d1871021e7ac31cc4cd178e942574f2cbac894359705e37e3ad63d34fd",
     "catalog.py": "29a8508c1e3b80452cec7f5f3666adc3d09397f6f0e64759936c093fa2dc0276",
     "client.py": "5978fd14dd8fa472396ab104f7bafc06460cec1c8d0a2498414151fa64cb6209",
     "data/api.json": "05d79af69f4c3a1101d33ddec9040112ccd91068c9d4e8244ee2aa513d0e2d15",

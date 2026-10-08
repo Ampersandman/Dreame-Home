@@ -8,7 +8,7 @@ from .api.catalog import load_catalog
 from .api.client import DreameHomeClient
 from .api.laundry_controls import control_definitions
 from .api.laundry_progress import progress_definitions
-from .const import CONF_ACCOUNT_UID, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, PLATFORMS
+from .const import CONF_ACCOUNT_UID, CONF_REFRESH_TOKEN, CONF_REGION, CONF_VISITOR_ID, INTEGRATION_NAME, PLATFORMS
 from .coordinator import DreameCoordinator
 from .entity import async_migrate_entity_presentation
 from .frontend import async_register_frontend
@@ -20,7 +20,15 @@ async def async_setup(hass, config):
     return True
 
 
+def async_update_entry_title(hass, entry):
+    """Rebrand the former default title while preserving user-assigned titles."""
+    region = entry.data[CONF_REGION].upper()
+    if getattr(entry, "title", None) == f"Dreame Home ({region})":
+        hass.config_entries.async_update_entry(entry, title=f"{INTEGRATION_NAME} ({region})")
+
+
 async def async_setup_entry(hass, entry):
+    async_update_entry_title(hass, entry)
     # Catalog reads happen in an executor before synchronous constructors use them.
     for catalog in ("api", "models", "properties", "l9_washer", "l9_dryer"):
         await hass.async_add_executor_job(load_catalog, catalog)
