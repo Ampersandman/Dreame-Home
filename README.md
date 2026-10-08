@@ -1,9 +1,6 @@
 # Dreame Home Laundry for Home Assistant
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="custom_components/dreame_home/brand/dark_icon.png">
-  <img src="custom_components/dreame_home/brand/icon.png" alt="Dreame Home Laundry" width="96" height="96">
-</picture>
+<img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/logo.png" alt="Dreame Home Laundry" width="96" height="96">
 
 Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assistant through your Dreame Home account.
 
@@ -29,7 +26,7 @@ Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assist
 
 The integration supports the two L9 models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b8 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b9 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 

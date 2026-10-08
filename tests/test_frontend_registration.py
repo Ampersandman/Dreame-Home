@@ -40,7 +40,8 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
             "/dreame_home/washer.png": COMPONENT / "frontend/assets/washer.png",
             "/dreame_home/dryer.png": COMPONENT / "frontend/assets/dryer.png",
             **{f"/dreame_home/brand/{name}": COMPONENT / "brand" / name
-               for name in ("icon.png", "icon@2x.png", "dark_icon.png", "dark_icon@2x.png")},
+               for name in ("icon.png", "icon@2x.png", "dark_icon.png", "dark_icon@2x.png",
+                            "logo.png", "logo@2x.png", "dark_logo.png", "dark_logo@2x.png")},
         })
         self.assertTrue(all(Path(path.path).is_file() and path.cache_headers for path in paths))
         self.assertEqual(self.added, [

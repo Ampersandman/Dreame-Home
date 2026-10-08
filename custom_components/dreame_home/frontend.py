@@ -14,7 +14,10 @@ DATA_FRONTEND = "dreame_home_frontend"
 CARD_PATH = "/dreame_home/dreame-home-laundry-card.js"
 BRANDING_PATH = "/dreame_home/dreame-home-branding.js"
 PHOTO_NAMES = ("washer.png", "dryer.png")
-BRAND_NAMES = ("icon.png", "icon@2x.png", "dark_icon.png", "dark_icon@2x.png")
+BRAND_NAMES = (
+    "icon.png", "icon@2x.png", "dark_icon.png", "dark_icon@2x.png",
+    "logo.png", "logo@2x.png", "dark_logo.png", "dark_logo@2x.png",
+)
 
 
 async def async_register_frontend(hass):

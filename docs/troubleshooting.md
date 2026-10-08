@@ -90,15 +90,16 @@ Card text and integration-provided program choices are always in English. User-a
 
 ## The integration icon is missing or outdated
 
-Light and dark Dreame icons are bundled with the integration and selected by
-the Home Assistant theme. After updating, restart Home Assistant and refresh
+The custom light and dark icons and logos are bundled with the integration and
+selected by the Home Assistant theme. After updating, restart Home Assistant and refresh
 the browser without its cache or fully reopen the Home Assistant app.
 
 HACS 2.0.5 uses a separate brand service that has no icon for this integration's
 domain. The integration includes a compatibility module for its own row in the
-HACS repository list. It selects the bundled icon after the integration has
-been configured and loaded. Other repositories are unaffected; HACS files are
-not modified. A placeholder before the integration is configured is expected.
+HACS repository list and for the branding image in its repository description.
+It selects the bundled artwork after the integration has been configured and
+loaded. Other repositories are unaffected; HACS files are not modified.
+A placeholder before the integration is configured is expected.
 
 The compatibility module is limited to HACS 2.0.5 and its released frontend.
 It skips other versions or a changed frontend. An [upstream branding update](https://github.com/hacs/integration/pull/5388)

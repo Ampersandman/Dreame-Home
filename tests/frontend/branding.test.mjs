@@ -12,8 +12,9 @@ writeFileSync(modulePath, readFileSync(sourcePath, "utf8"));
 after(() => { unlinkSync(modulePath); rmdirSync(temporary); });
 
 const {
-  assetVersion, localIconUrl, isOwnRepository, isSupportedPanel,
-  replaceOwnIcon, installDashboardAdapter, attachHacsIframe,
+  assetVersion, localIconUrl, localLogoUrl, isOwnRepository, isSupportedPanel,
+  replaceOwnIcon, replaceReadmeBranding, replaceOwnDescription,
+  installDashboardAdapter, installDescriptionAdapter, attachHacsIframe,
   installPanelAdapter, installBranding,
 } = await import(pathToFileURL(modulePath).href);
 
@@ -22,6 +23,17 @@ const VERSION = "0.4.0b8";
 const OWN = {category: "integration", domain: "dreame_home", full_name: "Ampersandman/Dreame-Home-Laundry"};
 const LEGACY_ICON = "https://brands.home-assistant.io/_/dreame_home/icon.png";
 const LEGACY_DARK_ICON = "https://brands.home-assistant.io/_/dreame_home/dark_icon.png";
+const LEGACY_README_PICTURE = `<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="custom_components/dreame_home/brand/dark_icon.png">
+  <img src="custom_components/dreame_home/brand/icon.png" alt="Dreame Home Laundry" width="96" height="96">
+</picture>`;
+const README_PICTURE = `<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/dark_logo.png">
+  <img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/logo.png" alt="Dreame Home Laundry" width="96" height="96">
+</picture>`;
+const README_IMAGE = '<img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/logo.png" alt="Dreame Home Laundry" width="96" height="96">';
+const README_PREFIX = "# Dreame Home Laundry for Home Assistant\n\n";
+const README_SUFFIX = "\n\nUseful integration description.\n\n[Installation](docs/installation.md)\n";
 
 function html(strings, ...values) { return {_$litType$: 1, strings, values}; }
 // The minified production template shipped with HACS 2.0.5 (Lit 2.8.0).
@@ -30,6 +42,26 @@ function iconTemplate(url) {
 }
 function sourceIconTemplate(url) {
   return html`<img style="height: 32px; width: 32px" slot="item-icon" src=${url} referrerpolicy="no-referrer" />`;
+}
+
+function descriptionTemplate(markdown, untouched = {untouched: true}) {
+  return html` <hass-subpage .hass="${untouched}"> <div class="content"> <ha-card> <ha-chip-set>${untouched}</ha-chip-set> <ha-markdown .content="${markdown}"></ha-markdown> </ha-card> </div> </hass-subpage> `;
+}
+
+function descriptionClass(version = "2.0.5", repository = OWN, picture = README_IMAGE) {
+  return class RepositoryDashboard {
+    constructor() {
+      this.hacs = {info: {version}};
+      this.hass = {themes: {darkMode: false}};
+      this._repository = Object.freeze({...repository, additional_info: README_PREFIX + picture + README_SUFFIX});
+      this.renderCalls = [];
+    }
+    render(...args) {
+      this.renderCalls.push({receiver: this, args});
+      this.originalResult = descriptionTemplate(this._repository.additional_info, this.hass);
+      return this.originalResult;
+    }
+  };
 }
 
 function panelConfig() {
@@ -116,6 +148,8 @@ test("bundled image URLs use only a safe version from the module query", () => {
   assert.equal(assetVersion(`${ORIGIN}/dreame_home/branding.js?v=${VERSION}`), VERSION);
   assert.equal(localIconUrl(false, VERSION), `/dreame_home/brand/icon.png?v=${VERSION}`);
   assert.equal(localIconUrl(true, VERSION), `/dreame_home/brand/dark_icon.png?v=${VERSION}`);
+  assert.equal(localLogoUrl(false, VERSION), `/dreame_home/brand/logo.png?v=${VERSION}`);
+  assert.equal(localLogoUrl(true, VERSION), `/dreame_home/brand/dark_logo.png?v=${VERSION}`);
   for (const invalid of [null, "", "a/b", "a?b", "\" onerror=alert(1)", "a".repeat(65)]) {
     assert.equal(localIconUrl(true, invalid), "/dreame_home/brand/dark_icon.png");
   }
@@ -182,6 +216,119 @@ test("unknown template shapes, URLs and other repositories pass through by ident
   ];
   for (const result of changed) assert.equal(replaceOwnIcon(result, OWN, true, VERSION), result);
   assert.equal(replaceOwnIcon(original, {...OWN, full_name: "another/repo"}, true, VERSION), original);
+});
+
+test("known current image and cached README picture blocks become theme-selected local logos", () => {
+  for (const picture of [README_IMAGE, README_PICTURE, LEGACY_README_PICTURE]) {
+    for (const dark of [false, true]) {
+      const original = README_PREFIX + picture + README_SUFFIX;
+      const expectedImage = `<img src="/dreame_home/brand/${dark ? "dark_" : ""}logo.png?v=${VERSION}" alt="Dreame Home Laundry" width="96" height="96">`;
+      assert.equal(replaceReadmeBranding(original, dark, VERSION), README_PREFIX + expectedImage + README_SUFFIX);
+    }
+  }
+});
+
+test("current README header keeps every other byte and handles Windows line endings", () => {
+  const original = README_PREFIX + README_IMAGE + README_SUFFIX;
+  const withWindowsLines = original.replaceAll("\n", "\r\n");
+  const expectedImage = `<img src="/dreame_home/brand/dark_logo.png?v=${VERSION}" alt="Dreame Home Laundry" width="96" height="96">`;
+  assert.equal(replaceReadmeBranding(withWindowsLines, true, VERSION), withWindowsLines.replace(README_IMAGE, expectedImage));
+  for (const unchanged of [
+    original.replace("# Dreame Home Laundry for Home Assistant", "# Another integration"),
+    original.replace(README_IMAGE, README_IMAGE.replace("logo.png", "another.png")),
+    original.replace('width="96"', 'width="192"'),
+    "Body text with the same image outside the recognized header.\n" + README_IMAGE,
+  ]) assert.equal(replaceReadmeBranding(unchanged, true, VERSION), unchanged);
+});
+
+test("unrecognized picture markup and unrelated descriptions remain byte-for-byte unchanged", () => {
+  const variants = [
+    "README without a picture", null, {unexpected: true},
+    README_PICTURE.replace("dark_logo.png", "another-dark.png"),
+    README_PICTURE.replace('alt="Dreame Home Laundry"', 'alt="Something else"'),
+    README_PICTURE.replace('width="96"', 'width="192"'),
+    README_PICTURE.replace('height="96">', 'height="96" onerror="alert(1)">'),
+    README_PICTURE.replace("Ampersandman/", "another-owner/"),
+    README_PICTURE.replace("/main/", "/other-branch/"),
+  ];
+  for (const original of variants) assert.equal(replaceReadmeBranding(original, true, VERSION), original);
+});
+
+test("only the own repository's production ha-markdown interpolation changes", () => {
+  const markdown = README_PREFIX + README_IMAGE + README_SUFFIX;
+  const original = descriptionTemplate(markdown);
+  const result = replaceOwnDescription(original, OWN, true, VERSION);
+  assert.notEqual(result, original);
+  assert.equal(result.strings, original.strings);
+  assert.equal(result.values[0], original.values[0]);
+  assert.equal(result.values[1], original.values[1]);
+  assert.equal(original.values[2], markdown);
+  assert.equal(result.values[2], replaceReadmeBranding(markdown, true, VERSION));
+  assert.equal(replaceOwnDescription(original, {...OWN, full_name: "another/repo"}, true, VERSION), original);
+  for (const changed of [
+    {...original, _$litType$: 2}, {...original, strings: []},
+    html`<ha-markdown .other="${markdown}"></ha-markdown>`,
+    html`<another-element .content="${markdown}"></another-element>`,
+    html`<ha-markdown .content="${{unexpected: true}}"></ha-markdown>`,
+  ]) assert.equal(replaceOwnDescription(changed, OWN, true, VERSION), changed);
+});
+
+test("repository render preserves receiver, arguments and immutable source metadata", () => {
+  const RepositoryDashboard = descriptionClass();
+  const component = new RepositoryDashboard();
+  const metadata = component._repository;
+  const markdown = metadata.additional_info;
+  assert.equal(installDescriptionAdapter(RepositoryDashboard, VERSION), true);
+  const result = component.render("argument", 1);
+  assert.equal(component.renderCalls[0].receiver, component);
+  assert.deepEqual(component.renderCalls[0].args, ["argument", 1]);
+  assert.equal(result.strings, component.originalResult.strings);
+  assert.equal(component._repository, metadata);
+  assert.equal(metadata.additional_info, markdown);
+  assert.equal(component.originalResult.values[2], markdown);
+  assert.equal(result.values[2], replaceReadmeBranding(markdown, false, VERSION));
+});
+
+test("repository description follows live themes and version guards on every render", () => {
+  const RepositoryDashboard = descriptionClass();
+  installDescriptionAdapter(RepositoryDashboard, VERSION);
+  const component = new RepositoryDashboard();
+  assert.match(component.render().values[2], /src="\/dreame_home\/brand\/logo\.png/);
+  component.hass = {themes: {darkMode: true}};
+  assert.match(component.render().values[2], /src="\/dreame_home\/brand\/dark_logo\.png/);
+  component.hacs.info.version = "2.0.6";
+  assert.equal(component.render(), component.originalResult);
+  component.hacs.info.version = "2.0.5";
+  assert.match(component.render().values[2], /src="\/dreame_home\/brand\/dark_logo\.png/);
+  component._repository = {...component._repository, full_name: "another/repo"};
+  assert.equal(component.render(), component.originalResult);
+});
+
+test("repository description installation is idempotent and upgrades its saved version", () => {
+  const RepositoryDashboard = descriptionClass();
+  assert.equal(installDescriptionAdapter(RepositoryDashboard, VERSION), true);
+  const render = RepositoryDashboard.prototype.render;
+  const component = new RepositoryDashboard();
+  assert.match(component.render().values[2], /\?v=0\.4\.0b8/);
+  assert.equal(installDescriptionAdapter(RepositoryDashboard, "0.4.0b9"), false);
+  assert.equal(RepositoryDashboard.prototype.render, render);
+  assert.match(component.render().values[2], /\?v=0\.4\.0b9/);
+});
+
+test("missing, immutable and throwing repository renderers preserve framework behavior", () => {
+  assert.equal(installDescriptionAdapter(undefined), false);
+  assert.equal(installDescriptionAdapter(class {}), false);
+  const Frozen = descriptionClass(); Object.freeze(Frozen.prototype);
+  assert.equal(installDescriptionAdapter(Frozen), false);
+  class Throws { render() { throw new Error("original render"); } }
+  installDescriptionAdapter(Throws, VERSION);
+  assert.throws(() => new Throws().render(), /original render/);
+  class UnknownShape {
+    constructor() { this.hacs = {info: {version: "2.0.5"}}; this._repository = OWN; this.original = {unknown: true}; }
+    render() { return this.original; }
+  }
+  installDescriptionAdapter(UnknownShape, VERSION);
+  const component = new UnknownShape(); assert.equal(component.render(), component.original);
 });
 
 test("the columns wrapper preserves lifecycle arguments, memoized data and template receiver", () => {
@@ -326,10 +473,14 @@ test("late iframe element definitions install once and do not access other realm
   const childRegistry = registry(); const Panel = panelClass(childRegistry); const panel = new Panel();
   assert.equal(attachHacsIframe(panel, ORIGIN, VERSION), true);
   assert.equal(attachHacsIframe(panel, ORIGIN, VERSION), false);
-  assert.deepEqual(childRegistry.requests, ["hacs-dashboard"]);
+  assert.deepEqual(childRegistry.requests, ["hacs-dashboard", "hacs-repository-dashboard"]);
   const Dashboard = dashboardClass(); childRegistry.define("hacs-dashboard", Dashboard); await flush();
   const dashboard = new Dashboard(); dashboard.willUpdate();
   assert.equal(dashboard._columns().icon.template(OWN).values[0], `/dreame_home/brand/icon.png?v=${VERSION}`);
+  const RepositoryDashboard = descriptionClass();
+  childRegistry.define("hacs-repository-dashboard", RepositoryDashboard); await flush();
+  const repository = new RepositoryDashboard();
+  assert.match(repository.render().values[2], /src="\/dreame_home\/brand\/logo\.png/);
 });
 
 test("cross-origin errors and unrelated panels leave panel initialization untouched", () => {

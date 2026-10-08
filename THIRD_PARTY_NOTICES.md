@@ -17,9 +17,8 @@ This project is an independent community integration.
 The public broker certificate bundled with the client is used to verify TLS
 connections. It contains no private keys or user account credentials.
 
-The bundled Dreame icons are the light and dark assets published by the
-[Home Assistant brand service](https://brands.home-assistant.io/_/dreame_vacuum/icon.png).
-The washer and dryer product images were supplied for use in this project.
+The light and dark integration artwork was supplied for use in this project.
+The washer and dryer product images were also supplied for use in this project.
 Dreame product names, logos, and product images remain the
 property of their respective owners. These assets are used to identify the
 supported service and appliances; they do not imply endorsement of this

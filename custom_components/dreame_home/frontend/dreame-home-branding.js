@@ -1,9 +1,10 @@
 /*
- * Local icons for the Dreame Home Laundry row in HACS 2.0.5.
+ * Local branding for Dreame Home Laundry in HACS 2.0.5.
  *
  * That HACS release reads icons from the public brands CDN rather than the
- * integration's local brand files. This adapter only changes our own image URL
- * in its existing Lit template. No Home Assistant or HACS files are modified.
+ * integration's local brand files. Its markdown renderer also lacks GitHub's
+ * picture-element support. This adapter changes only our list icon and known
+ * README branding block. No Home Assistant or HACS files are modified.
  */
 const HACS_VERSION = "2.0.5";
 const HACS_SCRIPT = "/hacsfiles/frontend/entrypoint.js?hacstag=20250128065759";
@@ -22,6 +23,15 @@ const ICON_TEMPLATES = [
     'referrerpolicy="no-referrer" />',
   ],
 ];
+const README_BRAND_PICTURE = /<picture>\s*<source\s+media="\(prefers-color-scheme: dark\)"\s+srcset="([^"]+)">\s*<img\s+src="([^"]+)"\s+alt="Dreame Home Laundry"\s+width="96"\s+height="96">\s*<\/picture>/;
+const README_BRAND_PAIRS = [
+  ["custom_components/dreame_home/brand/dark_icon.png", "custom_components/dreame_home/brand/icon.png"],
+  [
+    "https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/dark_logo.png",
+    "https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/logo.png",
+  ],
+];
+const README_BRAND_IMAGE = '<img src="https://raw.githubusercontent.com/Ampersandman/Dreame-Home-Laundry/main/custom_components/dreame_home/brand/logo.png" alt="Dreame Home Laundry" width="96" height="96">';
 const observedParentRegistries = new WeakMap();
 const observedIframeRegistries = new WeakMap();
 
@@ -35,11 +45,19 @@ export function assetVersion(moduleUrl) {
   }
 }
 
-export function localIconUrl(dark, version = null) {
-  const filename = dark === true ? "dark_icon.png" : "icon.png";
+function localBrandUrl(type, dark, version) {
+  const filename = `${dark === true ? "dark_" : ""}${type}.png`;
   const suffix = typeof version === "string" && /^[A-Za-z0-9._-]{1,64}$/.test(version)
     ? `?v=${encodeURIComponent(version)}` : "";
   return `/dreame_home/brand/${filename}${suffix}`;
+}
+
+export function localIconUrl(dark, version = null) {
+  return localBrandUrl("icon", dark, version);
+}
+
+export function localLogoUrl(dark, version = null) {
+  return localBrandUrl("logo", dark, version);
 }
 
 export function isOwnRepository(repository) {
@@ -75,6 +93,42 @@ export function replaceOwnIcon(result, repository, dark, version = null) {
   }
   // Keep the original template strings and all other Lit metadata intact.
   return {...result, values: [localIconUrl(dark, version)]};
+}
+
+export function replaceReadmeBranding(markdown, dark, version = null) {
+  if (typeof markdown !== "string") return markdown;
+  const image = `<img src="${localLogoUrl(dark, version)}" alt="Dreame Home Laundry" width="96" height="96">`;
+  const withPicture = markdown.replace(README_BRAND_PICTURE, (block, darkUrl, lightUrl) => {
+    if (!README_BRAND_PAIRS.some(pair => pair[0] === darkUrl && pair[1] === lightUrl)) return block;
+    return image;
+  });
+  if (withPicture !== markdown) return withPicture;
+  // The current header uses a plain absolute image, so HACS also displays it
+  // before the integration loads or when this compatibility adapter is skipped.
+  const header = /^# Dreame Home Laundry for Home Assistant[ \t]*\r?\n(?:[ \t]*\r?\n)+/.exec(markdown)?.[0];
+  if (!header || !markdown.slice(header.length).startsWith(README_BRAND_IMAGE)) return markdown;
+  return header + image + markdown.slice(header.length + README_BRAND_IMAGE.length);
+}
+
+export function replaceOwnDescription(result, repository, dark, version = null) {
+  if (!isOwnRepository(repository) || result?._$litType$ !== 1
+      || !Array.isArray(result.strings) || !Array.isArray(result.values)
+      || result.strings.length !== result.values.length + 1) return result;
+  for (let index = 0; index < result.values.length; index++) {
+    // The production repository dashboard binds its README directly into this
+    // one markdown element. Leave all other bindings and nested results alone.
+    if (typeof result.strings[index] !== "string"
+        || typeof result.strings[index + 1] !== "string"
+        || !result.strings[index].trimEnd().endsWith('<ha-markdown .content="')
+        || !result.strings[index + 1].trimStart().startsWith('"></ha-markdown>')
+        || typeof result.values[index] !== "string") continue;
+    const markdown = replaceReadmeBranding(result.values[index], dark, version);
+    if (markdown === result.values[index]) return result;
+    const values = result.values.slice();
+    values[index] = markdown;
+    return {...result, values};
+  }
+  return result;
 }
 
 function wrapColumns(dashboard, context) {
@@ -122,6 +176,52 @@ export function installDashboardAdapter(Dashboard, version = null) {
   }
 }
 
+export function installDescriptionAdapter(RepositoryDashboard, version = null) {
+  const prototype = RepositoryDashboard?.prototype;
+  const original = prototype?.render;
+  if (typeof original !== "function") return false;
+  const previous = original[ADAPTER_MARKER];
+  if (previous) {
+    if (previous.kind === "description") previous.version = version;
+    return false;
+  }
+  const context = {kind: "description", version};
+  const wrapped = function (...args) {
+    const result = Reflect.apply(original, this, args);
+    try {
+      if (this.hacs?.info?.version !== HACS_VERSION) return result;
+      return replaceOwnDescription(result, this._repository, this.hass?.themes?.darkMode, context.version);
+    } catch {
+      return result;
+    }
+  };
+  Object.defineProperty(wrapped, ADAPTER_MARKER, {value: context});
+  try {
+    prototype.render = wrapped;
+    return prototype.render === wrapped;
+  } catch {
+    return false;
+  }
+}
+
+const IFRAME_COMPONENTS = [
+  ["hacs-dashboard", installDashboardAdapter],
+  ["hacs-repository-dashboard", installDescriptionAdapter],
+];
+
+function attachIframeComponents(registry, context, waitForDefinitions) {
+  for (const [name, install] of IFRAME_COMPONENTS) {
+    const Component = registry.get(name);
+    if (Component) {
+      install(Component, context.version);
+    } else if (waitForDefinitions) {
+      Promise.resolve(registry.whenDefined(name)).then(() => {
+        install(registry.get(name), context.version);
+      }, () => {}).catch(() => {});
+    }
+  }
+}
+
 export function attachHacsIframe(panelHost, origin, version = null) {
   try {
     if (!isSupportedPanel(panelHost?.panel, origin)) return false;
@@ -133,19 +233,12 @@ export function attachHacsIframe(panelHost, origin, version = null) {
     const previous = observedIframeRegistries.get(registry);
     if (previous) {
       previous.version = version;
-      installDashboardAdapter(registry.get("hacs-dashboard"), version);
+      attachIframeComponents(registry, previous, false);
       return false;
     }
     const context = {version};
     observedIframeRegistries.set(registry, context);
-    const Dashboard = registry.get("hacs-dashboard");
-    if (Dashboard) {
-      installDashboardAdapter(Dashboard, version);
-    } else {
-      Promise.resolve(registry.whenDefined("hacs-dashboard")).then(() => {
-        installDashboardAdapter(registry.get("hacs-dashboard"), context.version);
-      }, () => {}).catch(() => {});
-    }
+    attachIframeComponents(registry, context, true);
     return true;
   } catch {
     return false;
