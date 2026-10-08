@@ -14,6 +14,27 @@ Integration-provided entity names, program choices, and card text are always in 
 
 Other registered devices can expose available telemetry. The controls described below are specific to these supported models.
 
+## Primary laundry entity
+
+Each L9 washer and dryer has a **Run status** sensor that combines its operating state with cycle information and settings in one entity. Open the sensor's details or view it in **Developer tools → States** to inspect its attributes.
+
+| Attribute | Meaning |
+| --- | --- |
+| `appliance_type` | `washer` or `dryer`. |
+| `status`, `status_code` | English operating status and the corresponding appliance code. |
+| `is_running`, `is_paused`, `is_powered_on` | Operating-state flags derived from recent reported status. |
+| `program`, `program_code` | Current English program name and appliance code. |
+| `program_options` | Standard English program choices for the model. Actual selectable options can be further limited by current control availability. |
+| `phase`, `phase_code` | Current wash or dry phase and appliance code. |
+| `error`, `error_code`, `has_error` | Reported fault information. |
+| `program_duration`, `remaining_time` | Estimated total and remaining cycle time, in minutes. |
+| `progress`, `elapsed_time` | Estimated progress in percent and elapsed cycle time in minutes, calculated from valid cycle timing. |
+| `settings` | Reported settings keyed by control name, with English choices or boolean values. |
+
+The consolidated attributes use recent successful observations. Missing, invalid, or stale values are `null`, and unobserved settings are omitted; a missing running flag does not mean the appliance is stopped. Settings describe observed appliance state. Sending a command does not replace them with an assumed result. Progress and timing follow the [cycle-sensor rules](#cycle-sensors).
+
+The sensor retains its existing entity ID and status values. Individual cycle sensors, program selectors, settings, and start/pause/stop buttons remain available for dashboards and automations. The [laundry card](dashboard-card.md) presents these sensors and controls together.
+
 ## Cycle sensors
 
 The L9 washer and dryer provide the following useful cycle information when reported:

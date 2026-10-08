@@ -214,11 +214,13 @@ class FriendlySensorTests(unittest.TestCase):
         source.body = [node for node in source.body if not isinstance(node, (ast.Import, ast.ImportFrom))]
         import math
         from dreamehome.laundry_progress import laundry_cycle_metrics, progress_definitions
+        from dreamehome.laundry_summary import laundry_appliance_summary
         from dreamehome.presentation import cycle_presentation
         from dreamehome.vacuum_telemetry import vacuum_telemetry_available
         scope.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery", DURATION="duration", AREA="area"),
                      SensorStateClass=SimpleNamespace(MEASUREMENT="measurement"),
                      laundry_cycle_metrics=laundry_cycle_metrics, progress_definitions=progress_definitions,
+                     laundry_appliance_summary=laundry_appliance_summary,
                      cycle_presentation=cycle_presentation,
                      vacuum_telemetry_available=vacuum_telemetry_available,
                      PERCENTAGE="%", enum_label=enum_label, math=math)

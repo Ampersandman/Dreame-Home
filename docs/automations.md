@@ -4,6 +4,17 @@ Use Dreame Home entities with standard Home Assistant actions. These examples us
 
 Find IDs in **Settings → Devices & services → Entities** or **Developer tools → States**. Select entities also expose an `options` attribute: use the exact option text shown there. Program options are always in English.
 
+## Read the primary laundry entity
+
+The appliance's **Run status** sensor also carries its consolidated cycle information as attributes. You can read these attributes in a template without selecting a separate sensor for each value:
+
+```jinja
+{{ state_attr('sensor.washer_run_status', 'program') }}
+{{ state_attr('sensor.washer_run_status', 'phase') }}
+```
+
+Replace the entity ID with your washer's Run status sensor, or use the dryer's sensor for dryer information. Check for `none` before using an attribute in a calculation or action. See [primary laundry entity attributes](entities.md#primary-laundry-entity) for the available fields and freshness rules.
+
 ## Notify when the washer is nearly finished
 
 This automation creates a Home Assistant notification when the reported remaining time enters the last five minutes. The message describes an estimate rather than guaranteed completion.

@@ -9,6 +9,7 @@ import unittest
 from dreamehome.laundry import enum_label
 from dreamehome.laundry_controls import control_available, control_definitions
 from dreamehome.laundry_progress import laundry_cycle_metrics, progress_definitions
+from dreamehome.laundry_summary import laundry_appliance_summary
 from dreamehome.observations import ObservationStore
 from dreamehome.vacuum_controls import vacuum_command_available, vacuum_control_supported
 from dreamehome.vacuum_telemetry import vacuum_telemetry_available
@@ -29,6 +30,7 @@ def scope():
     namespace.update(SensorEntity=Sensor, SensorDeviceClass=SimpleNamespace(BATTERY="battery", DURATION="duration", AREA="area"),
                      SensorStateClass=SimpleNamespace(MEASUREMENT="measurement"), math=math,
                      enum_label=enum_label, laundry_cycle_metrics=laundry_cycle_metrics,
+                     laundry_appliance_summary=laundry_appliance_summary,
                      vacuum_telemetry_available=vacuum_telemetry_available,
                      progress_definitions=progress_definitions, cycle_presentation=cycle_presentation,
                      PERCENTAGE="%", monotonic=lambda: 1200)

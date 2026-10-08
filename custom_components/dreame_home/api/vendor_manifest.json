@@ -15,6 +15,7 @@
     "laundry_controls.py": "778ae04ac413946374ee6bd8ec7002a55dfabf25a17cacc19e12f321f5198e32",
     "laundry_programs.py": "2a5f904307668d0c8af590713dcb8dd015fd4f1ed1887e76571dd5fd6dc8495b",
     "laundry_progress.py": "589c11270f3439ad4fb2a322cd4027fee556c5298f34c1d273e29e5687acd5c6",
+    "laundry_summary.py": "a629407a765b9b7c72366886b170a6121dba2f86fa50eae08cf3c904a0f68770",
     "licenses/ioBroker.dreame.txt": "7e2ea57de3fb155c11db9ae328239f6f69a021436427709eeafe9ce7b468f470",
     "models.py": "51d4bb706da612fcf36141d369b5e991a303792e59325fd64c0b6b9714550039",
     "mqtt.py": "cac31b454074ba0afcec4f8c1bbab17e0fbadf49d6493dc29ab765dbf9d0bd2c",

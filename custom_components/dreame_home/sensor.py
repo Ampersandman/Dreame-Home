@@ -8,6 +8,7 @@ from homeassistant.core import callback
 
 from .api.laundry import enum_label
 from .api.laundry_progress import laundry_cycle_metrics, progress_definitions
+from .api.laundry_summary import laundry_appliance_summary
 from .api.vacuum_telemetry import vacuum_telemetry_available
 from .api.presentation import cycle_presentation
 from .entity import DreameEntity, DreamePropertyEntity, add_observed_entities, fresh_observations, presentation_language, scalar_state
@@ -143,3 +144,16 @@ class DreamePropertySensor(DreamePropertyEntity, SensorEntity):
             return "structured"
         label = enum_label(self.definition, self.value)
         return label if label is not None else scalar_state(self.value)
+
+    @property
+    def extra_state_attributes(self):
+        attributes = super().extra_state_attributes
+        if self.key == "2.1" and self.pointer is None:
+            state = self.device_state
+            current = fresh_observations(state)
+            if (getattr(state, "online", None) is False or not getattr(state, "present", True)
+                    or getattr(self.coordinator, "stopped", False)
+                    or getattr(self.coordinator, "entity_discovery_suspended", False)):
+                current = {}
+            attributes.update(laundry_appliance_summary(state.device.model, current))
+        return attributes

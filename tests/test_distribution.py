@@ -56,6 +56,7 @@ class DistributionTests(unittest.TestCase):
             self.assertIn("api/mqtt_tls.py", names)
             self.assertIn("api/laundry.py", names)
             self.assertIn("api/laundry_progress.py", names)
+            self.assertIn("api/laundry_summary.py", names)
             self.assertIn("api/telemetry.py", names)
             self.assertIn("api/vacuum_telemetry.py", names)
             self.assertIn("api/data/l9_washer.json", names)

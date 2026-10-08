@@ -8,7 +8,8 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 
 ## Features
 
-- **Laundry at a glance:** current program and phase, remaining time, program duration, estimated cycle progress, and elapsed cycle time.
+- **Primary laundry entity:** each appliance's Run status sensor includes its current program, phase, timing, estimated progress, and settings as attributes.
+- **Cycle sensors:** individual remaining-time, program-duration, estimated-progress, and elapsed-time sensors for dashboards and automations.
 - **Appliance controls:** program selection, supported settings, and separate start/resume, pause, and stop buttons.
 - **App-aligned programs:** 15 standard washer programs and 25 dryer programs, including 16 drying programs and 9 care programs.
 - **Robot vacuum:** a native Home Assistant vacuum entity with start, pause, stop, return to base, and fan-speed controls.
@@ -26,7 +27,7 @@ Connect your Dreame Home account to Home Assistant and bring your laundry applia
 
 Other devices in the account can appear with available telemetry. Model-specific controls are limited to the models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b3 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b4 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 
