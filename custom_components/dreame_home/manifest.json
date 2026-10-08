@@ -4,10 +4,10 @@
   "codeowners": ["@Ampersandman"],
   "config_flow": true,
   "dependencies": ["frontend", "http"],
-  "documentation": "https://github.com/Ampersandman/Dreame-Home",
+  "documentation": "https://github.com/Ampersandman/Dreame-Home-Laundry",
   "integration_type": "hub",
   "iot_class": "cloud_push",
-  "issue_tracker": "https://github.com/Ampersandman/Dreame-Home/issues",
+  "issue_tracker": "https://github.com/Ampersandman/Dreame-Home-Laundry/issues",
   "requirements": ["pycryptodome==3.24.0", "paho-mqtt>=2.1.0,<3"],
   "version": "0.4.0b6"
 }

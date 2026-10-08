@@ -30,7 +30,7 @@ Current version: **0.4.0b6 — beta**. Requires **Home Assistant Core 2026.9.4 o
 ## Install with HACS
 
 1. In **HACS**, open the menu and select **Custom repositories**.
-2. Add `https://github.com/Ampersandman/Dreame-Home` with type **Integration**.
+2. Add `https://github.com/Ampersandman/Dreame-Home-Laundry` with type **Integration**.
 3. Download **Dreame Home Laundry** and restart Home Assistant.
 4. Open **Settings → Devices & services → Add integration → Dreame Home Laundry**.
 5. Enter your Dreame Home account credentials and select the server region used in the app. Leave live MQTT updates enabled for the most complete telemetry.
@@ -69,6 +69,6 @@ Appliance scheduling is not provided by this integration.
 
 ## Support
 
-For help, check the [troubleshooting guide](docs/troubleshooting.md) or [open an issue](https://github.com/Ampersandman/Dreame-Home/issues). Include the integration version, Home Assistant version, device model, and a description of the problem. Review diagnostics and logs before sharing them, and keep account credentials private.
+For help, check the [troubleshooting guide](docs/troubleshooting.md) or [open an issue](https://github.com/Ampersandman/Dreame-Home-Laundry/issues). Include the integration version, Home Assistant version, device model, and a description of the problem. Review diagnostics and logs before sharing them, and keep account credentials private.
 
 This is a community integration and is not affiliated with Dreame. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md) for licensing and attribution.

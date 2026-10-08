@@ -91,7 +91,7 @@ to use the bundled image. Reinstalling the integration does not fix that HACS li
 
 ## Report a problem
 
-[Open an issue](https://github.com/Ampersandman/Dreame-Home/issues) with:
+[Open an issue](https://github.com/Ampersandman/Dreame-Home-Laundry/issues) with:
 
 - Your Dreame Home Laundry integration version and Home Assistant Core version.
 - The device model and the affected feature.

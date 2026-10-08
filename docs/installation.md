@@ -15,7 +15,7 @@ Dreame Home Laundry supports the L9 washing machine (`dreame.washer.l9nacn`) and
 
 1. Open **HACS** in Home Assistant.
 2. Open the menu in the upper-right corner and choose **Custom repositories**.
-3. Enter `https://github.com/Ampersandman/Dreame-Home`.
+3. Enter `https://github.com/Ampersandman/Dreame-Home-Laundry`.
 4. Select type **Integration**, then choose **Add**.
 5. Find **Dreame Home Laundry**, open it, and download it.
 6. Restart Home Assistant.
