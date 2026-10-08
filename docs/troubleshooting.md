@@ -90,14 +90,21 @@ Card text and integration-provided program choices are always in English. User-a
 
 ## The integration icon is missing or outdated
 
-The Dreame app icon is bundled with the integration. After updating, restart
-Home Assistant and refresh the browser or reopen its app to clear cached images.
+Light and dark Dreame icons are bundled with the integration and selected by
+the Home Assistant theme. After updating, restart Home Assistant and refresh
+the browser without its cache or fully reopen the Home Assistant app.
 
-Home Assistant displays bundled brand images on the integration and device
-pages. HACS 2.0.5 still retrieves its catalogue and update icons from a separate
-brand service, so those views may show a placeholder even when Home Assistant
-shows the correct icon. HACS needs its [upstream branding update](https://github.com/hacs/integration/pull/5388)
-to use the bundled image. Reinstalling the integration does not fix that HACS limitation.
+HACS 2.0.5 uses a separate brand service that has no icon for this integration's
+domain. The integration includes a compatibility module for its own row in the
+HACS repository list. It selects the bundled icon after the integration has
+been configured and loaded. Other repositories are unaffected; HACS files are
+not modified. A placeholder before the integration is configured is expected.
+
+The compatibility module is limited to HACS 2.0.5 and its released frontend.
+It skips other versions or a changed frontend. An [upstream branding update](https://github.com/hacs/integration/pull/5388)
+to use bundled integration icons is being developed.
+If the icon remains missing, check both integration and HACS versions and refresh
+the browser after restarting Home Assistant.
 
 ## Report a problem
 

@@ -30,17 +30,23 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
     async def register(self):
         await self.scope["async_register_frontend"](self.hass)
 
-    async def test_concurrent_accounts_register_only_the_module_and_two_photos(self):
+    async def test_concurrent_accounts_register_only_explicit_public_assets(self):
         await asyncio.gather(self.register(), self.register())
         self.hass.http.async_register_static_paths.assert_awaited_once()
         paths = self.hass.http.async_register_static_paths.call_args.args[0]
         self.assertEqual({path.url_path: Path(path.path) for path in paths}, {
             "/dreame_home/dreame-home-laundry-card.js": COMPONENT / "frontend/dreame-home-laundry-card.js",
+            "/dreame_home/dreame-home-branding.js": COMPONENT / "frontend/dreame-home-branding.js",
             "/dreame_home/washer.png": COMPONENT / "frontend/assets/washer.png",
             "/dreame_home/dryer.png": COMPONENT / "frontend/assets/dryer.png",
+            **{f"/dreame_home/brand/{name}": COMPONENT / "brand" / name
+               for name in ("icon.png", "icon@2x.png", "dark_icon.png", "dark_icon@2x.png")},
         })
         self.assertTrue(all(Path(path.path).is_file() and path.cache_headers for path in paths))
-        self.assertEqual(self.added, ["/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1"])
+        self.assertEqual(self.added, [
+            "/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1",
+            "/dreame_home/dreame-home-branding.js?v=0.4.0b1",
+        ])
         self.assertFalse(self.removed)
 
     async def test_version_change_updates_url_without_duplicate_routes(self):
@@ -49,8 +55,11 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
         await self.register()
         await self.register()
         self.hass.http.async_register_static_paths.assert_awaited_once()
-        self.assertEqual(len(self.added), 2)
-        self.assertEqual(self.removed, ["/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1"])
+        self.assertEqual(len(self.added), 4)
+        self.assertEqual(self.removed, [
+            "/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1",
+            "/dreame_home/dreame-home-branding.js?v=0.4.0b1",
+        ])
 
     async def test_ha_version_object_is_stringified_before_url_encoding(self):
         class Version:
@@ -58,7 +67,10 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
                 return "0.4.0b1"
         self.integration.version = Version()
         await self.register()
-        self.assertEqual(self.added, ["/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1"])
+        self.assertEqual(self.added, [
+            "/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1",
+            "/dreame_home/dreame-home-branding.js?v=0.4.0b1",
+        ])
 
     async def test_failed_static_registration_can_be_retried(self):
         self.hass.http.async_register_static_paths.side_effect = [OSError("mock route failure"), None]
@@ -66,7 +78,7 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
             await self.register()
         self.assertFalse(self.added)
         await self.register()
-        self.assertEqual(len(self.added), 1)
+        self.assertEqual(len(self.added), 2)
 
     async def test_module_failure_does_not_register_static_route_twice(self):
         self.scope["add_extra_js_url"] = lambda hass, url: (_ for _ in ()).throw(RuntimeError("mock module failure"))
@@ -75,7 +87,23 @@ class FrontendRegistrationTests(unittest.IsolatedAsyncioTestCase):
         self.scope["add_extra_js_url"] = lambda hass, url: self.added.append(url)
         await self.register()
         self.hass.http.async_register_static_paths.assert_awaited_once()
-        self.assertEqual(len(self.added), 1)
+        self.assertEqual(len(self.added), 2)
+
+    async def test_second_module_failure_retries_without_duplicate_card(self):
+        def add_module(hass, url):
+            if "branding.js" in url:
+                raise RuntimeError("mock branding module failure")
+            self.added.append(url)
+        self.scope["add_extra_js_url"] = add_module
+        with self.assertRaises(RuntimeError):
+            await self.register()
+        self.scope["add_extra_js_url"] = lambda hass, url: self.added.append(url)
+        await self.register()
+        self.hass.http.async_register_static_paths.assert_awaited_once()
+        self.assertEqual(self.added, [
+            "/dreame_home/dreame-home-laundry-card.js?v=0.4.0b1",
+            "/dreame_home/dreame-home-branding.js?v=0.4.0b1",
+        ])
 
 
 if __name__ == "__main__":
