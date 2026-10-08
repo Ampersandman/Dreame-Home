@@ -138,7 +138,7 @@ class DeviceSubscription:
             try:
                 decoded = decode_push(message.payload)
             except (ValueError, UnicodeDecodeError):
-                parent._loop.call_soon_threadsafe(parent._set_error, "Invalid MQTT JSON payload")
+                parent._loop.call_soon_threadsafe(parent._set_error, "Invalid MQTT JSON payload", False)
                 return
             parent._loop.call_soon_threadsafe(parent._deliver, decoded)
 
@@ -152,29 +152,42 @@ class DeviceSubscription:
 
     def _set_connected(self, value):
         self.connected = bool(value and not self._stopping and self._client is not None)
+        if self.connected and self.last_error in ("MQTT connection rejected", "MQTT reconnection failed"):
+            self.last_error = None
 
     def _deliver(self, payload):
         if not self._stopping and self._client is not None:
+            if self.last_error == "Invalid MQTT JSON payload":
+                self.last_error = None
             self.callback(payload)
 
-    def _set_error(self, message):
+    def _set_error(self, message, disconnected=True):
         self.last_error = message
-        self.connected = False
+        if disconnected:
+            self.connected = False
 
     async def _refresh_credentials(self):
         while True:
             await asyncio.sleep(60)
             try:
                 session = await self.api.ensure_session()
+            except Exception:
+                # HTTP/session health is separate from the broker transport.
+                self._set_error("MQTT credential refresh failed", False)
+                continue
+            if self.last_error == "MQTT credential refresh failed":
+                self.last_error = None
+            try:
                 async with self._lifecycle_lock:
                     if self._stopping or self._client is None:
                         return
                     if session.access_token != self._access_token:
                         self._client.username_pw_set(session.uid, session.access_token)
                         self._access_token = session.access_token
+                        self._set_connected(False)
                         await _finish_task(asyncio.create_task(asyncio.to_thread(self._client.reconnect)))
             except Exception:
-                self._set_error("MQTT credential refresh failed")
+                self._set_error("MQTT reconnection failed")
 
     async def stop(self):
         self._stopping = True

@@ -203,6 +203,101 @@ class MqttCancellationTests(unittest.IsolatedAsyncioTestCase):
         self.subscription._set_connected(True)
         self.assertFalse(self.subscription.connected)
 
+    async def test_malformed_callback_payload_does_not_disconnect_broker(self):
+        with patch.object(self.mqtt.Client, "connect", return_value=0), \
+             patch.object(self.mqtt.Client, "loop_start"), \
+             patch.object(self.mqtt.Client, "disconnect"), \
+             patch.object(self.mqtt.Client, "loop_stop"):
+            await self.subscription.start()
+            try:
+                client = self.subscription._client
+                self.subscription._set_connected(True)
+                client.on_message(client, None, SimpleNamespace(payload=b"not-json"))
+                await asyncio.sleep(0)
+                self.assertTrue(self.subscription.connected)
+                self.assertEqual(self.subscription.last_error, "Invalid MQTT JSON payload")
+                client.on_message(client, None, SimpleNamespace(payload=b'{"method":"unknown","params":[]}'))
+                await asyncio.sleep(0)
+                self.assertTrue(self.subscription.connected)
+                self.assertIsNone(self.subscription.last_error)
+            finally:
+                await self.subscription.stop()
+
+
+class MqttStatusTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        self.session = Session("access", "refresh", "account", 9999999999)
+        self.api = SimpleNamespace(ensure_session=AsyncMock(return_value=self.session))
+        self.delivered = []
+        self.subscription = DeviceSubscription(
+            self.api, Device("device", "unknown.model", "Appliance"), self.delivered.append)
+        self.subscription._client = Mock()
+        self.subscription._access_token = self.session.access_token
+        self.subscription._set_connected(True)
+
+    async def refresh_iterations(self, count):
+        """Exercise actual refresh iterations without a real timer or broker."""
+        statuses = []
+
+        async def tick(delay):
+            self.assertEqual(delay, 60)
+            statuses.append((self.subscription.connected, self.subscription.last_error))
+            if len(statuses) > count:
+                raise asyncio.CancelledError
+
+        with patch("dreamehome.mqtt.asyncio.sleep", side_effect=tick):
+            with self.assertRaises(asyncio.CancelledError):
+                await self.subscription._refresh_credentials()
+        return statuses
+
+    async def test_http_refresh_failure_preserves_broker_status_and_recovers(self):
+        for connected in (True, False):
+            with self.subTest(connected=connected):
+                self.subscription._set_connected(connected)
+                self.api.ensure_session.side_effect = [DreameError("Fabricated HTTP failure"), self.session]
+                statuses = await self.refresh_iterations(2)
+                self.assertEqual(statuses[1], (connected, "MQTT credential refresh failed"))
+                self.assertEqual(statuses[2], (connected, None))
+                self.subscription._client.reconnect.assert_not_called()
+                self.subscription._client.disconnect.assert_not_called()
+
+    async def test_reconnect_failure_is_disconnected_until_successful_connack(self):
+        changed = Session("new-access", "refresh", "account", 9999999999)
+        self.api.ensure_session.return_value = changed
+        self.subscription._client.reconnect.side_effect = OSError("Fabricated connection failure")
+        statuses = await self.refresh_iterations(1)
+        self.assertEqual(statuses[1], (False, "MQTT reconnection failed"))
+        self.subscription._client.username_pw_set.assert_called_once_with("account", "new-access")
+        self.subscription._set_connected(True)
+        self.assertTrue(self.subscription.connected)
+        self.assertIsNone(self.subscription.last_error)
+
+    async def test_successful_reconnect_still_waits_for_connack(self):
+        self.api.ensure_session.return_value = Session("new-access", "refresh", "account", 9999999999)
+        statuses = await self.refresh_iterations(1)
+        self.assertEqual(statuses[1], (False, None))
+        self.subscription._set_connected(True)
+        self.assertTrue(self.subscription.connected)
+
+    def test_connack_does_not_clear_unresolved_http_or_payload_error(self):
+        for error in ("MQTT credential refresh failed", "Invalid MQTT JSON payload"):
+            self.subscription._set_error(error, False)
+            self.subscription._set_connected(True)
+            self.assertEqual(self.subscription.last_error, error)
+            self.assertTrue(self.subscription.connected)
+
+    def test_real_disconnect_stays_disconnected_after_valid_payload(self):
+        self.subscription._set_error("Invalid MQTT JSON payload", False)
+        self.assertTrue(self.subscription.connected)
+        self.subscription._set_connected(False)
+        self.subscription._deliver({"method": "properties_changed", "params": []})
+        self.assertFalse(self.subscription.connected)
+        self.assertIsNone(self.subscription.last_error)
+        self.assertEqual(len(self.delivered), 1)
+        self.subscription._set_error("MQTT credential refresh failed", False)
+        self.subscription._deliver({"method": "properties_changed", "params": []})
+        self.assertEqual(self.subscription.last_error, "MQTT credential refresh failed")
+
 
 class CoordinatorOwnershipTests(unittest.IsolatedAsyncioTestCase):
     async def exercise(self, *, cancel):

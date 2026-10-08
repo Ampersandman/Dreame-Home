@@ -25,9 +25,21 @@ These states describe different situations:
 
 After a laundry appliance powers off, unavailable controls and unknown cycle progress are expected. Previously reported diagnostic values may remain visible. They are not evidence of a running cycle.
 
-The **Cloud reported online** status comes from Dreame and may lag physical power changes until discovery refreshes. **MQTT connected** indicates a connection to the messaging service; it does not prove that the appliance is powered on or sending fresh values.
+The **Cloud reported online** status comes from Dreame and may lag physical power changes. Offline L9 appliances are checked about once a minute so that live reads resume after the cloud reports them online again. Account discovery still runs approximately every ten minutes. **MQTT connected** indicates a connection to the messaging service; it does not prove that the appliance is powered on or sending fresh values.
 
 If the appliance is on, check whether the app itself shows current values. Leave live MQTT updates enabled for the most complete telemetry and allow time for fresh state to arrive.
+
+## Appliances go offline after a cycle
+
+The L9 appliances automatically power off after use. [Dreame Support confirms](https://de.forum.dreametech.com/forum.php?mod=viewthread&tid=7579) that the L9 washer powers off and becomes offline after a wash program. The [L9 dryer manual](https://d.otto.de/files/e3d3a3a1-eb49-5f81-a1e9-91d66687a19a.pdf), printed page 15, states that the dryer powers off if there is no operation for one minute after the program ends.
+
+If both Home Assistant and Dreame Home show the appliance offline only while idle or after finishing, this matches automatic shutdown. The integration has no verified setting to disable automatic power-off or command that can wake an offline appliance. Cloud polling and MQTT keepalive maintain Home Assistant's connection to Dreame; they cannot keep an appliance's network connection awake.
+
+Switch the appliance on at its panel before using controls. Once Dreame reports it online, the integration resumes reads on its normal polling schedule, usually within about a minute. Cloud delays, authentication failures, and rate limits can take longer. A metadata response alone does not make previous cycle readings fresh.
+
+For remote starting, Dreame Support also states that the washer requires renewed network authorization before each start, with the door closed. Enable this authorization on the appliance when required. The integration keeps those appliance restrictions in place.
+
+Going offline during an active cycle, or staying offline in Dreame Home after switching on, requires separate troubleshooting; it is not explained by post-cycle automatic shutdown.
 
 ## A setting or button is unavailable
 

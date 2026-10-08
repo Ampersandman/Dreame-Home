@@ -53,6 +53,7 @@ class DeviceState:
     store: ObservationStore
     present: bool = True
     online: bool | None = None
+    online_checked: float | None = None
     metadata_error: str | None = None
     read_error: str | None = None
     initial_read_done: bool = False
@@ -213,13 +214,15 @@ class DreameCoordinator(DataUpdateCoordinator):
             if not self.discovery_complete or monotonic() - self.last_inventory >= 600:
                 await self._discover()
             for state in self.devices.values():
-                if (state.present and state.online is not False
-                        and monotonic() >= state.command_backoff_until):
+                if (state.present and monotonic() >= state.command_backoff_until):
                     # A poll started before a write must not supply its readback.
                     async with self._command_locks.setdefault(state.device.did, asyncio.Lock()):
-                        if (not self.stopped and state.present and state.online is not False
+                        if (not self.stopped and state.present
                                 and monotonic() >= state.command_backoff_until):
-                            await self._read(state)
+                            if state.online is False and laundry_schema(state.device.model):
+                                await self._refresh_online(state)
+                            if not self.stopped and state.present and state.online is not False:
+                                await self._read(state)
             if self.subscriptions_enabled:
                 await self.async_start_subscriptions()
         except AuthenticationError:
@@ -251,6 +254,7 @@ class DreameCoordinator(DataUpdateCoordinator):
             state.online = cloud_online(state.device.raw)
             state.store.merge_cached(device.raw.get("property", {}), source="listing")
             try:
+                state.online_checked = monotonic()
                 info = await self.api.get_device_info(device.did)
                 state.device = Device.from_record({**state.device.raw, **info})
                 state.online = cloud_online(state.device.raw)
@@ -276,6 +280,30 @@ class DreameCoordinator(DataUpdateCoordinator):
                     state.subscription = None
         self.discovery_complete = True
         self.last_inventory = monotonic()
+
+    async def _refresh_online(self, state):
+        """Detect an L9 returning online without sending a command to wake it."""
+        now = monotonic()
+        if state.online_checked is not None and now - state.online_checked < 60:
+            return
+        state.online_checked = now
+        try:
+            info = await self.api.get_device_info(state.device.did)
+        except (AuthenticationError, RateLimitError):
+            raise
+        except DreameError as error:
+            state.metadata_error = type(error).__name__
+            return
+        if self.stopped or not state.present:
+            return
+        # Cached properties and MQTT connectivity cannot establish cloud online.
+        reported = cloud_online(info)
+        if reported is not None:
+            if reported and state.online is False:
+                # A new connection needs readings received after this return.
+                state.timestamps.clear()
+            state.online = reported
+        state.metadata_error = None
 
     async def _cloud_data(self, state):
         keys = laundry_cloud_read_keys(state.device.model)

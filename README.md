@@ -25,7 +25,7 @@ Connect your Dreame Washing Machine L9 and Twin Inverter Dryer L9 to Home Assist
 
 The integration supports the two L9 models listed above. Features and reported sensors can vary with firmware.
 
-Current version: **0.4.0b5 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
+Current version: **0.4.0b6 — beta**. Requires **Home Assistant Core 2026.9.4 or newer** and an internet connection to the Dreame cloud.
 
 ## Install with HACS
 
@@ -62,6 +62,8 @@ Program selection and **Start** are separate actions. Choosing a program does no
 | [Troubleshooting](docs/troubleshooting.md) | Sign-in, unavailable devices, card loading, and privacy |
 
 Controls require the device to be online and to report recent usable state. Some settings are available only for particular programs or cycle phases. Home Assistant shows confirmed appliance state after updates; it does not assume that a submitted command succeeded.
+
+L9 appliances automatically power off after use and may then appear offline in Dreame Home and Home Assistant. Switch an appliance on at its panel before using controls; the integration checks offline L9 devices about once a minute for their return online. See [automatic power-off and offline appliances](docs/troubleshooting.md#appliances-go-offline-after-a-cycle).
 
 Appliance scheduling is not provided by this integration.
 

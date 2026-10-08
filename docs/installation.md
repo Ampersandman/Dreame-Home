@@ -39,7 +39,7 @@ With MQTT disabled, device discovery and periodic cloud reads still work. Some t
 
 Open **Dreame Home Laundry** under **Settings → Devices & services**, then open a device. Power on a laundry appliance to see current cycle information and available settings. Controls can remain unavailable until the appliance supplies suitable recent state.
 
-The Dreame cloud's online status can lag a power change. Discovery refreshes approximately every ten minutes; telemetry reads normally run about once a minute. Live updates can arrive between reads.
+The Dreame cloud's online status can lag a power change. Discovery refreshes approximately every ten minutes; telemetry reads normally run about once a minute. Offline L9 appliances are checked about once a minute to detect their return online. Live updates can arrive between reads. Automatic power-off after use is expected; see [offline appliances](troubleshooting.md#appliances-go-offline-after-a-cycle).
 
 For remote laundry start, enable the appliance's network/remote-control authorization using its own controls or app where required. Child lock, current program, and cycle phase can also limit commands. See [entities and controls](entities.md).
 
